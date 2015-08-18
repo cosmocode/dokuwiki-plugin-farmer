@@ -1,0 +1,7 @@
+base   farmer
+author Michael Große
+email  grosse@cosmocode.de
+date   2015-08-18
+name   farmer plugin
+desc   A plugin to help with creating and administring wiki farm animals
+url    https://dokuwiki.org/plugin:farmer
