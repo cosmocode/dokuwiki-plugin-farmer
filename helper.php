@@ -59,4 +59,35 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return true;
     }
 
+
+
+    public function getAllPlugins() {
+        $dir = dir(DOKU_PLUGIN);
+        $plugins = array();
+        while (false !== ($entry = $dir->read())) {
+            if($entry == '.' || $entry == '..') {
+                continue;
+            }
+            if (!is_dir(DOKU_PLUGIN ."/$entry")) {
+                continue;
+            }
+            $plugins[] = $entry;
+        }
+        return $plugins;
+    }
+
+    public function getAllAnimals() {
+        $animals = array();
+
+        $dir = dir(DOKU_FARMDIR);
+        while (false !== ($entry = $dir->read())) {
+            if ($entry == '.' || $entry == '..' || $entry == '_animal') {
+                continue;
+            }
+            $animals[] = $entry;
+        }
+        $dir->close();
+        return $animals;
+    }
+
 }

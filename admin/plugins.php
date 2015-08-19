@@ -13,12 +13,10 @@
  */
 class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
 
-    var $output = 'world';
-
     /**
      * handle user request
      */
-    function handle() {
+    public function handle() {
 
         if (!file_exists(DOKU_INC . 'inc/preload.php')) {
             global $ID;
@@ -29,57 +27,85 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
             send_redirect($self);
         }
 
-        if (!isset($_REQUEST['cmd'])) return;   // first time - nothing to do
-
-        $this->output = 'invalid';
-        if (!checkSecurityToken()) return;
-        if (!is_array($_REQUEST['cmd'])) return;
-
-        // verify valid values
-        switch (key($_REQUEST['cmd'])) {
-            case 'hello' : $this->output = 'again'; break;
-            case 'goodbye' : $this->output = 'goodbye'; break;
-        }
-        //send_redirect();
-    }
-
-    public function getAllPlugins() {
-        $dir = dir(DOKU_PLUGIN);
-        $plugins = array();
-        while (false !== ($entry = $dir->read())) {
-            if($entry == '.' || $entry == '..') {
-                continue;
+        if (isset($_REQUEST['farmer_submitBulk'])) {
+            /** @var helper_plugin_farmer $helper */
+            $helper = plugin_load('helper', 'farmer');
+            $animals = $helper->getAllAnimals();
+            $plugin = $_REQUEST['farmer__bulkPluginSelect'];
+            foreach ($animals as $animal) {
+                $pluginConf = file(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+                if ($_REQUEST['farmer_submitBulk'] === 'activate') {
+                    foreach ($pluginConf as $key => $line) {
+                        if (strpos($line, '$plugins[' . $plugin . ']') !== FALSE) {
+                            array_splice($pluginConf, $key, 1);
+                            break; // the plugin was deactivated and the deactivation is now removed
+                        }
+                    }
+                } else {
+                    $pluginIsActive = true;
+                    foreach ($pluginConf as $key => $line) {
+                        if (strpos($line, '$plugins[' . $plugin . ']') !== FALSE) {
+                            $pluginIsActive = false;
+                            break; // the plugin is already deactivated;
+                        }
+                    }
+                    if ($pluginIsActive) {
+                        $pluginConf[] = '$plugins[' . $plugin . '] = 0';
+                    }
+                }
+                io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', implode('\n',$pluginConf));
+                touch(DOKU_FARMDIR . $animal . '/conf/local.php');
             }
-            if (!is_dir($entry)) {
-                continue;
-            }
-            $plugins[] = $entry;
         }
-        return $plugins;
     }
 
     /**
      * output appropriate html
      */
-    function html() {
+    public function html() {
         echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>';
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css" type="text/css" rel="stylesheet" />';
-        $form = new \dokuwiki\Form\Form();
-        $form->addTagOpen('select')->id('farmer__animalSelect');
-        $dir = dir(DOKU_FARMDIR);
-        while (false !== ($entry = $dir->read())) {
-            if ($entry == '.' || $entry == '..' || $entry == '_animal') {
-                continue;
-            }
-            $form->addTagOpen('option');
-            $form->addHTML($entry);
-            $form->addTagClose('option');
+
+        $switchForm =  new \dokuwiki\Form\Form();
+        $switchForm->addFieldsetOpen('edit a single animal or all at once?');
+        $switchForm->addRadioButton('bulkSingleSwitch', 'bulk edit all animals')->id('farmer__bulk')->attr('type','radio')->addClass('block');
+        $switchForm->addRadioButton('bulkSingleSwitch', 'edit a single animal')->id('farmer__single')->attr('type','radio')->addClass('block');
+        $switchForm->addFieldsetClose();
+        echo $switchForm->toHTML();
+
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $plugins = $helper->getAllPlugins();
+
+        $bulkForm = new \dokuwiki\Form\Form();
+        $bulkForm->id('farmer__bulkForm');
+        $bulkForm->addHTML('bulk');
+        $bulkForm->addTagOpen('select')->id('farmer__bulkPluginSelect')->attr('name','farmer__bulkPlugin');
+        $bulkForm->addTagOpen('option')->attr('selected', 'selected')->attr('disabled', 'disabled')->attr('hidden', 'hidden')->attr('value', "");
+        $bulkForm->addTagClose('option');
+        foreach ($plugins as $plugin) {
+            $bulkForm->addTagOpen('option')->attr('value', $plugin);
+            $bulkForm->addHTML($plugin);
+            $bulkForm->addTagClose('option');
         }
-        $dir->close();
-        $form->addTagClose('select');
-        echo $form->toHTML();
+        $bulkForm->addTagClose('select');
+        $bulkForm->addButton('farmer__submitBulk','Activate')->attr('value','activate')->attr('type','submit')->attr('disabled','disabled')->addClass('bulkButton');
+        $bulkForm->addButton('farmer__submitBulk','Deactivate')->attr('value','deactivate')->attr('type','submit')->attr('disabled','disabled')->addClass('bulkButton');
+        echo $bulkForm->toHTML();
 
-
+        $singleForm = new \dokuwiki\Form\Form();
+        $singleForm->id('farmer__singlePluginForm');
+        $singleForm->addTagOpen('select')->id('farmer__animalSelect');
+        $singleForm->addTagOpen('option')->attr('selected', 'selected')->attr('disabled', 'disabled')->attr('hidden', 'hidden')->attr('value', "");
+        $singleForm->addTagClose('option');
+        $animals = $helper->getAllAnimals();
+        foreach ($animals as $animal) {
+            $singleForm->addTagOpen('option');
+            $singleForm->addHTML($animal);
+            $singleForm->addTagClose('option');
+        }
+        $singleForm->addTagClose('select');
+        echo $singleForm->toHTML();
     }
 
     public function getMenuText() {
