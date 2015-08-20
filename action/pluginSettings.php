@@ -37,11 +37,13 @@ class action_plugin_farmer_pluginSettings extends DokuWiki_Action_Plugin {
         $event->preventDefault();
 
         $animal = substr($event->data, 14);
-
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper','farmer');
+        $allPlugins = $helper->getAllPlugins();
+        sort($allPlugins);
         $plugins = array();
-        //include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
-        include(DOKU_INC . '/conf/plugins.local.php');
-        $data = $plugins;
+        include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+        $data = array($allPlugins, $plugins);
 
         //json library of DokuWiki
         require_once DOKU_INC . 'inc/JSON.php';
