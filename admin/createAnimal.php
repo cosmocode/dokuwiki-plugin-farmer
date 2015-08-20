@@ -83,6 +83,12 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $this->preloadPHPMissing = true;
             if (isset($_REQUEST['farmdir'])) {
                 $this->createPreloadPHP($_REQUEST['farmdir']);
+
+                global $ID;
+                $get = $_GET;
+                if(isset($get['id'])) unset($get['id']);
+                $self = wl($ID, $get, false, '&');
+                send_redirect($self);
             } else {
                 dbg($_REQUEST);
             }
