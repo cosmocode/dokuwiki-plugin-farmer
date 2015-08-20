@@ -48,6 +48,10 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         $usersAuth = str_replace('$1$cce258b2$U9o5nK0z4MhTfB5QlKF23/', $cryptAdminPassword, $usersAuth);
         io_saveFile($animaldir . '/conf/users.auth.php',$usersAuth);
 
+        $confFile = file_get_contents($animaldir . '/conf/local.php');
+        $confFile = str_replace('Animal Wiki Title', $name, $confFile);
+        io_saveFile($animaldir . '/conf/local.php', $confFile);
+
     }
 
     public function createPreloadPHP($animalpath) {
