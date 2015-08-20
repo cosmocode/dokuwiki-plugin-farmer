@@ -11,6 +11,8 @@ if(!defined('DOKU_INC')) die();
 
 class helper_plugin_farmer extends DokuWiki_Plugin {
 
+    private $allPlugins = array();
+
     /**
      * Copy a file, or recursively copy a folder and its contents. Adapted for DokuWiki.
      *
@@ -89,6 +91,42 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         }
         $dir->close();
         return $animals;
+    }
+
+    public function activatePlugin($plugin, $animal) {
+        if (isset($this->allPlugins[$animal])) {
+            $plugins = $this->allPlugins[$animal];
+        } else {
+            include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+        }
+        if (isset($plugins[$plugin]) && $plugins[$plugin] === 0) {
+            unset($plugins[$plugin]);
+            $this->writePluginConf($plugins, $animal);
+        }
+        $this->allPlugins[$animal] = $plugins;
+    }
+
+    public function deactivatePlugin($plugin, $animal) {
+        if (isset($this->allPlugins[$animal])) {
+            $plugins = $this->allPlugins[$animal];
+        } else {
+            include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+        }
+        if (!isset($plugins[$plugin]) || $plugins[$plugin] !== 0) {
+            $plugins[$plugin] = 0;
+            $this->writePluginConf($plugins, $animal);
+        }
+        $this->allPlugins[$animal] = $plugins;
+    }
+
+    public function writePluginConf($plugins, $animal) {
+        dbglog($plugins);
+        $pluginConf = '<?php' . "\n";
+        foreach ($plugins as $plugin => $status) {
+            $pluginConf .= '$plugins["' . $plugin  . '"] = ' . $status . ";\n";
+        }
+        io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', $pluginConf);
+        touch(DOKU_FARMDIR . $animal . '/conf/local.php');
     }
 
 }
