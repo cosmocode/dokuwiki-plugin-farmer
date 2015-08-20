@@ -1,0 +1,7 @@
+#farmer__bulkForm, #farmer__singlePluginForm {
+    display: none;
+}
+
+#farmer__bulkForm fieldset{
+    padding-bottom: 20em;
+}
