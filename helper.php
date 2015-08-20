@@ -65,7 +65,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $dir = dir(DOKU_PLUGIN);
         $plugins = array();
         while (false !== ($entry = $dir->read())) {
-            if($entry == '.' || $entry == '..') {
+            if($entry == '.' || $entry == '..' || $entry == 'testing') {
                 continue;
             }
             if (!is_dir(DOKU_PLUGIN ."/$entry")) {
@@ -73,6 +73,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
             }
             $plugins[] = $entry;
         }
+        sort($plugins);
         return $plugins;
     }
 

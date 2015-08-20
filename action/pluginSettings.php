@@ -40,7 +40,6 @@ class action_plugin_farmer_pluginSettings extends DokuWiki_Action_Plugin {
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper','farmer');
         $allPlugins = $helper->getAllPlugins();
-        sort($allPlugins);
         $plugins = array();
         include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
         $data = array($allPlugins, $plugins);
