@@ -1,4 +1,5 @@
 (function(exports) {
+    'use strict';
     var names = ["Sunday", "Monday", "Tuesday", "Wednesday",
         "Thursday", "Friday", "Saturday"];
 
@@ -33,12 +34,24 @@
                     call: 'plugin_farmer_' + animal
                 },
                 function(data) {
-                    alert('Received response ' + JSON.stringify(data,null,2));
+                    jQuery.each(data[0], function(index, value) {
+                        var checked = 'checked';
+                        var pluginCheckbox;
+                        if (typeof data[1][value] !== 'undefined' && data[1][value] === 0) {
+                            checked = '';
+                        }
+                        console.log(checked);
+                        pluginCheckbox = jQuery('<input type="checkbox" id="farmer__plugin_' + value + '" name="' + value + '" ' + checked + '>');
+                        jQuery('#farmer__animalPlugins').append(pluginCheckbox);
+                        jQuery('#farmer__plugin_' + value).wrap('<label class="block"></label>').parent().prepend(value);
+                    });
+
                     // data is array you returned with action.php
                 },
                 'json'
             );
         });
+
         jQuery("input[name=bulkSingleSwitch]:radio").change(function () {
             if (jQuery('#farmer__bulk').prop("checked")) {
                 jQuery('#farmer__bulkForm').css('display','initial');
