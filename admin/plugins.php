@@ -79,6 +79,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
 
         $bulkForm = new \dokuwiki\Form\Form();
         $bulkForm->id('farmer__bulkForm');
+        $bulkForm->addFieldsetOpen('Activate or deactivate a plugin in all animals');
         $bulkForm->addHTML('bulk');
         $bulkForm->addTagOpen('select')->id('farmer__bulkPluginSelect')->attr('name','farmer__bulkPlugin');
         $bulkForm->addTagOpen('option')->attr('selected', 'selected')->attr('disabled', 'disabled')->attr('hidden', 'hidden')->attr('value', "");
@@ -91,11 +92,13 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         $bulkForm->addTagClose('select');
         $bulkForm->addButton('farmer__submitBulk','Activate')->attr('value','activate')->attr('type','submit')->attr('disabled','disabled')->addClass('bulkButton');
         $bulkForm->addButton('farmer__submitBulk','Deactivate')->attr('value','deactivate')->attr('type','submit')->attr('disabled','disabled')->addClass('bulkButton');
+        $bulkForm->addFieldsetClose();
         echo $bulkForm->toHTML();
 
         $singleForm = new \dokuwiki\Form\Form();
         $singleForm->id('farmer__singlePluginForm');
-        $singleForm->addTagOpen('select')->id('farmer__animalSelect');
+        $singleForm->addFieldsetOpen('edit the plugins of a specific animal');
+        $singleForm->addTagOpen('select')->id('farmer__animalSelect')->attr('name', 'plugin_farmer[selectedAnimal]');
         $singleForm->addTagOpen('option')->attr('selected', 'selected')->attr('disabled', 'disabled')->attr('hidden', 'hidden')->attr('value', "");
         $singleForm->addTagClose('option');
         $animals = $helper->getAllAnimals();
@@ -105,6 +108,13 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
             $singleForm->addTagClose('option');
         }
         $singleForm->addTagClose('select');
+        $singleForm->addButton('plugin_farmer[submit_type]','Submit')->attr('type','submit')->val('updateSingleAnimal');
+        $singleForm->addButton('farmer__reset','Reset')->attr('type','reset');
+        $singleForm->addTagOpen('div')->id('farmer__animalPlugins');
+        $singleForm->addTagClose('div');
+        $switchForm->addFieldsetClose();
+        $singleForm->addButton('plugin_farmer[submit_type]','Submit')->attr('type','submit')->val('updateSingleAnimal');
+        $singleForm->addButton('farmer__reset','Reset')->attr('type','reset');
         echo $singleForm->toHTML();
     }
 
