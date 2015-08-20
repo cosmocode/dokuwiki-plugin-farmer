@@ -52,6 +52,17 @@
             );
         });
 
+        jQuery('select').on('chosen:showing_dropdown', function(evt, params) {
+            jQuery(evt.target).parent('fieldset').animate({
+                "padding-bottom": '20em'
+            }, 400);
+        });
+        jQuery('select').on('chosen:hiding_dropdown', function(evt, params) {
+            jQuery(evt.target).parent('fieldset').animate({
+                "padding-bottom": '7px'
+            }, 400);
+        });
+
         jQuery("input[name=bulkSingleSwitch]:radio").change(function () {
             if (jQuery('#farmer__bulk').prop("checked")) {
                 jQuery('#farmer__bulkForm').css('display','initial');
