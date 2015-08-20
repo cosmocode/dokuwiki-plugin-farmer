@@ -13,10 +13,14 @@
  */
 class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
 
+    /** @var helper_plugin_farmer $helper */
+    private $helper;
+
     /**
      * handle user request
      */
     public function handle() {
+        $this->helper = plugin_load('helper', 'farmer');
 
         if (!file_exists(DOKU_INC . 'inc/preload.php')) {
             global $ID;
@@ -27,35 +31,32 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
             send_redirect($self);
         }
 
-        if (isset($_REQUEST['farmer_submitBulk'])) {
-            /** @var helper_plugin_farmer $helper */
-            $helper = plugin_load('helper', 'farmer');
-            $animals = $helper->getAllAnimals();
+        if (isset($_REQUEST['farmer__submitBulk'])) {
+            $animals = $this->helper->getAllAnimals();
             $plugin = $_REQUEST['farmer__bulkPluginSelect'];
             foreach ($animals as $animal) {
-                $pluginConf = file(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
-                if ($_REQUEST['farmer_submitBulk'] === 'activate') {
-                    foreach ($pluginConf as $key => $line) {
-                        if (strpos($line, '$plugins[' . $plugin . ']') !== FALSE) {
-                            array_splice($pluginConf, $key, 1);
-                            break; // the plugin was deactivated and the deactivation is now removed
-                        }
-                    }
+                if ($_REQUEST['farmer__submitBulk'] === 'activate') {
+                    $this->helper->activatePlugin($plugin, $animal);
                 } else {
-                    $pluginIsActive = true;
-                    foreach ($pluginConf as $key => $line) {
-                        if (strpos($line, '$plugins[' . $plugin . ']') !== FALSE) {
-                            $pluginIsActive = false;
-                            break; // the plugin is already deactivated;
-                        }
-                    }
-                    if ($pluginIsActive) {
-                        $pluginConf[] = '$plugins[' . $plugin . '] = 0';
+                    $this->helper->deactivatePlugin($plugin, $animal);
+                }
+            }
+        }
+        if (isset($_REQUEST['plugin_farmer'])) {
+            if ($_REQUEST['plugin_farmer']['submit_type'] === 'updateSingleAnimal') {
+                $animal = $_REQUEST['plugin_farmer']['selectedAnimal'];
+                $allPlugins = $this->helper->getAllPlugins();
+                foreach ($allPlugins as $plugin) {
+                    if (isset($_REQUEST['plugin_farmer_plugins'][$plugin]) &&
+                        $_REQUEST['plugin_farmer_plugins'][$plugin] === 'on') {
+                        $this->helper->activatePlugin($plugin,$animal);
+                    } else {
+                        $this->helper->deactivatePlugin($plugin,$animal);
                     }
                 }
-                io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', implode('\n',$pluginConf));
-                touch(DOKU_FARMDIR . $animal . '/conf/local.php');
+
             }
+
         }
     }
 
