@@ -1,3 +1,8 @@
 #farmer__bulkForm, #farmer__singlePluginForm {
     display: none;
 }
+
+form.doku_form.plugin_farmer .error span,
+form.doku_form.plugin_farmer input.error {
+    background-color: #FCC;
+}

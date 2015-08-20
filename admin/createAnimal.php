@@ -11,7 +11,8 @@ if(!defined('DOKU_INC')) die();
 
 class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
-    private $preloadPHPMissing;
+    private $preloadPHPMissing = false;
+    private $errorMessages = array();
 
     /**
      * @return int sort number in admin menu
@@ -94,9 +95,14 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             }
         } else {
             dbg($_REQUEST);
-            $this->preloadPHPMissing = false;
             if (isset($_REQUEST['farmer__submit'])) {
-                $this->createNewAnimal($_REQUEST['animalname'], $_REQUEST['animalsubdomain'], $_REQUEST['serversetup'], $_REQUEST['adminPassword']);
+                if (!isset($_REQUEST['serversetup'])) {
+                    $this->errorMessages['serversetup'] = 'Choose either a subdomain setup and enter a valid subdomain or choose a htaccess setup.';
+                }
+                if (empty($this->errorMessages)) {
+                    $this->createNewAnimal($_REQUEST['animalname'], $_REQUEST['animalsubdomain'], $_REQUEST['serversetup'], $_REQUEST['adminPassword']);
+                    // todo: message: animal successful created
+                }
             }
         }
     }
@@ -108,7 +114,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
         if ($this->preloadPHPMissing) {
             $form = new \dokuwiki\Form\Form();
-
+            $form->addClass('plugin_farmer');
             $form->addFieldsetOpen('create a new preload.php');
             $form->addTagOpen('div class="form-group"');
             $form->addElement(new \dokuwiki\Form\LabelElement('farm dir'))->attr('for', 'plugin__farmer__farmdir');
@@ -123,6 +129,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             echo $form->toHTML();
         } else {
             $form = new \dokuwiki\Form\Form();
+            $form->addClass('plugin_farmer');
             $form->addFieldsetOpen('new animal configuration');
             $form->addTextInput('animalname','animal name')->addClass('block edit')->attr('placeholder','animal name');
             $form->addTag('br');
@@ -138,6 +145,18 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $form->addButton('farmer__submit','Submit')->attr('type','submit')->val('newAnimal');
             $form->addButton('farmer__reset','Reset')->attr('type','reset');
             $form->addFieldsetClose();
+
+            for ($position = 0; $position < $form->elementCount(); ++$position) {
+                if ($form->getElementAt($position) instanceof dokuwiki\Form\TagCloseElement) {
+                    continue;
+                }
+                if ($form->getElementAt($position)->attr('name') == '') continue;
+                if (!isset($this->errorMessages[$form->getElementAt($position)->attr('name')])) continue;
+                $form->getElementAt($position)->addClass('error');
+                $form->addTagOpen('div',$position+1)->addClass('error');
+                $form->addHTML($this->errorMessages['serversetup'],$position+2);
+                $form->addTagClose('div',$position+3);
+            }
 
             echo $form->toHTML();
         }
