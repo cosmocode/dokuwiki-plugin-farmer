@@ -26,7 +26,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
             global $ID;
             $get = $_GET;
             if(isset($get['id'])) unset($get['id']);
-            $get['page'] = 'farmer_foo';
+            $get['page'] = 'farmer_createAnimal';
             $self = wl($ID, $get, false, '&');
             send_redirect($self);
         }
