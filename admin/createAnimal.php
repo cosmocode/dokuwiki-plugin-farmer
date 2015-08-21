@@ -28,7 +28,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         return true;
     }
 
-    public function createNewAnimal($name, $subdomain, $serverSetup, $adminPassword) {
+    public function createNewAnimal($name, $adminSetup, $adminPassword, $serverSetup, $subdomain) {
         //DOKU_FARMDIR
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper','farmer');
@@ -44,14 +44,26 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
         $helper->io_copyDir(DOKU_FARMDIR . '_animal', $animaldir);
 
-        $cryptAdminPassword = auth_cryptPassword($adminPassword);
-        $usersAuth = file_get_contents($animaldir . '/conf/users.auth.php');
-        $usersAuth = str_replace('$1$cce258b2$U9o5nK0z4MhTfB5QlKF23/', $cryptAdminPassword, $usersAuth);
-        io_saveFile($animaldir . '/conf/users.auth.php',$usersAuth);
-
         $confFile = file_get_contents($animaldir . '/conf/local.php');
         $confFile = str_replace('Animal Wiki Title', $name, $confFile);
         io_saveFile($animaldir . '/conf/local.php', $confFile);
+
+        if ($adminSetup === 'newAdmin') {
+            $cryptAdminPassword = auth_cryptPassword($adminPassword);
+            $usersAuth = file_get_contents($animaldir . '/conf/users.auth.php');
+            $usersAuth = str_replace('$1$cce258b2$U9o5nK0z4MhTfB5QlKF23/', $cryptAdminPassword, $usersAuth);
+            io_saveFile($animaldir . '/conf/users.auth.php', $usersAuth);
+        } elseif ($adminSetup === 'importUsers') {
+            copy(DOKU_CONF . 'users.auth.php', $animaldir . '/conf/users.auth.php');
+        } elseif ($adminSetup === 'currentAdmin') {
+            $masterUsers = file_get_contents(DOKU_CONF . 'users.auth.php');
+            $user = $_SERVER['REMOTE_USER'];
+            $masterUsers = trim(strstr($masterUsers,"\n". $user . ":"));
+            $newAdmin = substr($masterUsers,0,strpos($masterUsers,"\n")+1);
+            io_saveFile($animaldir . '/conf/users.auth.php', $newAdmin);
+        } else {
+            throw new Exception('invalid value for $adminSetup');
+        }
 
     }
 
@@ -96,11 +108,41 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         } else {
             dbg($_REQUEST);
             if (isset($_REQUEST['farmer__submit'])) {
-                if (!isset($_REQUEST['serversetup'])) {
-                    $this->errorMessages['serversetup'] = 'Choose either a subdomain setup and enter a valid subdomain or choose a htaccess setup.';
+                $animalsubdomain = null;
+                $animalname = null;
+                if (empty($_REQUEST['animalname'])) {
+                    $this->errorMessages['animalname'] = 'Please enter a name for the new animal.'; //todo check if animal already exists
+                } else {
+                    $animalname = hsc(trim($_REQUEST['animalname']));
+                    if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
+                        $this->errorMessages['animalname'] = 'The animalname may only contain alphanumeric characters and hyphens(but not as first or last character).';
+                    }
                 }
+
+                if (empty($_REQUEST['adminsetup'])) {
+                    $this->errorMessages['adminsetup'] = 'Chose an admin for the new animal.';
+                } elseif ($_REQUEST['adminsetup'] === 'newAdmin') {
+                    if (empty($_REQUEST['adminPassword'])) {
+                        $this->errorMessages['adminPassword'] = 'The password for the new admin account may not be empty.';
+                    }
+                }
+
+                if (empty($_REQUEST['serversetup'])) {
+                    $this->errorMessages['serversetup'] = 'Choose either a subdomain setup and enter a valid subdomain or choose a htaccess setup.';
+                } elseif ($_REQUEST['serversetup'] === 'subdomain') {
+                    if (empty($_REQUEST['animalsubdomain'])) {
+                        $this->errorMessages['animalsubdomain'] = 'Please enter a valid domain for the new animal.';
+                    } else {
+                        $animalsubdomain = hsc(trim($_REQUEST['animalsubdomain']));
+                        if (!preg_match("/^[a-z0-9]+([\.-][a-z0-9]+)*$/i",$animalsubdomain)) { //@todo: tests for regex
+                            $this->errorMessages['animalsubdomain'] = 'Please enter a valid domain without underscores.';
+                        }
+                    }
+                }
+
+
                 if (empty($this->errorMessages)) {
-                    $this->createNewAnimal($_REQUEST['animalname'], $_REQUEST['animalsubdomain'], $_REQUEST['serversetup'], $_REQUEST['adminPassword']);
+                    $this->createNewAnimal($animalname, $_REQUEST['adminsetup'], $_REQUEST['adminPassword'], $_REQUEST['serversetup'], $animalsubdomain);
                     // todo: message: animal successful created
                 }
             }
