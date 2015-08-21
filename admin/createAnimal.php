@@ -164,15 +164,14 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         if ($this->preloadPHPMissing) {
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
-            $form->addFieldsetOpen('create a new preload.php');
+            $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
             $form->addTagOpen('div class="form-group"');
-            $form->addElement(new \dokuwiki\Form\LabelElement('farm dir'))->attr('for', 'plugin__farmer__farmdir');
-            $form->addTextInput('farmdir')->addClass('form-control')->attr('placeholder','farm dir')->id('plugin__farmer__farmdir');
+            $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block')->attr('placeholder','farm dir');
             $form->addTagClose('div');
 
-            $form->addButton('farmer__submit','Submit')->attr('type','submit')->val('newPerload');
+            $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
 
-            $form->addButton('farmer__reset','Reset')->attr('type','reset');
+            $form->addButton('farmer__reset',$this->getLang('reset'))->attr('type','reset');
             $form->addFieldsetClose();
             $this->helper->addErrorsToForm($form, $this->errorMessages);
 
@@ -199,8 +198,8 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder','animal subdomain');
             $form->addTagClose('fieldset');
 
-            $form->addButton('farmer__submit','Submit')->attr('type','submit')->val('newAnimal');
-            $form->addButton('farmer__reset','Reset')->attr('type','reset');
+            $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit')->val('newAnimal');
+            $form->addButton('farmer__reset',$this->getLang('reset'))->attr('type','reset');
             $form->addFieldsetClose();
 
             $this->helper->addErrorsToForm($form, $this->errorMessages);
