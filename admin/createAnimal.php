@@ -67,6 +67,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             throw new Exception('invalid value for $adminSetup');
         }
 
+        return true;
     }
 
     public function createPreloadPHP($animalpath) {
@@ -118,7 +119,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 $animalsubdomain = null;
                 $animalname = null;
                 if (empty($_REQUEST['animalname'])) {
-                    $this->errorMessages['animalname'] = $this->getLang('animalname_missing');; //todo check if animal already exists
+                    $this->errorMessages['animalname'] = $this->getLang('animalname_missing');
                 } else {
                     $animalname = hsc(trim($_REQUEST['animalname']));
                     if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
@@ -143,14 +144,26 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                         $animalsubdomain = hsc(trim($_REQUEST['animalsubdomain']));
                         if (!preg_match("/^[a-z0-9]+([\.-][a-z0-9]+)*$/i",$animalsubdomain)) { //@todo: tests for regex
                             $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
+                        } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
+                            $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');
                         }
+                    }
+                } elseif ($_REQUEST['serversetup'] === 'htaccess') {
+                    if (file_exists(DOKU_FARMDIR . $animalname)) {
+                        $this->errorMessages['animalname'] =  $this->getLang('animalname_preexisting');
                     }
                 }
 
 
                 if (empty($this->errorMessages)) {
-                    $this->createNewAnimal($animalname, $_REQUEST['adminsetup'], $_REQUEST['adminPassword'], $_REQUEST['serversetup'], $animalsubdomain);
-                    // todo: message: animal successful created
+                    $ret = $this->createNewAnimal($animalname, $_REQUEST['adminsetup'], $_REQUEST['adminPassword'], $_REQUEST['serversetup'], $animalsubdomain);
+                    if ($ret === true) {
+                        msg(sprintf($this->getLang('animal creation success'),$animalname), 1);
+                        $this->helper->reloadAdminPage();
+                    } else {
+                        // should never happen
+                        msg('there has been an error creating the animal', -1);
+                    }
                 }
             }
         }
