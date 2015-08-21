@@ -134,13 +134,20 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $form->addTextInput('animalname','animal name')->addClass('block edit')->attr('placeholder','animal name');
             $form->addTag('br');
 
-            $form->addPasswordInput('adminPassword','Password for admin account')->addClass('block edit')->attr('placeholder','Password for admin account');
+            $form->addTagOpen('fieldset');
+            $form->addHTML('<legend>animal administrator</legend>');
+            $form->addRadioButton('adminsetup','import all users of the master wiki to the new animal')->val('importUsers')->addClass('block');
+            $form->addRadioButton('adminsetup', 'Set the current user as admin')->val('currentAdmin')->addClass('block');
+            $form->addRadioButton('adminsetup', 'Create new admin user "admin"')->val('newAdmin')->addClass('block');
+            $form->addPasswordInput('adminPassword',$this->getLang('admin password'))->addClass('block edit')->attr('placeholder','Password for admin account');
+            $form->addTagClose('fieldset');
 
-            $form->addFieldsetOpen('server configuration');
-            $form->addRadioButton('serversetup', 'Subdomain')->val('subdomain')->attr('type','radio')->addClass('block');
-            $form->addRadioButton('serversetup', 'htaccess')->val('htaccess')->attr('type','radio')->addClass('block');
+            $form->addTagOpen('fieldset');
+            $form->addHTML('<legend>server configuration</legend>');
+            $form->addRadioButton('serversetup', 'htaccess setup')->val('htaccess')->attr('type','radio')->addClass('block');
+            $form->addRadioButton('serversetup', 'Subdomain setup')->val('subdomain')->attr('type','radio')->addClass('block');
             $form->addTextInput('animalsubdomain','animal subdomain')->addClass('block edit')->attr('placeholder','animal subdomain');
-            $form->addFieldsetClose();
+            $form->addTagClose('fieldset');
 
             $form->addButton('farmer__submit','Submit')->attr('type','submit')->val('newAnimal');
             $form->addButton('farmer__reset','Reset')->attr('type','reset');
