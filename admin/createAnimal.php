@@ -111,31 +111,31 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 $animalsubdomain = null;
                 $animalname = null;
                 if (empty($_REQUEST['animalname'])) {
-                    $this->errorMessages['animalname'] = 'Please enter a name for the new animal.'; //todo check if animal already exists
+                    $this->errorMessages['animalname'] = $this->getLang('animalname_missing');; //todo check if animal already exists
                 } else {
                     $animalname = hsc(trim($_REQUEST['animalname']));
                     if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
-                        $this->errorMessages['animalname'] = 'The animalname may only contain alphanumeric characters and hyphens(but not as first or last character).';
+                        $this->errorMessages['animalname'] = $this->getLang('animalname_invalid');
                     }
                 }
 
                 if (empty($_REQUEST['adminsetup'])) {
-                    $this->errorMessages['adminsetup'] = 'Chose an admin for the new animal.';
+                    $this->errorMessages['adminsetup'] = $this->getLang('adminsetup_missing');
                 } elseif ($_REQUEST['adminsetup'] === 'newAdmin') {
                     if (empty($_REQUEST['adminPassword'])) {
-                        $this->errorMessages['adminPassword'] = 'The password for the new admin account may not be empty.';
+                        $this->errorMessages['adminPassword'] = $this->getLang('adminPassword_empty');
                     }
                 }
 
                 if (empty($_REQUEST['serversetup'])) {
-                    $this->errorMessages['serversetup'] = 'Choose either a subdomain setup and enter a valid subdomain or choose a htaccess setup.';
+                    $this->errorMessages['serversetup'] = $this->getLang('serversetup_missing');
                 } elseif ($_REQUEST['serversetup'] === 'subdomain') {
                     if (empty($_REQUEST['animalsubdomain'])) {
-                        $this->errorMessages['animalsubdomain'] = 'Please enter a valid domain for the new animal.';
+                        $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
                     } else {
                         $animalsubdomain = hsc(trim($_REQUEST['animalsubdomain']));
                         if (!preg_match("/^[a-z0-9]+([\.-][a-z0-9]+)*$/i",$animalsubdomain)) { //@todo: tests for regex
-                            $this->errorMessages['animalsubdomain'] = 'Please enter a valid domain without underscores.';
+                            $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
                         }
                     }
                 }
@@ -172,23 +172,23 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         } else {
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
-            $form->addFieldsetOpen('new animal configuration');
+            $form->addFieldsetOpen($this->getLang('animal configuration'));
             $form->addTextInput('animalname','animal name')->addClass('block edit')->attr('placeholder','animal name');
             $form->addTag('br');
 
             $form->addTagOpen('fieldset');
-            $form->addHTML('<legend>animal administrator</legend>');
-            $form->addRadioButton('adminsetup','import all users of the master wiki to the new animal')->val('importUsers')->addClass('block');
-            $form->addRadioButton('adminsetup', 'Set the current user as admin')->val('currentAdmin')->addClass('block');
-            $form->addRadioButton('adminsetup', 'Create new admin user "admin"')->val('newAdmin')->addClass('block');
+            $form->addHTML('<legend>' . $this->getLang('animal administrator') . '</legend>');
+            $form->addRadioButton('adminsetup',$this->getLang('importUsers'))->val('importUsers')->addClass('block');
+            $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin')->addClass('block');
+            $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin')->addClass('block');
             $form->addPasswordInput('adminPassword',$this->getLang('admin password'))->addClass('block edit')->attr('placeholder','Password for admin account');
             $form->addTagClose('fieldset');
 
             $form->addTagOpen('fieldset');
-            $form->addHTML('<legend>server configuration</legend>');
-            $form->addRadioButton('serversetup', 'htaccess setup')->val('htaccess')->attr('type','radio')->addClass('block');
-            $form->addRadioButton('serversetup', 'Subdomain setup')->val('subdomain')->attr('type','radio')->addClass('block');
-            $form->addTextInput('animalsubdomain','animal subdomain')->addClass('block edit')->attr('placeholder','animal subdomain');
+            $form->addHTML('<legend>' . $this->getLang('server configuration') . '</legend>');
+            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block');
+            $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block');
+            $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder','animal subdomain');
             $form->addTagClose('fieldset');
 
             $form->addButton('farmer__submit','Submit')->attr('type','submit')->val('newAnimal');

@@ -7,6 +7,7 @@
             bulkPluginSelector.chosen({
                 width:           '100%',
                 search_contains: true,
+                "placeholder_text_single": LANG.plugins.farmer.pluginSelect
             });
         }
 
@@ -19,6 +20,7 @@
             animalSelector.chosen({
                 width:           '100%',
                 search_contains: true,
+                "placeholder_text_single": LANG.plugins.farmer.animalSelect
             });
         }
         animalSelector.change(function () {
