@@ -76,7 +76,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         $content .= "if(!defined('DOKU_FARMDIR')) define('DOKU_FARMDIR', '$animalpath');\n";
         $content .= "include(fullpath(dirname(__FILE__)).'/farm.php');\n";
 
-        io_saveFile(DOKU_INC . 'inc/preload.php',$content);
+        return io_saveFile(DOKU_INC . 'inc/preload.php',$content);
     }
 
     /**
@@ -90,18 +90,30 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         if (!file_exists(DOKU_INC . 'inc/preload.php')) {
             $this->preloadPHPMissing = true;
             if (isset($_REQUEST['farmdir'])) {
-                $this->createPreloadPHP($_REQUEST['farmdir']);
+                if (empty($_REQUEST['farmdir'])) {
+                    $this->errorMessages['farmdir'] = $this->getLang('farmdir_missing');
+                } else {
+                    $farmdir = rtrim(hsc(trim($_REQUEST['farmdir'])),'/');
+                    if (strpos($farmdir, DOKU_INC) !== false) {
+                        $this->errorMessages['farmdir'] = $this->getLang('farmdir_in_dokuwiki');
+                    } elseif (!io_mkdir_p($farmdir)) { //@todo: tests for regex
+                        $this->errorMessages['farmdir'] = $this->getLang('farmdir_uncreatable');
+                    } elseif (!is_writeable($farmdir)) {
+                        $this->errorMessages['farmdir'] = $this->getLang('farmdir_unwritable');
+                    }
+                }
 
-                global $ID;
-                $get = $_GET;
-                if(isset($get['id'])) unset($get['id']);
-                $self = wl($ID, $get, false, '&');
-                send_redirect($self);
-            } else {
-                dbg($_REQUEST);
+                if (empty($this->errorMessages)) {
+                    $ret = $this->createPreloadPHP($_REQUEST['farmdir']);
+                    if ($ret === true) {
+                        msg('inc/preload.php has been succesfully created', 1);
+                        $this->helper->reloadAdminPage();
+                    } else {
+                        msg('there was an error creating inc/preload.php',-1);
+                    }
+                }
             }
         } else {
-            dbg($_REQUEST);
             if (isset($_REQUEST['farmer__submit'])) {
                 $animalsubdomain = null;
                 $animalname = null;
