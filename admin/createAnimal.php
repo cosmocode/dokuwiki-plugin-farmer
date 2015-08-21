@@ -200,10 +200,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                     continue;
                 }
                 if ($form->getElementAt($position)->attr('name') == '') continue;
-                if (!isset($this->errorMessages[$form->getElementAt($position)->attr('name')])) continue;
+                $elementName = $form->getElementAt($position)->attr('name');
+                if (!isset($this->errorMessages[$elementName])) continue;
                 $form->getElementAt($position)->addClass('error');
                 $form->addTagOpen('div',$position+1)->addClass('error');
-                $form->addHTML($this->errorMessages['serversetup'],$position+2);
+                $form->addHTML($this->errorMessages[$elementName],$position+2);
                 $form->addTagClose('div',$position+3);
             }
 
