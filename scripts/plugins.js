@@ -1,14 +1,5 @@
 (function(exports) {
     'use strict';
-    var names = ["Sunday", "Monday", "Tuesday", "Wednesday",
-        "Thursday", "Friday", "Saturday"];
-
-    exports.name = function(number) {
-        return names[number];
-    };
-    exports.number = function(name) {
-        return names.indexOf(name);
-    };
 
     jQuery(document).ready(function () {
         var bulkPluginSelector = jQuery('#farmer__bulkPluginSelect');
@@ -83,4 +74,4 @@
         });
     });
 
-})(this.farmer__plugins = {});
+})(this.farmer__plugin = {});
