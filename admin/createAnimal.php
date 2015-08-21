@@ -14,6 +14,9 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     private $preloadPHPMissing = false;
     private $errorMessages = array();
 
+    /** @var helper_plugin_farmer $helper */
+    private $helper;
+
     /**
      * @return int sort number in admin menu
      */
@@ -30,9 +33,6 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
     public function createNewAnimal($name, $adminSetup, $adminPassword, $serverSetup, $subdomain) {
         //DOKU_FARMDIR
-        /** @var helper_plugin_farmer $helper */
-        $helper = plugin_load('helper','farmer');
-
         if ($serverSetup === 'subdomain') {
             $animaldir = DOKU_FARMDIR . $subdomain;
         } elseif ($serverSetup === 'htaccess') {
@@ -40,9 +40,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         } else {
             throw new Exception('invalid value for $serverSetup');
         }
-        //todo: abort if animaldir already exists
 
-        $helper->io_copyDir(DOKU_FARMDIR . '_animal', $animaldir);
+        if (!file_exists(DOKU_FARMDIR . '_animal')) {
+            $this->helper->downloadTemplate(DOKU_FARMDIR);
+        }
+        $this->helper->io_copyDir(DOKU_FARMDIR . '_animal', $animaldir);
 
         $confFile = file_get_contents($animaldir . '/conf/local.php');
         $confFile = str_replace('Animal Wiki Title', $name, $confFile);
@@ -68,17 +70,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     }
 
     public function createPreloadPHP($animalpath) {
-        // todo: check if animalpath is writable
-        io_makeFileDir($animalpath . '/foo');
-
-        // todo: move template download to its own function
-        file_put_contents($animalpath . '/_animal.zip',fopen('https://www.dokuwiki.org/_media/dokuwiki_farm_animal.zip','r'));
-        $zip = new ZipArchive();
-        $zip->open($animalpath.'/_animal.zip');
-        $zip->extractTo($animalpath);
-        $zip->close();
-        unlink($animalpath.'/_animal.zip');
-
+        $this->helper->downloadTemplate($animalpath);
 
         $content = "<?php\n";
         $content .= "if(!defined('DOKU_FARMDIR')) define('DOKU_FARMDIR', '$animalpath');\n";
@@ -91,6 +83,9 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
      * Should carry out any processing required by the plugin.
      */
     public function handle() {
+
+        $this->helper = plugin_load('helper','farmer');
+
         // Is preload.php already enabled?
         if (!file_exists(DOKU_INC . 'inc/preload.php')) {
             $this->preloadPHPMissing = true;

@@ -129,4 +129,15 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
     }
 
+    public function reloadAdminPage($page = null) {
+        global $ID;
+        $get = $_GET;
+        if(isset($get['id'])) unset($get['id']);
+        if ($page !== null ) {
+            $get['page'] = $page;
+        }
+        $self = wl($ID, $get, false, '&');
+        send_redirect($self);
+    }
+
 }

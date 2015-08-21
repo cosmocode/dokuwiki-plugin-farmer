@@ -23,12 +23,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         $this->helper = plugin_load('helper', 'farmer');
 
         if (!file_exists(DOKU_INC . 'inc/preload.php')) {
-            global $ID;
-            $get = $_GET;
-            if(isset($get['id'])) unset($get['id']);
-            $get['page'] = 'farmer_createAnimal';
-            $self = wl($ID, $get, false, '&');
-            send_redirect($self);
+            $this->helper->reloadAdminPage('farmer_createAnimal');
         }
 
         if (isset($_REQUEST['farmer__submitBulk'])) {
