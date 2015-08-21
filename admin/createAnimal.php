@@ -162,6 +162,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
             $form->addButton('farmer__reset','Reset')->attr('type','reset');
             $form->addFieldsetClose();
+            $this->helper->addErrorsToForm($form, $this->errorMessages);
 
             echo $form->toHTML();
         } else {
@@ -190,18 +191,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $form->addButton('farmer__reset','Reset')->attr('type','reset');
             $form->addFieldsetClose();
 
-            for ($position = 0; $position < $form->elementCount(); ++$position) {
-                if ($form->getElementAt($position) instanceof dokuwiki\Form\TagCloseElement) {
-                    continue;
-                }
-                if ($form->getElementAt($position)->attr('name') == '') continue;
-                $elementName = $form->getElementAt($position)->attr('name');
-                if (!isset($this->errorMessages[$elementName])) continue;
-                $form->getElementAt($position)->addClass('error');
-                $form->addTagOpen('div',$position+1)->addClass('error');
-                $form->addHTML($this->errorMessages[$elementName],$position+2);
-                $form->addTagClose('div',$position+3);
-            }
+            $this->helper->addErrorsToForm($form, $this->errorMessages);
 
             echo $form->toHTML();
         }

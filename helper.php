@@ -129,6 +129,21 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
     }
 
+    public function addErrorsToForm(\dokuwiki\Form\Form &$form, $errorArray) {
+        for ($position = 0; $position < $form->elementCount(); ++$position) {
+            if ($form->getElementAt($position) instanceof dokuwiki\Form\TagCloseElement) {
+                continue;
+            }
+            if ($form->getElementAt($position)->attr('name') == '') continue;
+            $elementName = $form->getElementAt($position)->attr('name');
+            if (!isset($errorArray[$elementName])) continue;
+            $form->getElementAt($position)->addClass('error');
+            $form->addTagOpen('div',$position+1)->addClass('error');
+            $form->addHTML($errorArray[$elementName],$position+2);
+            $form->addTagClose('div',$position+3);
+        }
+    }
+
     public function reloadAdminPage($page = null) {
         global $ID;
         $get = $_GET;
