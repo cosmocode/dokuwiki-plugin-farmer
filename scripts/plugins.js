@@ -12,19 +12,24 @@
 
     jQuery(document).ready(function () {
         var bulkPluginSelector = jQuery('#farmer__bulkPluginSelect');
-        bulkPluginSelector.chosen({
-            width: '100%',
-            search_contains: true
-        });
+        if (jQuery().chosen) {
+            bulkPluginSelector.chosen({
+                width:           '100%',
+                search_contains: true,
+            });
+        }
+
         bulkPluginSelector.change(function () {
             jQuery(".bulkButton").prop('disabled',false);
         });
 
         var animalSelector = jQuery('#farmer__animalSelect');
-        animalSelector.chosen({
-            width: '100%',
-            search_contains: true
-        });
+        if (jQuery().chosen) {
+            animalSelector.chosen({
+                width:           '100%',
+                search_contains: true,
+            });
+        }
         animalSelector.change(function () {
             console.log('change event received');
             var animal = animalSelector.val();
