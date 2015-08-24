@@ -95,17 +95,19 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                     $this->errorMessages['farmdir'] = $this->getLang('farmdir_missing');
                 } else {
                     $farmdir = rtrim(hsc(trim($_REQUEST['farmdir'])),'/');
-                    if (strpos($farmdir, DOKU_INC) !== false) {
+                    if ($this->helper->isInPath($farmdir, DOKU_INC) !== false) {
                         $this->errorMessages['farmdir'] = $this->getLang('farmdir_in_dokuwiki');
-                    } elseif (!io_mkdir_p($farmdir)) { //@todo: tests for regex
+                    } elseif (!io_mkdir_p($farmdir)) {
                         $this->errorMessages['farmdir'] = $this->getLang('farmdir_uncreatable');
                     } elseif (!is_writeable($farmdir)) {
                         $this->errorMessages['farmdir'] = $this->getLang('farmdir_unwritable');
+                    } elseif (count(scandir($farmdir)) > 2) {
+                        $this->errorMessages['farmdir'] = $this->getLang('farmdir_notEmpty');
                     }
                 }
 
                 if (empty($this->errorMessages)) {
-                    $ret = $this->createPreloadPHP($_REQUEST['farmdir']);
+                    $ret = $this->createPreloadPHP(realpath($farmdir));
                     if ($ret === true) {
                         msg('inc/preload.php has been succesfully created', 1);
                         $this->helper->reloadAdminPage();

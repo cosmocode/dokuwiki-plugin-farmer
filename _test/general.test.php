@@ -7,6 +7,8 @@
  */
 class general_plugin_farmer_test extends DokuWikiTest {
 
+    protected $pluginsEnabled = array('farmer');
+
     /**
      * Simple test to make sure the plugin.info.txt is in correct format
      */
@@ -29,5 +31,12 @@ class general_plugin_farmer_test extends DokuWikiTest {
         $this->assertTrue(mail_isvalid($info['email']));
         $this->assertRegExp('/^\d\d\d\d-\d\d-\d\d$/', $info['date']);
         $this->assertTrue(false !== strtotime($info['date']));
+    }
+
+    public function test_isInPath () {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $result = $helper->isInPath('../inc',DOKU_INC);
+        $this->assertTrue($result);
     }
 }

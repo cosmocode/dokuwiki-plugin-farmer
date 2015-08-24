@@ -164,4 +164,29 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         unlink($animalpath.'/_animal.zip');
     }
 
+    /**
+     * recursive function to test wether a (non-existing) path points into an existint path
+     *
+     * @param $path string
+     *
+     * @param $container string has to exist
+     *
+     * @throws BadMethodCallException
+     *
+     * @return bool
+     */
+    public function isInPath ($path, $container) {
+        if (!file_exists($container)) {
+            throw new BadMethodCallException('The Container has to exist and be accessable by realpath().');
+        }
+        if (realpath($path) === false) {
+            return $this->isInPath(dirname($path), $container);
+        }
+        if (strpos(realpath($path), realpath($container)) !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

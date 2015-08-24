@@ -52,5 +52,6 @@ $lang['farmdir_missing'] = 'Please enter a directory where the animals should be
 $lang['farmdir_in_dokuwiki'] = 'The farm directory must outside of the master dokuwiki.';
 $lang['farmdir_uncreatable'] = 'The farm directory could not be created. Are the permissions correct?';
 $lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the farm directory';
+$lang['farmdir_notEmpty'] = 'The farm directory must be empty.';
 
 //Setup VIM: ex: et ts=4 :
