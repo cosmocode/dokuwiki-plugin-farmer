@@ -1,0 +1,6 @@
+====== First-Time-Setup ======
+
+To create a [[doku>farms|dokuwiki farm and animals]], it is necessary to define a directory where these 'subwikis' will be stored.
+It is also necessary to define if your setup will be [[doku>farms#two_different_setups|subdomain-based or htaccess-based]].
+
+The farm directory must be currently empty and must not be within your master wiki. One of the more common locations for the farm direcory would be ''%s''.

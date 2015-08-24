@@ -175,6 +175,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     public function html() {
 
         if ($this->preloadPHPMissing) {
+            echo sprintf($this->locale_xhtml('preload'),realpath(DOKU_INC.'..') . '/animals/');
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
             $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
@@ -184,7 +185,6 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
             $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
 
-            $form->addButton('farmer__reset',$this->getLang('reset'))->attr('type','reset');
             $form->addFieldsetClose();
             $this->helper->addErrorsToForm($form, $this->errorMessages);
 
