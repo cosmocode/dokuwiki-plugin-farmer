@@ -31,11 +31,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         return true;
     }
 
-    public function createNewAnimal($name, $adminSetup, $adminPassword, $serverSetup, $subdomain) {
+    public function createNewAnimal($name, $adminSetup, $adminPassword, $subdomain) {
         //DOKU_FARMDIR
-        if ($serverSetup === 'subdomain') {
+        if (DOKU_FARMTYPE === 'subdomain') {
             $animaldir = DOKU_FARMDIR . $subdomain;
-        } elseif ($serverSetup === 'htaccess') {
+        } elseif (DOKU_FARMTYPE === 'htaccess') {
             $animaldir = DOKU_FARMDIR . $name;
         } else {
             throw new Exception('invalid value for $serverSetup');
@@ -44,7 +44,13 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         if (!file_exists(DOKU_FARMDIR . '_animal')) {
             $this->helper->downloadTemplate(DOKU_FARMDIR);
         }
-        $this->helper->io_copyDir(DOKU_FARMDIR . '_animal', $animaldir);
+
+        try {
+            $this->helper->io_copyDir(DOKU_FARMDIR . '_animal', $animaldir);
+        } catch (Exception $e) {
+            dbglog(dbg_backtrace());
+            return false;
+        }
 
         $confFile = file_get_contents($animaldir . '/conf/local.php');
         $confFile = str_replace('Animal Wiki Title', $name, $confFile);
@@ -70,11 +76,12 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         return true;
     }
 
-    public function createPreloadPHP($animalpath) {
+    public function createPreloadPHP($animalpath, $setuptype) {
         $this->helper->downloadTemplate($animalpath);
 
         $content = "<?php\n";
         $content .= "if(!defined('DOKU_FARMDIR')) define('DOKU_FARMDIR', '$animalpath');\n";
+        $content .= "if(!defined('DOKU_FARMTYPE')) define('DOKU_FARMTYPE', '$setuptype');\n";
         $content .= "include(fullpath(dirname(__FILE__)).'/farm.php');\n";
 
         return io_saveFile(DOKU_INC . 'inc/preload.php',$content);
@@ -106,8 +113,12 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                     }
                 }
 
+                if (empty($_REQUEST['serversetup'])) {
+                    $this->errorMessages['serversetup'] = $this->getLang('serversetup_missing');
+                }
+
                 if (empty($this->errorMessages)) {
-                    $ret = $this->createPreloadPHP(realpath($farmdir));
+                    $ret = $this->createPreloadPHP(realpath($farmdir) . "/", $_REQUEST['serversetup']);
                     if ($ret === true) {
                         msg('inc/preload.php has been succesfully created', 1);
                         $this->helper->reloadAdminPage();
@@ -129,17 +140,13 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                     }
                 }
 
-                if (empty($_REQUEST['adminsetup'])) {
-                    $this->errorMessages['adminsetup'] = $this->getLang('adminsetup_missing');
-                } elseif ($_REQUEST['adminsetup'] === 'newAdmin') {
+                if ($_REQUEST['adminsetup'] === 'newAdmin') {
                     if (empty($_REQUEST['adminPassword'])) {
                         $this->errorMessages['adminPassword'] = $this->getLang('adminPassword_empty');
                     }
                 }
 
-                if (empty($_REQUEST['serversetup'])) {
-                    $this->errorMessages['serversetup'] = $this->getLang('serversetup_missing');
-                } elseif ($_REQUEST['serversetup'] === 'subdomain') {
+                if (DOKU_FARMTYPE === 'subdomain') {
                     if (empty($_REQUEST['animalsubdomain'])) {
                         $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
                     } else {
@@ -156,9 +163,8 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                     }
                 }
 
-
                 if (empty($this->errorMessages)) {
-                    $ret = $this->createNewAnimal($animalname, $_REQUEST['adminsetup'], $_REQUEST['adminPassword'], $_REQUEST['serversetup'], $animalsubdomain);
+                    $ret = $this->createNewAnimal($animalname, $_REQUEST['adminsetup'], $_REQUEST['adminPassword'], $animalsubdomain);
                     if ($ret === true) {
                         msg(sprintf($this->getLang('animal creation success'),$animalname), 1);
                         $this->helper->reloadAdminPage();
@@ -181,9 +187,10 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
             $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
-            $form->addTagOpen('div class="form-group"');
-            $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block')->attr('placeholder','farm dir');
-            $form->addTagClose('div');
+            $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block edit')->attr('placeholder','farm dir');
+
+            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit');
+            $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block edit');
 
             $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
 
@@ -195,27 +202,22 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
             $form->addFieldsetOpen($this->getLang('animal configuration'));
-            $form->addTextInput('animalname','animal name')->addClass('block edit')->attr('placeholder','animal name');
+            $form->addTextInput('animalname',$this->getLang('animal name'))->addClass('block edit')->attr('placeholder',$this->getLang('animal name placeholder'));
+            if (DOKU_FARMTYPE === 'subdomain') {
+                $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder', $this->getLang('animal subdomain placeholder'));
+            }
+            $form->addFieldsetClose();
             $form->addTag('br');
 
-            $form->addTagOpen('fieldset');
-            $form->addHTML('<legend>' . $this->getLang('animal administrator') . '</legend>');
+            $form->addFieldsetOpen($this->getLang('animal administrator'));
             $form->addRadioButton('adminsetup',$this->getLang('importUsers'))->val('importUsers')->addClass('block');
             $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin')->addClass('block');
-            $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin')->addClass('block');
-            $form->addPasswordInput('adminPassword',$this->getLang('admin password'))->addClass('block edit')->attr('placeholder','Password for admin account');
-            $form->addTagClose('fieldset');
-
-            $form->addTagOpen('fieldset');
-            $form->addHTML('<legend>' . $this->getLang('server configuration') . '</legend>');
-            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block');
-            $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block');
-            $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder','animal subdomain');
-            $form->addTagClose('fieldset');
+            $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin')->addClass('block')->attr('checked','checked');
+            $form->addPasswordInput('adminPassword',$this->getLang('admin password'))->addClass('block edit')->attr('placeholder',$this->getLang('admin password placeholder'));
+            $form->addFieldsetClose();
+            $form->addTag('br');
 
             $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit')->val('newAnimal');
-            $form->addButton('farmer__reset',$this->getLang('reset'))->attr('type','reset');
-            $form->addFieldsetClose();
 
             $this->helper->addErrorsToForm($form, $this->errorMessages);
 
