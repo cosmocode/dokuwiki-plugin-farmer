@@ -91,17 +91,18 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
      * Should carry out any processing required by the plugin.
      */
     public function handle() {
+        global $INPUT;
 
         $this->helper = plugin_load('helper','farmer');
 
         // Is preload.php already enabled?
         if (!file_exists(DOKU_INC . 'inc/preload.php')) {
             $this->preloadPHPMissing = true;
-            if (isset($_REQUEST['farmdir'])) {
-                if (empty($_REQUEST['farmdir'])) {
+            if ($INPUT->has('farmdir')) {
+                $farmdir = rtrim(hsc(trim($INPUT->str('farmdir','',true))),'/');
+                if ($farmdir === '') {
                     $this->errorMessages['farmdir'] = $this->getLang('farmdir_missing');
                 } else {
-                    $farmdir = rtrim(hsc(trim($_REQUEST['farmdir'])),'/');
                     if ($this->helper->isInPath($farmdir, DOKU_INC) !== false) {
                         $this->errorMessages['farmdir'] = $this->getLang('farmdir_in_dokuwiki');
                     } elseif (!io_mkdir_p($farmdir)) {
@@ -113,12 +114,12 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                     }
                 }
 
-                if (empty($_REQUEST['serversetup'])) {
+                if ($INPUT->str('serversetup','',true) === '') {
                     $this->errorMessages['serversetup'] = $this->getLang('serversetup_missing');
                 }
 
                 if (empty($this->errorMessages)) {
-                    $ret = $this->createPreloadPHP(realpath($farmdir) . "/", $_REQUEST['serversetup']);
+                    $ret = $this->createPreloadPHP(realpath($farmdir) . "/", $INPUT->str('serversetup'));
                     if ($ret === true) {
                         msg('inc/preload.php has been succesfully created', 1);
                         $this->helper->reloadAdminPage();
@@ -128,43 +129,43 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 }
             }
         } else {
-            if (isset($_REQUEST['farmer__submit'])) {
+            if ($INPUT->has('farmer__submit')) {
                 $animalsubdomain = null;
                 $animalname = null;
-                if (empty($_REQUEST['animalname'])) {
+                if ($INPUT->str('animalname','',true) === '') {
                     $this->errorMessages['animalname'] = $this->getLang('animalname_missing');
                 } else {
-                    $animalname = hsc(trim($_REQUEST['animalname']));
+                    $animalname = hsc(trim($INPUT->str('animalname')));
                     if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
                         $this->errorMessages['animalname'] = $this->getLang('animalname_invalid');
                     }
                 }
 
-                if ($_REQUEST['adminsetup'] === 'newAdmin') {
-                    if (empty($_REQUEST['adminPassword'])) {
+                if ($INPUT->str('adminsetup') === 'newAdmin') {
+                    if ($INPUT->str('adminPassword','',true) === '') {
                         $this->errorMessages['adminPassword'] = $this->getLang('adminPassword_empty');
                     }
                 }
 
                 if (DOKU_FARMTYPE === 'subdomain') {
-                    if (empty($_REQUEST['animalsubdomain'])) {
+                    if ($INPUT->str('animalsubdomain','',true) === '') {
                         $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
                     } else {
-                        $animalsubdomain = hsc(trim($_REQUEST['animalsubdomain']));
+                        $animalsubdomain = hsc(trim($INPUT->str('animalsubdomain')));
                         if (!preg_match("/^[a-z0-9]+([\.-][a-z0-9]+)*$/i",$animalsubdomain)) { //@todo: tests for regex
                             $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
                         } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
                             $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');
                         }
                     }
-                } elseif ($_REQUEST['serversetup'] === 'htaccess') {
+                } elseif ($INPUT->str('serversetup') === 'htaccess') {
                     if (file_exists(DOKU_FARMDIR . $animalname)) {
                         $this->errorMessages['animalname'] =  $this->getLang('animalname_preexisting');
                     }
                 }
 
                 if (empty($this->errorMessages)) {
-                    $ret = $this->createNewAnimal($animalname, $_REQUEST['adminsetup'], $_REQUEST['adminPassword'], $animalsubdomain);
+                    $ret = $this->createNewAnimal($animalname, $INPUT->str('adminsetup'), $INPUT->str('adminPassword'), $animalsubdomain);
                     if ($ret === true) {
                         msg(sprintf($this->getLang('animal creation success'),$animalname), 1);
                         $this->helper->reloadAdminPage();
