@@ -5,4 +5,4 @@
  * @author Michael Große <grosse@cosmocode.de>
  */
 
-//$conf['fixme']    = 'FIXME';
+$conf['deactivated plugins']    = '';

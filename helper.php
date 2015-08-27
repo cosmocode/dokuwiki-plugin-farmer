@@ -84,7 +84,10 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
 
         $dir = dir(DOKU_FARMDIR);
         while (false !== ($entry = $dir->read())) {
-            if ($entry == '.' || $entry == '..' || $entry == '_animal') {
+            if ($entry == '.' || $entry == '..' || $entry == '_animal' || $entry == '.htaccess') {
+                continue;
+            }
+            if (!is_dir(DOKU_FARMDIR . $entry)) {
                 continue;
             }
             $animals[] = $entry;
@@ -106,6 +109,10 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $this->allPlugins[$animal] = $plugins;
     }
 
+    /**
+     * @param $plugin {string} Name of the plugin to deactivate
+     * @param $animal {string} directory of the animal within DOKU_FARMDIR
+     */
     public function deactivatePlugin($plugin, $animal) {
         if (isset($this->allPlugins[$animal])) {
             $plugins = $this->allPlugins[$animal];

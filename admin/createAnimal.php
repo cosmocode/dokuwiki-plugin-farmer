@@ -34,12 +34,13 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     public function createNewAnimal($name, $adminSetup, $adminPassword, $subdomain) {
         //DOKU_FARMDIR
         if (DOKU_FARMTYPE === 'subdomain') {
-            $animaldir = DOKU_FARMDIR . $subdomain;
+            $animal = $subdomain;
         } elseif (DOKU_FARMTYPE === 'htaccess') {
-            $animaldir = DOKU_FARMDIR . $name;
+            $animal = $name;
         } else {
             throw new Exception('invalid value for $serverSetup');
         }
+        $animaldir = DOKU_FARMDIR . $animal;
 
         if (!file_exists(DOKU_FARMDIR . '_animal')) {
             $this->helper->downloadTemplate(DOKU_FARMDIR);
@@ -71,6 +72,16 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             io_saveFile($animaldir . '/conf/users.auth.php', $newAdmin);
         } else {
             throw new Exception('invalid value for $adminSetup');
+        }
+
+        if ($this->getConf('deactivated plugins') === '') {
+            $deactivatedPluginsList = array('farmer',);
+        } else {
+            $deactivatedPluginsList = explode(',', $this->getConf('deactivated plugins'));
+            array_push($deactivatedPluginsList,'farmer');
+        }
+        foreach ($deactivatedPluginsList as $plugin) {
+            $this->helper->deactivatePlugin(trim($plugin),$animal);
         }
 
         return true;

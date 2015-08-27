@@ -6,7 +6,7 @@
  */
 
 // keys need to match the config setting name
-// $lang['fixme'] = 'FIXME';
+$lang['deactivated plugins'] = 'list of plugins which are deactivated by default in new animals. comma-separated';
 
 
 
