@@ -40,7 +40,7 @@
                             checked = '';
                         }
                         console.log(checked);
-                        pluginCheckbox = jQuery('<input type="checkbox" id="farmer__plugin_' + value + '" name="plugin_farmer_plugins[' + value + ']" ' + checked + '>');
+                        pluginCheckbox = jQuery('<input class="edit" type="checkbox" id="farmer__plugin_' + value + '" name="plugin_farmer_plugins[' + value + ']" ' + checked + '>');
                         jQuery('#farmer__animalPlugins').append(pluginCheckbox);
                         jQuery('#farmer__plugin_' + value).wrap('<label class="block"></label>').parent().prepend(value);
                     });
