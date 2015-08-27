@@ -157,9 +157,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
 
     public function downloadTemplate($animalpath) {
         file_put_contents($animalpath . '/_animal.zip',fopen('https://www.dokuwiki.org/_media/dokuwiki_farm_animal.zip','r'));
-        $zip = new ZipArchive();
+        $zip = new splitbrain\PHPArchive\Zip();
         $zip->open($animalpath.'/_animal.zip');
-        $zip->extractTo($animalpath);
+        $zip->extract($animalpath);
         $zip->close();
         unlink($animalpath.'/_animal.zip');
     }
