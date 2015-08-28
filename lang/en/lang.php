@@ -43,6 +43,9 @@ $lang['admin password placeholder'] = 'Password';
 // success messages
 $lang['animal creation success'] = 'The animal "%s" has been successfully created';
 
+// info messages
+$lang['overwrite_preload'] = 'by creating a new preload.php here, your current configuration will be overwritten';
+
 // error messages
 $lang['htaccess_basedir_missing'] = 'Please enter the <a href="https://www.dokuwiki.org/config:basedir">basedir</a>';
 $lang['animalname_missing'] = 'Please enter a name for the new animal.';

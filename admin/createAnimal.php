@@ -11,7 +11,7 @@ if(!defined('DOKU_INC')) die();
 
 class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
-    private $preloadPHPMissing = false;
+    private $InitializeFarm = false;
     private $errorMessages = array();
     private $failOnce;
 
@@ -153,8 +153,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         $this->helper = plugin_load('helper','farmer');
 
         // Is preload.php already enabled?
-        if (!file_exists(DOKU_INC . 'inc/preload.php')) {
-            $this->preloadPHPMissing = true;
+        if (!$this->helper->checkFarmSetup()) {
+            $this->InitializeFarm = true;
+            if (file_exists(DOKU_INC . 'inc/preload.php')) {
+                msg($this->getLang('overwrite_preload'));
+             }
             if ($INPUT->has('farmdir')) {
                 $farmdir = rtrim(hsc(trim($INPUT->str('farmdir','',true))),'/');
                 if ($farmdir === '') {
@@ -244,7 +247,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
      */
     public function html() {
 
-        if ($this->preloadPHPMissing) {
+        if ($this->InitializeFarm) {
             echo sprintf($this->locale_xhtml('preload'),realpath(DOKU_INC.'..') . '/animals/',dirname(DOKU_REL) . '/animals/');
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');

@@ -196,4 +196,20 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         }
     }
 
+    /**
+     * @return bool
+     */
+    public function checkFarmSetup () {
+        if(defined('DOKU_FARMDIR') && defined('DOKU_FARMTYPE')) {
+            if (DOKU_FARMTYPE == 'subdomain') {
+                return true;
+            } elseif (DOKU_FARMTYPE == 'htaccess') {
+                return defined('DOKU_FARMRELDIR');
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
 }
