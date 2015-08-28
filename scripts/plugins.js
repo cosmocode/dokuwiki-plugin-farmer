@@ -32,7 +32,11 @@
                     call: 'plugin_farmer_' + animal
                 },
                 function(data) {
-                    jQuery('#farmer__animalPlugins').html('');
+                    var submitButton = jQuery('<button type="submit" value="updateSingleAnimal" name="plugin_farmer[submit_type]">'+LANG.plugins.farmer.submit+'</button>');
+                    var resetButton = jQuery('<button type="reset">'+LANG.plugins.farmer.reset+'</button>');
+                    var pluginContainer = jQuery('#farmer__animalPlugins');
+                    pluginContainer.html('');
+                    pluginContainer.append(submitButton, resetButton);
                     jQuery.each(data[0], function(index, value) {
                         var checked = 'checked';
                         var pluginCheckbox;
@@ -41,9 +45,10 @@
                         }
                         console.log(checked);
                         pluginCheckbox = jQuery('<input class="edit" type="checkbox" id="farmer__plugin_' + value + '" name="plugin_farmer_plugins[' + value + ']" ' + checked + '>');
-                        jQuery('#farmer__animalPlugins').append(pluginCheckbox);
+                        pluginContainer.append(pluginCheckbox);
                         jQuery('#farmer__plugin_' + value).wrap('<label class="block"></label>').parent().prepend(value);
                     });
+                    pluginContainer.append(submitButton.clone(), resetButton.clone());
 
                     // data is array you returned with action.php
                 },

@@ -1,0 +1,3 @@
+====== Create a new Animal ======
+
+To create a new [[doku>farms|animal]]

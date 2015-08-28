@@ -62,6 +62,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>';
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css" type="text/css" rel="stylesheet" />';
 
+        echo $this->locale_xhtml('plugins');
         $switchForm =  new \dokuwiki\Form\Form();
         $switchForm->addFieldsetOpen($this->getLang('bulkSingleSwitcher'));
         $switchForm->addRadioButton('bulkSingleSwitch', $this->getLang('bulkEdit'))->id('farmer__bulk')->attr('type','radio')->addClass('block');
@@ -103,12 +104,8 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
             $singleForm->addTagClose('option');
         }
         $singleForm->addTagClose('select');
-        $singleForm->addButton('plugin_farmer[submit_type]',$this->getLang('submit'))->attr('type','submit')->attr('value','updateSingleAnimal');
-        $singleForm->addButton('farmer__reset',$this->getLang('reset'))->attr('type','reset');
         $singleForm->addTagOpen('div')->id('farmer__animalPlugins');
         $singleForm->addTagClose('div');
-        $singleForm->addButton('plugin_farmer[submit_type]',$this->getLang('submit'))->attr('type','submit')->attr('value','updateSingleAnimal');
-        $singleForm->addButton('farmer__reset',$this->getLang('reset'))->attr('type','reset');
         $switchForm->addFieldsetClose();
         echo $singleForm->toHTML();
     }
