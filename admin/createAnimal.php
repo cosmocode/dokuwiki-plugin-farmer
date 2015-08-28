@@ -13,6 +13,21 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
     private $preloadPHPMissing = false;
     private $errorMessages = array();
+    private $failOnce;
+
+    private function succeeded($testResult) {
+        if ($testResult === false) {
+            $this->failOnce = true;
+        }
+    }
+
+    private function initFailOnce() {
+        $this->failOnce = false;
+    }
+
+    private function checkFailOnce() {
+        return $this->failOnce;
+    }
 
     /** @var helper_plugin_farmer $helper */
     private $helper;
@@ -32,7 +47,8 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     }
 
     public function createNewAnimal($name, $adminSetup, $adminPassword, $subdomain) {
-        //DOKU_FARMDIR
+        $this->initFailOnce();
+
         if (DOKU_FARMTYPE === 'subdomain') {
             $animal = $subdomain;
         } elseif (DOKU_FARMTYPE === 'htaccess') {
@@ -55,13 +71,13 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
         $confFile = file_get_contents($animaldir . '/conf/local.php');
         $confFile = str_replace('Animal Wiki Title', $name, $confFile);
-        io_saveFile($animaldir . '/conf/local.php', $confFile);
+        $this->succeeded(io_saveFile($animaldir . '/conf/local.php', $confFile));
 
         if ($adminSetup === 'newAdmin') {
             $cryptAdminPassword = auth_cryptPassword($adminPassword);
             $usersAuth = file_get_contents($animaldir . '/conf/users.auth.php');
             $usersAuth = str_replace('$1$cce258b2$U9o5nK0z4MhTfB5QlKF23/', $cryptAdminPassword, $usersAuth);
-            io_saveFile($animaldir . '/conf/users.auth.php', $usersAuth);
+            $this->succeeded(io_saveFile($animaldir . '/conf/users.auth.php', $usersAuth));
         } elseif ($adminSetup === 'importUsers') {
             copy(DOKU_CONF . 'users.auth.php', $animaldir . '/conf/users.auth.php');
         } elseif ($adminSetup === 'currentAdmin') {
@@ -69,7 +85,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $user = $_SERVER['REMOTE_USER'];
             $masterUsers = trim(strstr($masterUsers,"\n". $user . ":"));
             $newAdmin = substr($masterUsers,0,strpos($masterUsers,"\n")+1);
-            io_saveFile($animaldir . '/conf/users.auth.php', $newAdmin);
+            $this->succeeded(io_saveFile($animaldir . '/conf/users.auth.php', $newAdmin));
         } else {
             throw new Exception('invalid value for $adminSetup');
         }
@@ -84,7 +100,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $this->helper->deactivatePlugin(trim($plugin),$animal);
         }
 
-        return true;
+        if ($this->checkFailOnce()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public function createPreloadPHP($animalpath, $setuptype) {
