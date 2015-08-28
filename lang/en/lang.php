@@ -31,6 +31,7 @@ $lang['singleEditForm'] = 'Edit the plugins of a specific animal';
 $lang['submit'] = 'Submit';
 $lang['reset'] = 'Reset';
 $lang['animal name'] = 'Animal name';
+$lang['htaccess_basedir'] = 'Enter the path to the above-entered farm dir relativ to the server root:';
 
 // input placeholders
 $lang['js']['animalSelect'] = 'Select an animal';
@@ -43,6 +44,7 @@ $lang['admin password placeholder'] = 'Password';
 $lang['animal creation success'] = 'The animal "%s" has been successfully created';
 
 // error messages
+$lang['htaccess_basedir_missing'] = 'Please enter the <a href="https://www.dokuwiki.org/config:basedir">basedir</a>';
 $lang['animalname_missing'] = 'Please enter a name for the new animal.';
 $lang['animalname_invalid'] = 'The animalname may only contain alphanumeric characters and hyphens(but not as first or last character).';
 $lang['animalname_preexisting'] = 'An animal with that name already exists.';

@@ -107,15 +107,32 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         }
     }
 
-    public function createPreloadPHP($animalpath, $setuptype) {
+    public function createPreloadPHP($animalpath, $setuptype, $htaccessBaseDir) {
         $this->helper->downloadTemplate($animalpath);
 
         $content = "<?php\n";
         $content .= "if(!defined('DOKU_FARMDIR')) define('DOKU_FARMDIR', '$animalpath');\n";
         $content .= "if(!defined('DOKU_FARMTYPE')) define('DOKU_FARMTYPE', '$setuptype');\n";
+        if ($setuptype === 'htaccess') {
+            $content .= "if(!defined('DOKU_FARMRELDIR')) define('DOKU_FARMRELDIR', '$htaccessBaseDir');\n";
+        }
         $content .= "include(fullpath(dirname(__FILE__)).'/farm.php');\n";
 
+
+        $writeSuccess = io_saveFile($animalpath . '/.htaccess', $this->createHtaccess(DOKU_REL));
+        if (!$writeSuccess) {
+            return false;
+        }
+
         return io_saveFile(DOKU_INC . 'inc/preload.php',$content);
+    }
+
+    public function createHtaccess ($doku_rel) {
+        $content = "RewriteEngine On\n\n";
+        $content .= 'RewriteRule ^/?([^/]+)/(.*)  ' . $doku_rel . '$2?animal=$1 [QSA]' . "\n";
+        $content .= 'RewriteRule ^/?([^/]+)$      ' . $doku_rel . '?animal=$1 [QSA]' . "\n";
+        $content .= 'Options +FollowSymLinks';
+        return $content;
     }
 
     /**
@@ -147,10 +164,14 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
                 if ($INPUT->str('serversetup','',true) === '') {
                     $this->errorMessages['serversetup'] = $this->getLang('serversetup_missing');
+                } elseif ($INPUT->str('serversetup') === 'htaccess') {
+                    if($INPUT->str('htaccess_basedir', '', true) === '') {
+                        $this->errorMessages['htaccess_basedir'] = $this->getLang('htaccess_basedir_missing'); //@todo: more validation? e.g. not containing a dot?
+                    }
                 }
 
                 if (empty($this->errorMessages)) {
-                    $ret = $this->createPreloadPHP(realpath($farmdir) . "/", $INPUT->str('serversetup'));
+                    $ret = $this->createPreloadPHP(realpath($farmdir) . "/", $INPUT->str('serversetup'), $INPUT->str('htaccess_basedir', '', true));
                     if ($ret === true) {
                         msg('inc/preload.php has been succesfully created', 1);
                         $this->helper->reloadAdminPage();
@@ -215,14 +236,15 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     public function html() {
 
         if ($this->preloadPHPMissing) {
-            echo sprintf($this->locale_xhtml('preload'),realpath(DOKU_INC.'..') . '/animals/');
+            echo sprintf($this->locale_xhtml('preload'),realpath(DOKU_INC.'..') . '/animals/',dirname(DOKU_REL) . '/animals/');
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
             $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
             $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block edit')->attr('placeholder','farm dir');
 
-            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit');
             $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block edit');
+            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit');
+            $form->addTextInput('htaccess_basedir', $this->getLang('htaccess_basedir'))->addClass('block edit');
 
             $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
 
