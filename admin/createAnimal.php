@@ -90,6 +90,15 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             throw new Exception('invalid value for $adminSetup');
         }
 
+        if (DOKU_FARMTYPE === 'htaccess') {
+            $protectedConf = file_get_contents($animaldir . '/conf/local.protected.php');
+            $protectedConf .= '$conf["basedir"] = \'' . DOKU_FARMRELDIR . $name . "/';\n"; //@todo confirm that this is really the correct value, maybe we need userinput/confirmation
+            $this->succeeded(io_saveFile($animaldir . '/conf/local.protected.php', $protectedConf));
+            $animalLink = '<a href="' . DOKU_FARMRELDIR . $name. '">' . $name . '</a>';
+        } else {
+            $animalLink = '<a href="' . $subdomain . '">' . $name . '</a>';
+        }
+
         if ($this->getConf('deactivated plugins') === '') {
             $deactivatedPluginsList = array('farmer',);
         } else {
@@ -103,7 +112,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         if ($this->checkFailOnce()) {
             return false;
         } else {
-            return true;
+            return $animalLink;
         }
     }
 
@@ -218,8 +227,8 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
                 if (empty($this->errorMessages)) {
                     $ret = $this->createNewAnimal($animalname, $INPUT->str('adminsetup'), $INPUT->str('adminPassword'), $animalsubdomain);
-                    if ($ret === true) {
-                        msg(sprintf($this->getLang('animal creation success'),$animalname), 1);
+                    if ($ret !== false) {
+                        msg(sprintf($this->getLang('animal creation success'),$ret), 1);
                         $this->helper->reloadAdminPage();
                     } else {
                         // should never happen
