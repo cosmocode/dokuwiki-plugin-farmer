@@ -67,7 +67,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $dir = dir(DOKU_PLUGIN);
         $plugins = array();
         while (false !== ($entry = $dir->read())) {
-            if($entry == '.' || $entry == '..' || $entry == 'testing') {
+            if($entry == '.' || $entry == '..' || $entry == 'testing' || $entry == 'farmer') {
                 continue;
             }
             if (!is_dir(DOKU_PLUGIN ."/$entry")) {
