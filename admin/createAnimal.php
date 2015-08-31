@@ -265,11 +265,18 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
             echo $form->toHTML();
         } else {
+            if (DOKU_FARMTYPE === 'subdomain') {
+                $subdomain_injection = $this->getLang('subdomain_helptext_injection');
+            } else {
+                $subdomain_injection = '';
+            }
+            echo sprintf($this->locale_xhtml('createAnimal'), $subdomain_injection);
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
             $form->addFieldsetOpen($this->getLang('animal configuration'));
             $form->addTextInput('animalname',$this->getLang('animal name'))->addClass('block edit')->attr('placeholder',$this->getLang('animal name placeholder'));
             if (DOKU_FARMTYPE === 'subdomain') {
+                $form->addTag('br');
                 $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder', $this->getLang('animal subdomain placeholder'));
             }
             $form->addFieldsetClose();

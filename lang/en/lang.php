@@ -8,6 +8,8 @@
 // menu entry for admin plugins
 $lang['menu'] = 'Farmer: Add new animal';
 
+$lang['subdomain_helptext_injection'] = 'If you are using the subdomain based approach you need to enter the subdomain under which the new subwiki will be reachable';
+
 //labels
 $lang['preloadPHPForm'] = 'Create a new preload.php';
 $lang['farm dir'] = 'farm dir';

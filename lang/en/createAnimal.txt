@@ -1,3 +1,5 @@
 ====== Create a new Animal ======
 
-To create a new [[doku>farms|animal]]
+[[doku>farms|Animals]] are the independent subwikis of a Dokuwiki farm. To create a new subwiki you need to give the subwiki a name. %s
+
+Further you need to decide how the administrator of the wiki should be created.
