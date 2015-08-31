@@ -36,16 +36,33 @@ class action_plugin_farmer_pluginSettings extends DokuWiki_Action_Plugin {
         $event->stopPropagation();
         $event->preventDefault();
 
-        $animal = substr($event->data, 14);
+        if (substr($event->data, 14, 10) === 'getPlugins') {
+            $this->get_animal_plugins($event, $param);
+            return;
+        }
+        if (substr($event->data, 14, 10) === 'checkSetup') {
+
+        }
+
+
+    }
+
+    public function check_setup () {}
+
+    /**
+     * @param Doku_Event $event
+     * @param            $param
+     */
+    public function get_animal_plugins(Doku_Event $event, $param) {
+        $animal = substr($event->data, 25);
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper','farmer');
         $allPlugins = $helper->getAllPlugins();
         $plugins = array();
         include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
-        $data = array($allPlugins, $plugins);
+        $data = array($allPlugins, $plugins,);
 
         //json library of DokuWiki
-        require_once DOKU_INC . 'inc/JSON.php';
         $json = new JSON();
 
         //set content type

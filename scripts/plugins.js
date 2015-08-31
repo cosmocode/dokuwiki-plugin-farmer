@@ -29,7 +29,7 @@
             jQuery.post(
                 DOKU_BASE + 'lib/exe/ajax.php',
                 {
-                    call: 'plugin_farmer_' + animal
+                    call: 'plugin_farmer_getPlugins_' + animal
                 },
                 function(data) {
                     var submitButton = jQuery('<button type="submit" value="updateSingleAnimal" name="plugin_farmer[submit_type]">'+LANG.plugins.farmer.submit+'</button>');
