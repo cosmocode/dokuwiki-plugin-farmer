@@ -35,7 +35,7 @@ $lang['reset'] = 'Reset';
 $lang['js']['submit'] = $lang['submit'];
 $lang['js']['reset'] = $lang['reset'];
 $lang['animal name'] = 'Animal name';
-$lang['htaccess_basedir'] = 'Enter the path to the above-entered farm dir relativ to the server root:';
+$lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory relativ to the server root:';
 
 // input placeholders
 $lang['js']['animalSelect'] = 'Select an animal';

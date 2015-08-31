@@ -67,6 +67,14 @@
             }, 400);
         });
 
+        jQuery("input[name=serversetup]:radio").change(function () {
+            if (jQuery('#htaccess__setup').prop("checked")) {
+                jQuery('label.htaccess').css('display','block');
+            } else {
+                jQuery('label.htaccess').css('display','none');
+            }
+        });
+
         jQuery("input[name=bulkSingleSwitch]:radio").change(function () {
             if (jQuery('#farmer__bulk').prop("checked")) {
                 jQuery('#farmer__bulkForm').css('display','initial');

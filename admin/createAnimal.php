@@ -248,15 +248,15 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     public function html() {
 
         if ($this->InitializeFarm) {
-            echo sprintf($this->locale_xhtml('preload'),realpath(DOKU_INC.'..') . '/animals/',dirname(DOKU_REL) . '/animals/');
+            echo sprintf($this->locale_xhtml('preload'),dirname(DOKU_REL) . '/farm/');
             $form = new \dokuwiki\Form\Form();
             $form->addClass('plugin_farmer');
             $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
             $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block edit')->attr('placeholder','farm dir');
 
-            $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block edit');
-            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit');
-            $form->addTextInput('htaccess_basedir', $this->getLang('htaccess_basedir'))->addClass('block edit');
+            $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block edit')->id('subdomain__setup');
+            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit')->attr('checked', true)->id('htaccess__setup');
+            $form->addTextInput('htaccess_basedir', $this->getLang('htaccess_basedir'))->addClass('block edit htaccess');
 
             $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
 
