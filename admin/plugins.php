@@ -20,38 +20,39 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
      * handle user request
      */
     public function handle() {
+        global $INPUT;
         $this->helper = plugin_load('helper', 'farmer');
 
         if (!$this->helper->checkFarmSetup()) {
             $this->helper->reloadAdminPage('farmer_createAnimal');
         }
 
-        if (isset($_REQUEST['farmer__submitBulk'])) {
+        if ($INPUT->has('farmer__submitBulk')) {
             $animals = $this->helper->getAllAnimals();
-            $plugin = $_REQUEST['farmer__bulkPluginSelect'];
+            $plugin = $INPUT->str('farmer__bulkPluginSelect');
             foreach ($animals as $animal) {
-                if ($_REQUEST['farmer__submitBulk'] === 'activate') {
+                if ($INPUT->str('farmer__submitBulk') === 'activate') {
                     $this->helper->activatePlugin($plugin, $animal);
                 } else {
                     $this->helper->deactivatePlugin($plugin, $animal);
                 }
             }
         }
-        if (isset($_REQUEST['plugin_farmer'])) {
-            if ($_REQUEST['plugin_farmer']['submit_type'] === 'updateSingleAnimal') {
-                $animal = $_REQUEST['plugin_farmer']['selectedAnimal'];
+        if ($INPUT->has('plugin_farmer')) {
+            $inputArray = $INPUT->arr('plugin_farmer');
+            if ($inputArray['submit_type'] === 'updateSingleAnimal') {
+                $animal = $inputArray ['selectedAnimal'];
                 $allPlugins = $this->helper->getAllPlugins();
+                $activePlugins = $INPUT->arr('plugin_farmer_plugins');
                 foreach ($allPlugins as $plugin) {
-                    if (isset($_REQUEST['plugin_farmer_plugins'][$plugin]) &&
-                        $_REQUEST['plugin_farmer_plugins'][$plugin] === 'on') {
+                    if (isset($activePlugins[$plugin]) &&
+                        $activePlugins[$plugin] === 'on') {
                         $this->helper->activatePlugin($plugin,$animal);
                     } else {
                         $this->helper->deactivatePlugin($plugin,$animal);
                     }
                 }
-
             }
-
         }
     }
 
