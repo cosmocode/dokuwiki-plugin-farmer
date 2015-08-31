@@ -125,7 +125,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         if ($setuptype === 'htaccess') {
             $content .= "if(!defined('DOKU_FARMRELDIR')) define('DOKU_FARMRELDIR', '$htaccessBaseDir');\n";
         }
-        $content .= "include(fullpath(dirname(__FILE__)).'/farm.php');\n";
+        $content .= "include(fullpath(dirname(__FILE__)).'/../lib/plugins/farmer/farm.php');\n";
 
 
         $writeSuccess = io_saveFile($animalpath . '/.htaccess', $this->createHtaccess(DOKU_REL));
