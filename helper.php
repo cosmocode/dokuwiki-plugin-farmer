@@ -137,17 +137,14 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     }
 
     public function addErrorsToForm(\dokuwiki\Form\Form &$form, $errorArray) {
-        for ($position = 0; $position < $form->elementCount(); ++$position) {
-            if ($form->getElementAt($position) instanceof dokuwiki\Form\TagCloseElement) {
-                continue;
+        foreach ($errorArray as $elementName => $errorMessage) {
+            $offset = 0;
+            msg($errorMessage, -1);
+            while ($form->findPositionByAttribute('name',$elementName, $offset)) {
+                $offset = $form->findPositionByAttribute('name',$elementName, $offset);
+                $form->getElementAt($offset)->addClass('error');
+                ++$offset;
             }
-            if ($form->getElementAt($position)->attr('name') == '') continue;
-            $elementName = $form->getElementAt($position)->attr('name');
-            if (!isset($errorArray[$elementName])) continue;
-            $form->getElementAt($position)->addClass('error');
-            $form->addTagOpen('div',$position+1)->addClass('error');
-            $form->addHTML($errorArray[$elementName],$position+2);
-            $form->addTagClose('div',$position+3);
         }
     }
 
