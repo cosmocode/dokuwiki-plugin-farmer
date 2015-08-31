@@ -63,7 +63,8 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css" type="text/css" rel="stylesheet" />';
 
         echo $this->locale_xhtml('plugins');
-        $switchForm =  new \dokuwiki\Form\Form();
+        $switchForm = new \dokuwiki\Form\Form();
+        $switchForm->addClass('plugin_farmer');
         $switchForm->addFieldsetOpen($this->getLang('bulkSingleSwitcher'));
         $switchForm->addRadioButton('bulkSingleSwitch', $this->getLang('bulkEdit'))->id('farmer__bulk')->attr('type','radio')->addClass('block');
         $switchForm->addRadioButton('bulkSingleSwitch', $this->getLang('singleEdit'))->id('farmer__single')->attr('type','radio')->addClass('block');
@@ -76,6 +77,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
 
         $bulkForm = new \dokuwiki\Form\Form();
         $bulkForm->id('farmer__bulkForm');
+        $bulkForm->addClass('plugin_farmer');
         $bulkForm->addFieldsetOpen($this->getLang('bulkEditForm'));
         $bulkForm->addTagOpen('select')->id('farmer__bulkPluginSelect')->attr('name','farmer__bulkPluginSelect');
         $bulkForm->addTagOpen('option')->attr('selected', 'selected')->attr('disabled', 'disabled')->attr('hidden', 'hidden')->attr('value', "");
@@ -93,6 +95,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
 
         $singleForm = new \dokuwiki\Form\Form();
         $singleForm->id('farmer__singlePluginForm');
+        $singleForm->addClass('plugin_farmer');
         $singleForm->addFieldsetOpen($this->getLang('singleEditForm'));
         $singleForm->addTagOpen('select')->id('farmer__animalSelect')->attr('name', 'plugin_farmer[selectedAnimal]');
         $singleForm->addTagOpen('option')->attr('selected', 'selected')->attr('disabled', 'disabled')->attr('hidden', 'hidden')->attr('value', "");
