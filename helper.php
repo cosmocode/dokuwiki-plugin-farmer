@@ -127,7 +127,6 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     }
 
     public function writePluginConf($plugins, $animal) {
-        dbglog($plugins);
         $pluginConf = '<?php' . "\n";
         foreach ($plugins as $plugin => $status) {
             $pluginConf .= '$plugins["' . $plugin  . '"] = ' . $status . ";\n";

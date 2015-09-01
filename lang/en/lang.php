@@ -45,7 +45,12 @@ $lang['animal subdomain placeholder'] = 'Animal subdomain';
 $lang['admin password placeholder'] = 'Password';
 
 // success messages
-$lang['animal creation success'] = 'The animal "%s" has been successfully created';
+$lang['animal creation success'] = 'The animal "%s" has been successfully created.';
+$lang['animal creation error'] = 'The animal "%s" has been successfully created.';
+$lang['preload creation success'] = 'inc/preload.php has been succesfully created.';
+$lang['preload creation error'] = 'There was an error creating inc/preload.php.';
+$lang['js']['animal ajax success'] = 'Ajax request to the new animal was successful.';
+$lang['js']['preload ajax success'] = 'Ajax request to a non-existing animal was correctly served by the farmer.';
 
 // info messages
 $lang['overwrite_preload'] = 'by creating a new preload.php here, your current configuration will be overwritten';
@@ -66,5 +71,7 @@ $lang['farmdir_in_dokuwiki'] = 'The farm directory must outside of the master do
 $lang['farmdir_uncreatable'] = 'The farm directory could not be created. Are the permissions correct?';
 $lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the farm directory';
 $lang['farmdir_notEmpty'] = 'The farm directory must be empty.';
+$lang['js']['animal ajax failure'] = 'Ajax request to the new animal failed. Please check your server setup.';
+$lang['js']['preload ajax failure'] = 'Ajax request to a non-existing animal was not served by the farmer. Please check your server setup.';
 //Setup VIM: ex: et ts=4 :
 

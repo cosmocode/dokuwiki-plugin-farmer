@@ -10,7 +10,7 @@ if(!defined('DOKU_INC')) die();
 /**
  * Class action_plugin_farmer_pluginSettings
  */
-class action_plugin_farmer_pluginSettings extends DokuWiki_Action_Plugin {
+class action_plugin_farmer_handleAjax extends DokuWiki_Action_Plugin {
 
     /**
      * plugin should use this method to register its handlers with the DokuWiki's event controller
@@ -20,6 +20,12 @@ class action_plugin_farmer_pluginSettings extends DokuWiki_Action_Plugin {
      */
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');
+        $controller->register_hook('DOKUWIKI_STARTED', 'AFTER',  $this, '_add_DOKU_FARMRELDIR');
+    }
+
+    function _add_DOKU_FARMRELDIR(Doku_Event $event, $param) {
+        global $JSINFO;
+        $JSINFO['FARMRELDIR'] = DOKU_FARMRELDIR;
     }
 
     /**
@@ -41,13 +47,16 @@ class action_plugin_farmer_pluginSettings extends DokuWiki_Action_Plugin {
             return;
         }
         if (substr($event->data, 14, 10) === 'checkSetup') {
-
+            $this->check_setup($event, $param);
         }
-
-
     }
 
-    public function check_setup () {}
+    public function check_setup (Doku_Event $event, $para) {
+        $data = '';
+        $json = new JSON();
+        header('Content-Type: application/json');
+        echo $json->encode($data);
+    }
 
     /**
      * @param Doku_Event $event

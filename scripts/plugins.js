@@ -24,7 +24,6 @@
             });
         }
         animalSelector.change(function () {
-            console.log('change event received');
             var animal = animalSelector.val();
             jQuery.post(
                 DOKU_BASE + 'lib/exe/ajax.php',
@@ -43,7 +42,6 @@
                         if (typeof data[1][value] !== 'undefined' && data[1][value] === 0) {
                             checked = '';
                         }
-                        console.log(checked);
                         pluginCheckbox = jQuery('<input class="edit" type="checkbox" id="farmer__plugin_' + value + '" name="plugin_farmer_plugins[' + value + ']" ' + checked + '>');
                         pluginContainer.append(pluginCheckbox);
                         jQuery('#farmer__plugin_' + value).wrap('<label class="block"></label>').parent().prepend(value);
@@ -87,6 +85,44 @@
                 jQuery('#farmer__singlePluginForm').css('display','none');
             }
         });
+
+
+        jQuery.fn.exists = function(){return this.length>0;};
+        if(jQuery('#farmer__create_animal_form').exists()) {
+            var get_address;
+            if(jQuery('#plugin__farmer_animalCreation_success_msg').exists()) {
+
+                var animalname = jQuery('div.success #animal__name').html();
+                get_address = JSINFO['FARMRELDIR'] + animalname + '/lib/plugins/farmer/plugin.info.txt';
+                jQuery.get(
+                    get_address
+                )
+                    .done(function() {
+                        jQuery('#plugin__farmer_animalCreation_success_msg').append(jQuery('<span> '+ LANG.plugins.farmer['animal ajax success'] +'</span>'));
+                    })
+                    .fail(function () {
+                        alert(LANG.plugins.farmer['animal ajax failure']);
+                    });
+            }
+            if(jQuery('#plugin__farmer_preload_success_msg').exists()) {
+                get_address = JSINFO['FARMRELDIR'] + 'invalid_name' + '/lib/exe/ajax.php';
+                jQuery.get(
+                    get_address,
+                    {
+                        call: 'plugin_farmer_checkSetup'
+                    },
+                    null,
+                    'json'
+                )
+                    .done(function() {
+                        jQuery('#plugin__farmer_preload_success_msg').append(jQuery('<span> '+ LANG.plugins.farmer['preload ajax success'] +'</span>'));
+                    })
+                    .fail(function () {
+                        alert(LANG.plugins.farmer['preload ajax failure']);
+                    })
+            }
+        }
+
     });
 
 })(this.farmer__plugin = {});

@@ -94,9 +94,9 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $protectedConf = file_get_contents($animaldir . '/conf/local.protected.php');
             $protectedConf .= '$conf["basedir"] = \'' . DOKU_FARMRELDIR . $name . "/';\n"; //@todo confirm that this is really the correct value, maybe we need userinput/confirmation
             $this->succeeded(io_saveFile($animaldir . '/conf/local.protected.php', $protectedConf));
-            $animalLink = '<a href="' . DOKU_FARMRELDIR . $name. '">' . $name . '</a>';
+            $animalLink = '<a href="' . DOKU_FARMRELDIR . $name. '" id="animal__name" >' . $name . '</a>';
         } else {
-            $animalLink = '<a href="' . $subdomain . '">' . $name . '</a>';
+            $animalLink = '<a href="' . $subdomain . '" id="animal__name" >' . $name . '</a>';
         }
 
         if ($this->getConf('deactivated plugins') === '') {
@@ -185,10 +185,10 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 if (empty($this->errorMessages)) {
                     $ret = $this->createPreloadPHP(realpath($farmdir) . "/", $INPUT->str('serversetup'), $INPUT->str('htaccess_basedir', '', true));
                     if ($ret === true) {
-                        msg('inc/preload.php has been succesfully created', 1);
+                        msg('<span id="plugin__farmer_preload_success_msg">' . $this->getLang('preload creation success') . '</span>', 1);
                         $this->helper->reloadAdminPage();
                     } else {
-                        msg('there was an error creating inc/preload.php',-1);
+                        msg('<span id="plugin__farmer_preload_error_msg">' . $this->getLang('preload creation error') . '</span>',-1);
                     }
                 }
             }
@@ -231,11 +231,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 if (empty($this->errorMessages)) {
                     $ret = $this->createNewAnimal($animalname, $INPUT->str('adminsetup'), $INPUT->str('adminPassword'), $animalsubdomain);
                     if ($ret !== false) {
-                        msg(sprintf($this->getLang('animal creation success'),$ret), 1);
+                        msg('<span id="plugin__farmer_animalCreation_success_msg">' . sprintf($this->getLang('animal creation success'),$ret) . '</span>', 1);
                         $this->helper->reloadAdminPage();
                     } else {
                         // should never happen
-                        msg('there has been an error creating the animal', -1);
+                        msg('<span id="plugin__farmer_animalCreation_error_msg">' . $this->getLang('animal creation error') . '</span>', -1);
                     }
                 }
             }
@@ -272,7 +272,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             }
             echo sprintf($this->locale_xhtml('createAnimal'), $subdomain_injection);
             $form = new \dokuwiki\Form\Form();
-            $form->addClass('plugin_farmer');
+            $form->addClass('plugin_farmer')->id('farmer__create_animal_form');
             $form->addFieldsetOpen($this->getLang('animal configuration'));
             $form->addTextInput('animalname',$this->getLang('animal name'))->addClass('block edit')->attr('placeholder',$this->getLang('animal name placeholder'));
             if (DOKU_FARMTYPE === 'subdomain') {
