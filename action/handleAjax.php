@@ -51,7 +51,13 @@ class action_plugin_farmer_handleAjax extends DokuWiki_Action_Plugin {
         }
     }
 
-    public function check_setup (Doku_Event $event, $para) {
+    /**
+     * This function exists in order to provide a positive (i.e. 200) response to an ajax request to a non-existing animal.
+     *
+     * @param Doku_Event $event
+     * @param            $param
+     */
+    public function check_setup (Doku_Event $event, $param) {
         $data = '';
         $json = new JSON();
         header('Content-Type: application/json');

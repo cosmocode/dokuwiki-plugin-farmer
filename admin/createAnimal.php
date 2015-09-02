@@ -46,6 +46,15 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         return true;
     }
 
+    /**
+     * @param string $name           name/title of the animal, will be the directory name for htaccess setup
+     * @param string $adminSetup     newAdmin, currentAdmin or importUsers
+     * @param string $adminPassword  required if $adminSetup is newAdmin
+     * @param string $subdomain      optional
+     *
+     * @return bool|string
+     * @throws Exception
+     */
     public function createNewAnimal($name, $adminSetup, $adminPassword, $subdomain) {
         $this->initFailOnce();
 
@@ -116,6 +125,13 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         }
     }
 
+    /**
+     * @param $animalpath
+     * @param $setuptype
+     * @param $htaccessBaseDir
+     *
+     * @return bool
+     */
     public function createPreloadPHP($animalpath, $setuptype, $htaccessBaseDir) {
         $this->helper->downloadTemplate($animalpath);
 
@@ -136,6 +152,13 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         return io_saveFile(DOKU_INC . 'inc/preload.php',$content);
     }
 
+    /**
+     * Method to create to content of an .htaccess file for the corresponding setup
+     *
+     * @param string $doku_rel most of the time DOKU_REL of the master/farmer wiki
+     *
+     * @return string The content of the .htaccess
+     */
     public function createHtaccess ($doku_rel) {
         $content = "RewriteEngine On\n\n";
         $content .= 'RewriteRule ^/?([^/]+)/(.*)  ' . $doku_rel . '$2?animal=$1 [QSA]' . "\n";
@@ -146,6 +169,8 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
     /**
      * Should carry out any processing required by the plugin.
+     *
+     * @bug The ajax request after successfully creating a preload.php logs the user out of the master wiki. See also https://github.com/micgro42/dokuwiki-plugin-farmer/commit/720da801fd508ce2857824d751126bec628765ff
      */
     public function handle() {
         global $INPUT;
@@ -248,55 +273,62 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
     public function html() {
 
         if ($this->InitializeFarm) {
-            echo sprintf($this->locale_xhtml('preload'),dirname(DOKU_REL) . '/farm/');
-            $form = new \dokuwiki\Form\Form();
-            $form->addClass('plugin_farmer');
-            $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
-            $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block edit')->attr('placeholder','farm dir');
-
-            $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block edit')->id('subdomain__setup');
-            $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit')->attr('checked', true)->id('htaccess__setup');
-            $form->addTextInput('htaccess_basedir', $this->getLang('htaccess_basedir'))->addClass('block edit htaccess');
-
-            $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
-
-            $form->addFieldsetClose();
-            $this->helper->addErrorsToForm($form, $this->errorMessages);
-
-            echo $form->toHTML();
+            $this->html_createPreload();
         } else {
-            if (DOKU_FARMTYPE === 'subdomain') {
-                $subdomain_injection = $this->getLang('subdomain_helptext_injection');
-            } else {
-                $subdomain_injection = '';
-            }
-            echo sprintf($this->locale_xhtml('createAnimal'), $subdomain_injection);
-            $form = new \dokuwiki\Form\Form();
-            $form->addClass('plugin_farmer')->id('farmer__create_animal_form');
-            $form->addFieldsetOpen($this->getLang('animal configuration'));
-            $form->addTextInput('animalname',$this->getLang('animal name'))->addClass('block edit')->attr('placeholder',$this->getLang('animal name placeholder'));
-            if (DOKU_FARMTYPE === 'subdomain') {
-                $form->addTag('br');
-                $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder', $this->getLang('animal subdomain placeholder'));
-            }
-            $form->addFieldsetClose();
-            $form->addTag('br');
-
-            $form->addFieldsetOpen($this->getLang('animal administrator'));
-            $form->addRadioButton('adminsetup',$this->getLang('importUsers'))->val('importUsers')->addClass('block');
-            $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin')->addClass('block');
-            $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin')->addClass('block')->attr('checked','checked');
-            $form->addPasswordInput('adminPassword',$this->getLang('admin password'))->addClass('block edit')->attr('placeholder',$this->getLang('admin password placeholder'));
-            $form->addFieldsetClose();
-            $form->addTag('br');
-
-            $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit')->val('newAnimal');
-
-            $this->helper->addErrorsToForm($form, $this->errorMessages);
-
-            echo $form->toHTML();
+            $this->html_createAnimal();
         }
+    }
 
+    public function html_createPreload() {
+        echo sprintf($this->locale_xhtml('preload'),dirname(DOKU_REL) . '/farm/');
+        $form = new \dokuwiki\Form\Form();
+        $form->addClass('plugin_farmer');
+        $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
+        $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block edit')->attr('placeholder','farm dir');
+
+        $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type','radio')->addClass('block edit')->id('subdomain__setup');
+        $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type','radio')->addClass('block edit')->attr('checked', true)->id('htaccess__setup');
+        $form->addTextInput('htaccess_basedir', $this->getLang('htaccess_basedir'))->addClass('block edit htaccess');
+
+        $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit');
+
+        $form->addFieldsetClose();
+        $this->helper->addErrorsToForm($form, $this->errorMessages);
+
+        echo $form->toHTML();
+    }
+
+    public function html_createAnimal() {
+        if (DOKU_FARMTYPE === 'subdomain') {
+            $subdomain_injection = $this->getLang('subdomain_helptext_injection');
+        } else {
+            $subdomain_injection = '';
+        }
+        echo sprintf($this->locale_xhtml('createAnimal'), $subdomain_injection);
+        $form = new \dokuwiki\Form\Form();
+        $form->addClass('plugin_farmer')->id('farmer__create_animal_form');
+        $form->addFieldsetOpen($this->getLang('animal configuration'));
+        $form->addTextInput('animalname',$this->getLang('animal name'))->addClass('block edit')->attr('placeholder',$this->getLang('animal name placeholder'));
+        if (DOKU_FARMTYPE === 'subdomain') {
+            $form->addTag('br');
+            $form->addTextInput('animalsubdomain', $this->getLang('animal subdomain'))->addClass('block edit')->attr('placeholder', $this->getLang('animal subdomain placeholder'));
+        }
+        $form->addFieldsetClose();
+        $form->addTag('br');
+
+        $form->addFieldsetOpen($this->getLang('animal administrator'));
+        $form->addRadioButton('adminsetup',$this->getLang('importUsers'))->val('importUsers')->addClass('block');
+        $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin')->addClass('block');
+        $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin')->addClass('block')->attr('checked','checked');
+        $form->addPasswordInput('adminPassword',$this->getLang('admin password'))->addClass('block edit')->attr('placeholder',$this->getLang('admin password placeholder'));
+        $form->addFieldsetClose();
+        $form->addTag('br');
+
+        $form->addButton('farmer__submit',$this->getLang('submit'))->attr('type','submit')->val('newAnimal');
+
+        $this->helper->addErrorsToForm($form, $this->errorMessages);
+
+        echo $form->toHTML();
     }
 }
 

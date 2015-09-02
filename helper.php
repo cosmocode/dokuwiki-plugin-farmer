@@ -23,8 +23,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
      *
-     * @param       string $source Source path
-     * @param       string $destination      Destination path
+     * @param       string $source       Source path
+     * @param       string $destination  Destination path
      *
      * @return      bool     Returns TRUE on success, FALSE on failure
      */
@@ -61,8 +61,11 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return true;
     }
 
-
-
+    /**
+     * get a list of all Plugins installed in the farmer wiki, regardless whether they are active or not.
+     *
+     * @return array
+     */
     public function getAllPlugins() {
         $dir = dir(DOKU_PLUGIN);
         $plugins = array();
@@ -79,6 +82,11 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return $plugins;
     }
 
+    /**
+     * List of all animals, i.e. directories within DOKU_FARMDIR without the template.
+     *
+     * @return array
+     */
     public function getAllAnimals() {
         $animals = array();
 
@@ -96,6 +104,12 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return $animals;
     }
 
+    /**
+     * Actiate a specific plugin in a specific animal
+     *
+     * @param string $plugin Name of the plugin to be activated
+     * @param string $animal Directory of the animal within DOKU_FARMDIR
+     */
     public function activatePlugin($plugin, $animal) {
         if (isset($this->allPlugins[$animal])) {
             $plugins = $this->allPlugins[$animal];
@@ -110,8 +124,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     }
 
     /**
-     * @param $plugin {string} Name of the plugin to deactivate
-     * @param $animal {string} directory of the animal within DOKU_FARMDIR
+     * @param string $plugin Name of the plugin to be deactivated
+     * @param string $animal Directory of the animal within DOKU_FARMDIR
      */
     public function deactivatePlugin($plugin, $animal) {
         if (isset($this->allPlugins[$animal])) {
@@ -126,6 +140,12 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $this->allPlugins[$animal] = $plugins;
     }
 
+    /**
+     * Write the list of (deactivated) plugins as plugin configuration of an animal to file
+     *
+     * @param array  $plugins associative array with the key being the plugin name and the value 0 or 1
+     * @param string $animal  Directory of the animal within DOKU_FARMDIR
+     */
     public function writePluginConf($plugins, $animal) {
         $pluginConf = '<?php' . "\n";
         foreach ($plugins as $plugin => $status) {
@@ -135,6 +155,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
     }
 
+    /**
+     * Show a message for all errors which occured during form validation
+     *
+     * @param \dokuwiki\Form\Form $form        The form to which the errors should be added.
+     * @param array               $errorArray  An associative array with the key being the name of the element at fault
+     *                                         and the value being the associated error message.
+     */
     public function addErrorsToForm(\dokuwiki\Form\Form &$form, $errorArray) {
         foreach ($errorArray as $elementName => $errorMessage) {
             $offset = 0;
@@ -147,6 +174,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         }
     }
 
+    /**
+     * @param string|null $page load adminpage $page, reload the current page if $page is ommited or null
+     */
     public function reloadAdminPage($page = null) {
         global $ID;
         $get = $_GET;
@@ -158,6 +188,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         send_redirect($self);
     }
 
+    /**
+     * Download and extract the animal template
+     *
+     * @param string $animalpath
+     *
+     * @throws \splitbrain\PHPArchive\ArchiveIOException
+     */
     public function downloadTemplate($animalpath) {
         file_put_contents($animalpath . '/_animal.zip',fopen('https://www.dokuwiki.org/_media/dokuwiki_farm_animal.zip','r'));
         $zip = new splitbrain\PHPArchive\Zip();
@@ -193,6 +230,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     }
 
     /**
+     * Check if the farm is correctly configured for this farmer plugin
+     *
      * @return bool
      */
     public function checkFarmSetup () {
