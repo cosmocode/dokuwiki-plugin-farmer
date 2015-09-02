@@ -90,6 +90,9 @@
         jQuery.fn.exists = function(){return this.length>0;};
         if(jQuery('#farmer__create_animal_form').exists()) {
             var get_address;
+            if (typeof JSINFO['FARMRELDIR'] === 'unbekannt') {
+                JSINFO['FARMRELDIR'] = '';
+            }
             if(jQuery('#plugin__farmer_animalCreation_success_msg').exists()) {
 
                 var animalname = jQuery('div.success #animal__name').html();
@@ -119,7 +122,7 @@
                     })
                     .fail(function () {
                         alert(LANG.plugins.farmer['preload ajax failure']);
-                    })
+                    });
             }
         }
 
