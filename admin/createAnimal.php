@@ -104,7 +104,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
         if (DOKU_FARMTYPE === 'htaccess') {
             $protectedConf = file_get_contents($animaldir . '/conf/local.protected.php');
-            $protectedConf .= '$conf["basedir"] = \'' . DOKU_FARMRELDIR . $name . "/';\n"; //@todo confirm that this is really the correct value, maybe we need userinput/confirmation
+            $protectedConf .= '$conf["basedir"] = \'' . DOKU_FARMRELDIR . $name . "/';\n";
             $this->succeeded(io_saveFile($animaldir . '/conf/local.protected.php', $protectedConf));
             $animalLink = '<a href="' . DOKU_FARMRELDIR . $name. '" id="animal__name" >' . $name . '</a>';
         } else {
