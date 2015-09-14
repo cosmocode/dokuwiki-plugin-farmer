@@ -34,7 +34,7 @@ $lang['submit'] = 'Submit';
 $lang['reset'] = 'Reset';
 $lang['js']['submit'] = $lang['submit'];
 $lang['js']['reset'] = $lang['reset'];
-$lang['animal name'] = 'Animal name';
+$lang['animal name'] = 'Animal name / Wiki Title';
 $lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory relativ to the server root:';
 
 // input placeholders
@@ -46,9 +46,9 @@ $lang['admin password placeholder'] = 'Password';
 
 // success messages
 $lang['animal creation success'] = 'The animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'The animal "%s" has been successfully created.';
+$lang['animal creation error'] = 'There was an error while creating the animal.';
 $lang['preload creation success'] = 'inc/preload.php has been succesfully created.';
-$lang['preload creation error'] = 'There was an error creating inc/preload.php.';
+$lang['preload creation error'] = 'There was an error while creating inc/preload.php.';
 $lang['js']['animal ajax success'] = 'Ajax request to the new animal was successful.';
 $lang['js']['preload ajax success'] = 'Ajax request to a non-existing animal was correctly served by the farmer.';
 
@@ -64,7 +64,7 @@ $lang['adminsetup_missing'] = 'Choose an admin for the new animal.';
 $lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
 $lang['serversetup_missing'] = 'Choose either a subdomain setup and enter a valid subdomain or choose a htaccess setup.';
 $lang['animalsubdomain_missing'] = 'Please enter a valid domain for the new animal.';
-$lang['animalsubdomain_invalid'] = 'Please enter a valid domain without underscores.';
+$lang['animalsubdomain_invalid'] = 'Please enter a valid subdomain (FQDN) without underscores.';
 $lang['animalsubdomain_preexisting'] = 'An animal with that subdomain already exists.';
 $lang['farmdir_missing'] = 'Please enter a directory where the animals should be stored.';
 $lang['farmdir_in_dokuwiki'] = 'The farm directory must outside of the master dokuwiki.';
@@ -72,6 +72,7 @@ $lang['farmdir_uncreatable'] = 'The farm directory could not be created. Are the
 $lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the farm directory';
 $lang['farmdir_notEmpty'] = 'The farm directory must be empty.';
 $lang['js']['animal ajax failure'] = 'Ajax request to the new animal failed. Please check your server setup.';
-$lang['js']['preload ajax failure'] = 'Ajax request to a non-existing animal was not served by the farmer. Please check your server setup.';
+$lang['js']['preload ajax failure'] = 'The specified domain name could not be verified to be part of this farm setup. This is most probably a DNS or web server misconfiguration. Please refer to the farm plugin documentation on how to setup (sub-)domain farms.';
+$lang['js']['animal ajax failure'] = $lang['js']['preload ajax failure'];
 //Setup VIM: ex: et ts=4 :
 
