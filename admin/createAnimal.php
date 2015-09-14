@@ -13,20 +13,23 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
 
     private $InitializeFarm = false;
     private $errorMessages = array();
-    private $failOnce;
+    private $failedOnce = false;
 
     private function succeeded($testResult) {
         if ($testResult === false) {
-            $this->failOnce = true;
+            $this->failedOnce = true;
         }
     }
 
     private function initFailOnce() {
-        $this->failOnce = false;
+        $this->failedOnce = false;
     }
 
+    /**
+     * @return bool
+     */
     private function checkFailOnce() {
-        return $this->failOnce;
+        return $this->failedOnce;
     }
 
     /** @var helper_plugin_farmer $helper */
