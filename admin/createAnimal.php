@@ -176,7 +176,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $this->errorMessages['animalname'] = $this->getLang('animalname_missing');
         } else {
             $animalname = hsc(trim($INPUT->str('animalname')));
-            if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
+            if ($this->helper->validateAnimalName($animalname)) {
                 $this->errorMessages['animalname'] = $this->getLang('animalname_invalid');
             }
         }

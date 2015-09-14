@@ -37,4 +37,57 @@ class validation_plugin_farmer_test extends DokuWikiTest {
         $testdomain = 'abc.def.ghi.jk';
         $this->assertTrue($helper->validateSubdomain($testdomain), $testdomain);
     }
+
+    public function test_validateAnimalName_valid () {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $testname = 'ant';
+        $this->assertTrue($helper->validateAnimalName($testname), $testname);
+    }
+
+    public function test_validateAnimalName_dot () {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $testname = 'ant.';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+        $testname = '.ant';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+        $testname = 'ant.lion';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+    }
+
+    public function test_validateAnimalName_minus () {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $testname = 'ant-';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+        $testname = '-ant';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+        $testname = 'ant-lion';
+        $this->assertTrue($helper->validateAnimalName($testname), $testname);
+    }
+
+    public function test_validateAnimalName_numbers () {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $testname = 'ant4';
+        $this->assertTrue($helper->validateAnimalName($testname), $testname);
+        $testname = '4ant';
+        $this->assertTrue($helper->validateAnimalName($testname), $testname);
+        $testname = 'ant4lion';
+        $this->assertTrue($helper->validateAnimalName($testname), $testname);
+        $testname = '123';
+        $this->assertTrue($helper->validateAnimalName($testname), $testname);
+    }
+
+    public function test_validateAnimalName_slash () {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+        $testname = 'ant/';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+        $testname = '/ant';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+        $testname = 'ant/lion';
+        $this->assertFalse($helper->validateAnimalName($testname), $testname);
+    }
 }

@@ -260,4 +260,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return preg_match("/^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.){2,}[a-z]{2,63}$/i",$subdomain) === 1;
     }
 
+    /**
+     * @param string $animalname
+     *
+     * @return bool
+     */
+    public function validateAnimalName ($animalname) {
+        return preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname) === 1;
+    }
+
 }
