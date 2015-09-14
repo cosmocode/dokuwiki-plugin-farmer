@@ -167,6 +167,55 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         return $content;
     }
 
+    public function validateAnimal() {
+        global $INPUT;
+
+        $animalsubdomain = null;
+        $animalname = null;
+        if ($INPUT->str('animalname','',true) === '') {
+            $this->errorMessages['animalname'] = $this->getLang('animalname_missing');
+        } else {
+            $animalname = hsc(trim($INPUT->str('animalname')));
+            if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
+                $this->errorMessages['animalname'] = $this->getLang('animalname_invalid');
+            }
+        }
+
+        if ($INPUT->str('adminsetup') === 'newAdmin') {
+            if ($INPUT->str('adminPassword','',true) === '') {
+                $this->errorMessages['adminPassword'] = $this->getLang('adminPassword_empty');
+            }
+        }
+
+        if (DOKU_FARMTYPE === 'subdomain') {
+            if ($INPUT->str('animalsubdomain','',true) === '') {
+                $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
+            } else {
+                $animalsubdomain = hsc(trim($INPUT->str('animalsubdomain')));
+                if ($this->helper->validateSubdomain($animalsubdomain)) {
+                    $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
+                } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
+                    $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');
+                }
+            }
+        } elseif ($INPUT->str('serversetup') === 'htaccess') {
+            if (file_exists(DOKU_FARMDIR . $animalname)) {
+                $this->errorMessages['animalname'] =  $this->getLang('animalname_preexisting');
+            }
+        }
+
+        if (empty($this->errorMessages)) {
+            $ret = $this->createNewAnimal($animalname, $INPUT->str('adminsetup'), $INPUT->str('adminPassword'), $animalsubdomain);
+            if ($ret !== false) {
+                msg('<span id="plugin__farmer_animalCreation_success_msg">' . sprintf($this->getLang('animal creation success'),$ret) . '</span>', 1);
+                $this->helper->reloadAdminPage();
+            } else {
+                // should never happen
+                msg('<span id="plugin__farmer_animalCreation_error_msg">' . $this->getLang('animal creation error') . '</span>', -1);
+            }
+        }
+    }
+
     /**
      * Should carry out any processing required by the plugin.
      *
@@ -219,50 +268,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             }
         } else {
             if ($INPUT->has('farmer__submit')) {
-                $animalsubdomain = null;
-                $animalname = null;
-                if ($INPUT->str('animalname','',true) === '') {
-                    $this->errorMessages['animalname'] = $this->getLang('animalname_missing');
-                } else {
-                    $animalname = hsc(trim($INPUT->str('animalname')));
-                    if (!preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname)) { //@todo: tests for regex
-                        $this->errorMessages['animalname'] = $this->getLang('animalname_invalid');
-                    }
-                }
-
-                if ($INPUT->str('adminsetup') === 'newAdmin') {
-                    if ($INPUT->str('adminPassword','',true) === '') {
-                        $this->errorMessages['adminPassword'] = $this->getLang('adminPassword_empty');
-                    }
-                }
-
-                if (DOKU_FARMTYPE === 'subdomain') {
-                    if ($INPUT->str('animalsubdomain','',true) === '') {
-                        $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
-                    } else {
-                        $animalsubdomain = hsc(trim($INPUT->str('animalsubdomain')));
-                        if ($this->helper->validateSubdomain($animalsubdomain)) {
-                            $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
-                        } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
-                            $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');
-                        }
-                    }
-                } elseif ($INPUT->str('serversetup') === 'htaccess') {
-                    if (file_exists(DOKU_FARMDIR . $animalname)) {
-                        $this->errorMessages['animalname'] =  $this->getLang('animalname_preexisting');
-                    }
-                }
-
-                if (empty($this->errorMessages)) {
-                    $ret = $this->createNewAnimal($animalname, $INPUT->str('adminsetup'), $INPUT->str('adminPassword'), $animalsubdomain);
-                    if ($ret !== false) {
-                        msg('<span id="plugin__farmer_animalCreation_success_msg">' . sprintf($this->getLang('animal creation success'),$ret) . '</span>', 1);
-                        $this->helper->reloadAdminPage();
-                    } else {
-                        // should never happen
-                        msg('<span id="plugin__farmer_animalCreation_error_msg">' . $this->getLang('animal creation error') . '</span>', -1);
-                    }
-                }
+                $this->validateAnimal();
             }
         }
     }
