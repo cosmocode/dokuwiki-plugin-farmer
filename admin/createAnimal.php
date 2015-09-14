@@ -179,7 +179,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
             $this->errorMessages['animalname'] = $this->getLang('animalname_missing');
         } else {
             $animalname = hsc(trim($INPUT->str('animalname')));
-            if ($this->helper->validateAnimalName($animalname)) {
+            if (!$this->helper->validateAnimalName($animalname)) {
                 $this->errorMessages['animalname'] = $this->getLang('animalname_invalid');
             }
         }
@@ -195,7 +195,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
             } else {
                 $animalsubdomain = hsc(trim($INPUT->str('animalsubdomain')));
-                if ($this->helper->validateSubdomain($animalsubdomain)) {
+                if (!$this->helper->validateSubdomain($animalsubdomain)) {
                     $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
                 } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
                     $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');
