@@ -241,7 +241,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                         $this->errorMessages['animalsubdomain'] = $this->getLang('animalsubdomain_missing');
                     } else {
                         $animalsubdomain = hsc(trim($INPUT->str('animalsubdomain')));
-                        if (!preg_match("/^[a-z0-9]+([\.-][a-z0-9]+)*$/i",$animalsubdomain)) { //@todo: tests for regex
+                        if ($this->helper->validateSubdomain($animalsubdomain)) {
                             $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_invalid');
                         } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
                             $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');

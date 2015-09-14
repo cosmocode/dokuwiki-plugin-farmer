@@ -247,4 +247,17 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return false;
     }
 
+    /**
+     * The subdomain must contain at least two dots
+     *
+     * @link http://stackoverflow.com/questions/17986371/regular-expression-to-validate-fqdn-in-c-sharp-and-javascript
+     *
+     * @param string $subdomain
+     *
+     * @return bool
+     */
+    public function validateSubdomain ($subdomain) {
+        return preg_match("/^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.){2,}[a-z]{2,63}$/i",$subdomain) === 1;
+    }
+
 }
