@@ -71,8 +71,8 @@ $lang['farmdir_in_dokuwiki'] = 'The farm directory must outside of the master do
 $lang['farmdir_uncreatable'] = 'The farm directory could not be created. Are the permissions correct?';
 $lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the farm directory';
 $lang['farmdir_notEmpty'] = 'The farm directory must be empty.';
-$lang['js']['animal ajax failure'] = 'Ajax request to the new animal failed. Please check your server setup.';
-$lang['js']['preload ajax failure'] = 'The specified domain name could not be verified to be part of this farm setup. This is most probably a DNS or web server misconfiguration. Please refer to the farm plugin documentation on how to setup (sub-)domain farms.';
-$lang['js']['animal ajax failure'] = $lang['js']['preload ajax failure'];
+$lang['get request failure'] = 'The specified domain name could not be verified to be part of this farm setup. This is most probably a DNS or web server misconfiguration. Please refer to the farm plugin documentation on how to setup (sub-)domain farms.';
+$lang['js']['preload ajax failure'] = $lang['get request failure'];
+$lang['js']['animal ajax failure'] = $lang['get request failure'];
 //Setup VIM: ex: et ts=4 :
 

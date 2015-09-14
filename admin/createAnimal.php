@@ -200,6 +200,11 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
                 } elseif (file_exists(DOKU_FARMDIR . $animalsubdomain)) {
                     $this->errorMessages['animalsubdomain'] =  $this->getLang('animalsubdomain_preexisting');
                 }
+                $http = new DokuHTTPClient();
+                $data = $http->get('http://' . $animalsubdomain . '/lib/plugins/farmer/plugin.info.txt');
+                if ($data === false) {
+                    $this->errorMessages['animalsubdomain'] = $this->getLang('get request failure') . ' ' . $http->status . ' ' . $http->error;
+                }
             }
         } elseif ($INPUT->str('serversetup') === 'htaccess') {
             if (file_exists(DOKU_FARMDIR . $animalname)) {
