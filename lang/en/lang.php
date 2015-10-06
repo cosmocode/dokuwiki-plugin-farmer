@@ -41,7 +41,7 @@ $lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory 
 $lang['js']['animalSelect'] = 'Select an animal';
 $lang['js']['pluginSelect'] = 'Select a plugin';
 $lang['animal name placeholder'] = 'Animal name';
-$lang['animal subdomain placeholder'] = 'Animal subdomain';
+$lang['animal subdomain placeholder'] = 'animal.wiki.example.com';
 $lang['admin password placeholder'] = 'Password';
 
 // success messages
