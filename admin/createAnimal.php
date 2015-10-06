@@ -93,10 +93,7 @@ class admin_plugin_farmer_createAnimal extends DokuWiki_Admin_Plugin {
         } elseif ($adminSetup === 'importUsers') {
             copy(DOKU_CONF . 'users.auth.php', $animaldir . '/conf/users.auth.php');
         } elseif ($adminSetup === 'currentAdmin') {
-            $masterUsers = file_get_contents(DOKU_CONF . 'users.auth.php');
-            $user = $_SERVER['REMOTE_USER'];
-            $masterUsers = trim(strstr($masterUsers,"\n". $user . ":"));
-            $newAdmin = substr($masterUsers,0,strpos($masterUsers,"\n")+1);
+            $newAdmin = $this->helper->getUserLine($_SERVER['REMOTE_USER']);
             $this->succeeded(io_saveFile($animaldir . '/conf/users.auth.php', $newAdmin));
         } else {
             throw new Exception('invalid value for $adminSetup');

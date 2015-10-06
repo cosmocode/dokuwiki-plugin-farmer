@@ -269,4 +269,14 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname) === 1;
     }
 
+    /**
+     * @return string
+     */
+    public function getUserLine($currentAdmin) {
+        $masterUsers = file_get_contents(DOKU_CONF . 'users.auth.php');
+        $masterUsers = ltrim(strstr($masterUsers, "\n" . $currentAdmin . ":"));
+        $newAdmin = substr($masterUsers, 0, strpos($masterUsers, "\n") + 1);
+        return $newAdmin;
+    }
+
 }
