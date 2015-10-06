@@ -90,7 +90,7 @@
         jQuery.fn.exists = function(){return this.length>0;};
         if(jQuery('#farmer__create_animal_form').exists()) {
             var get_address;
-            if (typeof JSINFO['FARMRELDIR'] === 'unbekannt') {
+            if (typeof JSINFO['FARMRELDIR'] === 'undefined') {
                 JSINFO['FARMRELDIR'] = '';
             }
             if(jQuery('#plugin__farmer_animalCreation_success_msg').exists()) {
@@ -107,7 +107,7 @@
                         alert(LANG.plugins.farmer['animal ajax failure']);
                     });
             }
-            if(jQuery('#plugin__farmer_preload_success_msg').exists()) {
+            if(jQuery('#plugin__farmer_preload_success_msg').exists() && JSINFO['FARMRELDIR'] !== '') {
                 get_address = JSINFO['FARMRELDIR'] + 'invalid_name' + '/lib/exe/ajax.php';
                 jQuery.get(
                     get_address,

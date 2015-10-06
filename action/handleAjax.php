@@ -20,12 +20,14 @@ class action_plugin_farmer_handleAjax extends DokuWiki_Action_Plugin {
      */
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');
-        $controller->register_hook('DOKUWIKI_STARTED', 'AFTER',  $this, '_add_DOKU_FARMRELDIR');
+        $controller->register_hook('DOKUWIKI_STARTED', 'AFTER',  $this, '_add_DOKU_FARMRELDIR_to_JSINFO');
     }
 
-    function _add_DOKU_FARMRELDIR(Doku_Event $event, $param) {
+    function _add_DOKU_FARMRELDIR_to_JSINFO(Doku_Event $event, $param) {
         global $JSINFO;
-        $JSINFO['FARMRELDIR'] = DOKU_FARMRELDIR;
+        if (defined('DOKU_FARMRELDIR')) {
+            $JSINFO['FARMRELDIR'] = DOKU_FARMRELDIR;
+        }
     }
 
     /**
