@@ -6,13 +6,21 @@
  */
 
 // menu entry for admin plugins
-$lang['menu'] = 'Farmer: Add new animal';
+$lang['menu'] = 'Farming';
 
 $lang['subdomain_helptext_injection'] = 'If you are using the subdomain based approach you need to enter the subdomain under which the new subwiki will be reachable';
 
+// tabs
+$lang['tab_info'] = 'Info';
+$lang['tab_setup'] = 'Farm Setup';
+$lang['tab_config'] = 'Configuration';
+$lang['tab_plugins'] = 'Manage Plugins';
+$lang['tab_new'] = 'Add new Animal';
+
+
 //labels
 $lang['preloadPHPForm'] = 'Create a new preload.php';
-$lang['farm dir'] = 'farm dir';
+$lang['farm dir'] = 'Animal Directory';
 $lang['animal configuration'] = 'Basic animal configuration';
 $lang['admin password'] = 'Password for the new admin';
 $lang['animal administrator'] = 'Animal administrator';
@@ -37,6 +45,14 @@ $lang['js']['reset'] = $lang['reset'];
 $lang['animal name'] = 'Animal name / Wiki Title';
 $lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory relativ to the server root:';
 
+
+$lang['animal'] = 'Animal Name';
+$lang['thisis'] = 'This is';
+$lang['thisis.farmer'] = 'The farmer!';
+$lang['thisis.animal'] = 'An animal!';
+$lang['baseinstall'] = 'Farmer Install';
+$lang['animals'] = 'Animals';
+
 // input placeholders
 $lang['js']['animalSelect'] = 'Select an animal';
 $lang['js']['pluginSelect'] = 'Select a plugin';
@@ -53,7 +69,7 @@ $lang['js']['animal ajax success'] = 'Ajax request to the new animal was success
 $lang['js']['preload ajax success'] = 'Ajax request to a non-existing animal was correctly served by the farmer.';
 
 // info messages
-$lang['overwrite_preload'] = 'by creating a new preload.php here, your current configuration will be overwritten';
+$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
 
 // error messages
 $lang['htaccess_basedir_missing'] = 'Please enter the <a href="https://www.dokuwiki.org/config:basedir">basedir</a>';

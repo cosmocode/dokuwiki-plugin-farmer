@@ -26,6 +26,7 @@
 if(!defined('DOKU_FARMDIR')) define('DOKU_FARMDIR', fullpath(dirname(__FILE__).'/../').'/');
 if(!defined('DOKU_CONF')) define('DOKU_CONF', farm_confpath(DOKU_FARMDIR));
 if(!defined('DOKU_FARM')) define('DOKU_FARM', false);
+if(!defined('DOKU_FARM_ANIMAL')) define('DOKU_FARM_ANIMAL', false);
 
 
 /**
@@ -52,6 +53,8 @@ function farm_confpath($farm) {
         if(is_dir($farm.'/'.$animal)) {
             // nice_die("Sorry! This Wiki doesn't exist! New");
             if(!defined('DOKU_FARM')) define('DOKU_FARM', $mode);
+
+            define('DOKU_FARM_ANIMAL', $animal);
             return $farm . '/' . $animal . '/conf/';
         }
     }

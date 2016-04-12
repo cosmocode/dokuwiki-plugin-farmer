@@ -14,6 +14,16 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     private $allPlugins = array();
 
     /**
+     * Returns the name of the current animal if any, false otherwise
+     *
+     * @return string|false
+     */
+    public function getAnimal() {
+        if(defined('DOKU_FARM_ANIMAL')) return DOKU_FARM_ANIMAL;
+        return false;
+    }
+
+    /**
      * Copy a file, or recursively copy a folder and its contents. Adapted for DokuWiki.
      *
      * @todo: needs tests
@@ -205,28 +215,14 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     }
 
     /**
-     * recursive function to test wether a (non-existing) path points into an existint path
+     * checks wether $path is in under $container
      *
-     * @param $path string
-     *
-     * @param $container string has to exist
-     *
-     * @throws BadMethodCallException
-     *
+     * @param string $path
+     * @param string $container
      * @return bool
      */
     public function isInPath ($path, $container) {
-        if (!file_exists($container)) {
-            throw new BadMethodCallException('The Container has to exist and be accessable by realpath().');
-        }
-        if (realpath($path) === false) {
-            return $this->isInPath(dirname($path), $container);
-        }
-        if (strpos(realpath($path), realpath($container)) !== false) {
-            return true;
-        } else {
-            return false;
-        }
+        return (strpos(fullpath($path), fullpath($container)) === 0);
     }
 
     /**
@@ -235,16 +231,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @return bool
      */
     public function checkFarmSetup () {
-        if(defined('DOKU_FARMDIR') && defined('DOKU_FARMTYPE')) {
-            if (DOKU_FARMTYPE == 'subdomain') {
-                return true;
-            } elseif (DOKU_FARMTYPE == 'htaccess') {
-                return defined('DOKU_FARMRELDIR');
-            } else {
-                return false;
-            }
-        }
-        return false;
+        return defined('DOKU_FARMDIR');
     }
 
     /**
