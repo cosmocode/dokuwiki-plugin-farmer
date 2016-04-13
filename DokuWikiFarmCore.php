@@ -99,6 +99,21 @@ class DokuWikiFarmCore {
     }
 
     /**
+     * @return string
+     */
+    public function getAnimalDataDir() {
+        return DOKU_FARMDIR . '/' . $this->getAnimal() . '/data/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnimalBaseDir() {
+        if($this->isHostbased()) return '';
+        return getBaseURL().'!'.$this->getAnimal();
+    }
+
+    /**
      * Detect the current animal
      *
      * Sets internal members $animal, $notfound and $hostbased
@@ -234,9 +249,10 @@ class DokuWikiFarmCore {
      * These are only added for animals, not the farmer
      */
     protected function adjustCascade() {
-        // FIXME check if this is an animal
-        global $config_cascade;
+        // nothing to do when on the farmer:
+        if(!$this->animal) return;
 
+        global $config_cascade;
         foreach($this->config['inherit'] as $key => $val) {
             if(!$val) continue;
 
@@ -244,7 +260,10 @@ class DokuWikiFarmCore {
             $append = array();
             $prepend = array();
             if($key == 'main') {
-                $append = array('default' => array(DOKU_INC . 'conf/local.php'));
+                $append = array(
+                    'default' => array(DOKU_INC . 'conf/local.php'),
+                    'protected' => array(DOKU_INC . 'lib/plugins/farmer/includes/config.php')
+                );
             } elseif($key == 'license') {
                 $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.php'));
             } elseif($key == 'userscript') {
