@@ -41,7 +41,9 @@ $lang['submit'] = 'Submit';
 $lang['reset'] = 'Reset';
 $lang['js']['submit'] = $lang['submit'];
 $lang['js']['reset'] = $lang['reset'];
-$lang['animal name'] = 'Animal name / Wiki Title';
+
+$lang['animal name'] = 'Animal Name / Domain';
+
 $lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory relativ to the server root:';
 
 $lang['animal'] = 'Animal Name';

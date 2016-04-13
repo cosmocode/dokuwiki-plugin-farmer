@@ -1,0 +1,13 @@
+Animals are the independent subwikis of a Dokuwiki farm. To create a new animal a name has to be assigned.
+
+For .htaccess based setups this should be a single word. For domain based setups you should provide either a full qualified domain name. If you use a wildcard subdomain setup you can also just provide the hostname part.
+
+Examples:
+
+  * .htaccess based: ''foo'' for an animal accessible at ''%%http://example.org/dokuwiki/!foo/%%''
+  * domain based: ''%%www.foo.com%%''  for an animal accessible at ''%%http://www.foo.com/%%''
+  * sub domain based: ''foo''  for an animal accessible at ''%%http://foo.example.com/%%''
+
+The latter two require the appropriate DNS setup!
+
+Further you need to decide how the administrator of the wiki should be created.

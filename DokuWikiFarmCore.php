@@ -53,12 +53,12 @@ class DokuWikiFarmCore {
     public function __construct() {
         $this->loadConfig();
         if($this->config['base']['farmdir'] === '') return; // farm setup not complete
+        define('DOKU_FARMDIR', $this->config['base']['farmdir']);
 
         // animal?
         $this->detectAnimal();
 
         // setup defines
-        define('DOKU_FARMDIR', $this->config['base']['farmdir']);
         define('DOKU_FARM_ANIMAL', $this->animal);
         if($this->animal) {
             define('DOKU_CONF', DOKU_FARMDIR . '/' . $this->animal . '/conf/');
@@ -151,7 +151,7 @@ class DokuWikiFarmCore {
             return;
         }
 
-        // still here? check for host based
+        // still here? check for host based FIXME this has to be adjusted for our way of doing it
         $this->hostbased = true;
         $uri = explode('/', $_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['SCRIPT_FILENAME']);
         $server = explode('.', implode('.', array_reverse(explode(':', rtrim($_SERVER['HTTP_HOST'], '.')))));

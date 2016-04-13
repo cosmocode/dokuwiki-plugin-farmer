@@ -90,12 +90,14 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return defined('DOKU_FARMDIR') && isset($GLOBALS['FARMCORE']);
     }
 
-
-
-
-
-
-
+    /**
+     * @param string $animalname
+     *
+     * @return bool
+     */
+    public function validateAnimalName ($animalname) {
+        return preg_match("/^[a-z0-9]+(\\.-[a-z0-9]+)*$/i",$animalname) === 1;
+    }
 
     /**
      * Copy a file, or recursively copy a folder and its contents. Adapted for DokuWiki.
@@ -131,7 +133,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
             io_mkdir_p($destination);
         }
 
-        $dir = dir($source);
+        $dir = @dir($source);
+        if($dir === false) return false;
         while (false !== ($entry = $dir->read())) {
             if ($entry == '.' || $entry == '..') {
                 continue;
@@ -144,6 +147,10 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $dir->close();
         return true;
     }
+
+
+
+
 
     /**
      * get a list of all Plugins installed in the farmer wiki, regardless whether they are active or not.
@@ -281,23 +288,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return preg_match("/^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.){2,}[a-z]{2,63}$/i",$subdomain) === 1;
     }
 
-    /**
-     * @param string $animalname
-     *
-     * @return bool
-     */
-    public function validateAnimalName ($animalname) {
-        return preg_match("/^[a-z0-9]+(-[a-z0-9]+)*$/i",$animalname) === 1;
-    }
 
-    /**
-     * @return string
-     */
-    public function getUserLine($currentAdmin) {
-        $masterUsers = file_get_contents(DOKU_CONF . 'users.auth.php');
-        $masterUsers = ltrim(strstr($masterUsers, "\n" . $currentAdmin . ":"));
-        $newAdmin = substr($masterUsers, 0, strpos($masterUsers, "\n") + 1);
-        return $newAdmin;
-    }
+
+
 
 }

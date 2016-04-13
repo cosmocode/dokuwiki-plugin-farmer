@@ -46,8 +46,8 @@ class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
                 $this->pages = array(
                     'info',
                     'config',
+                    'new',
                     'plugins',
-                    'new'
                 );
             }
         }
