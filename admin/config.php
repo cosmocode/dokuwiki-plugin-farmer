@@ -29,9 +29,13 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         if(!$INPUT->has('farmconf')) return;
         if(!checkSecurityToken()) return;
 
+        global $FARMCORE;
+        $farmconf = $FARMCORE->getConfig();
+        $farmconf = array_merge($farmconf, $INPUT->arr('farmconf'));
+
         $ini = DOKU_INC . 'conf/farm.ini';
         $data = "; Farm config created by the farmer plugin\n";
-        $data .= $this->createIni($INPUT->arr('farmconf'));
+        $data .= $this->createIni($farmconf);
         io_saveFile($ini, $data);
 
         $self = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'config'), true, '&');
@@ -46,7 +50,6 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         $farmconf = $FARMCORE->getConfig();
 
         $form = new Form(array('method' => 'post'));
-
         $form->addFieldsetOpen($this->getLang('conf_inherit'));
         foreach($farmconf['inherit'] as $key => $val) {
             $form->setHiddenField("farmconf[inherit][$key]", 0);

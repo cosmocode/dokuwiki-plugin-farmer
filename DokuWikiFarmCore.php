@@ -1,10 +1,22 @@
 <?php
 
+/**
+ * Core Manager for the Farm functionality
+ *
+ * This class is initialized before any other DokuWiki code runs. Therefore it is
+ * completely selfcontained and does not use any of DokuWiki's utility functions.
+ *
+ * It's registered as a global $FARMCORE variable.
+ */
 class DokuWikiFarmCore {
     /**
      * @var array The default config - changed by loadConfig
      */
-    protected $config = array (
+    protected $config = array(
+        'base' => array(
+            'farmdir' => '',
+            'farmhost' => ''
+        ),
         'notfound' => array(
             'show' => 'farmer',
             'url' => ''
@@ -24,13 +36,37 @@ class DokuWikiFarmCore {
         )
     );
 
+    /** @var string|false The current animal, false for farmer */
+    protected $animal = false;
+    /** @var bool true if an animal was requested but was not found */
+    protected $notfound = false;
+    /** @var bool true if the current animal was requested by host */
+    protected $hostbased = false;
+
     /**
      * DokuWikiFarmCore constructor.
      *
-     * This initializes the whole farm
+     * This initializes the whole farm by loading the configuration and setting
+     * DOKU_CONF depending on the requested animal
      */
     public function __construct() {
         $this->loadConfig();
+        if($this->config['base']['farmdir'] === '') return; // farm setup not complete
+
+        // animal?
+        $this->detectAnimal();
+
+        // setup defines
+        define('DOKU_FARMDIR', $this->config['base']['farmdir']);
+        define('DOKU_FARM_ANIMAL', $this->animal);
+        if($this->animal) {
+            define('DOKU_CONF', DOKU_FARMDIR . '/' . $this->animal . '/conf/');
+        } else {
+            define('DOKU_CONF', DOKU_INC . '/conf/');
+        }
+
+        $this->setupCascade();
+        $this->adjustCascade();
     }
 
     /**
@@ -38,6 +74,201 @@ class DokuWikiFarmCore {
      */
     public function getConfig() {
         return $this->config;
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getAnimal() {
+        return $this->animal;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isHostbased() {
+        return $this->hostbased;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function wasNotfound() {
+        return $this->notfound;
+    }
+
+
+
+    /**
+     * Detect the current animal
+     *
+     * Sets internal members $animal, $notfound and $hostbased
+     *
+     * This borrows form DokuWiki's inc/farm.php but does not support a default conf dir
+     */
+    protected function detectAnimal() {
+        $farmdir = $this->config['base']['farmdir'];
+        $farmhost = $this->config['base']['farmhost'];
+
+        // check if animal was set via parameter (rewrite or CLI)
+        $animal = '';
+        if(isset($_REQUEST['animal'])) $animal = $_REQUEST['animal'];
+        if('cli' == php_sapi_name() && isset($_SERVER['animal'])) $animal = $_SERVER['animal'];
+        if($animal) {
+            // check that $animal is a string and just a directory name and not a path
+            if(!is_string($animal) || strpbrk($animal, '\\/') !== false) {
+                $this->notfound = true;
+                return;
+            };
+            $animal = strtolower($animal);
+
+            // check if animal exists
+            if(is_dir("$farmdir/$animal/conf")) {
+                $this->animal = $animal;
+                return;
+            } else {
+                $this->notfound = true;
+                return;
+            }
+        }
+
+        // is this the farmer?
+        if(strtolower($_SERVER['HTTP_HOST']) == $farmhost) {
+            return;
+        }
+
+        // still here? check for host based
+        $this->hostbased = true;
+        $uri = explode('/', $_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['SCRIPT_FILENAME']);
+        $server = explode('.', implode('.', array_reverse(explode(':', rtrim($_SERVER['HTTP_HOST'], '.')))));
+        for($i = count($uri) - 1; $i > 0; $i--) {
+            for($j = count($server); $j > 0; $j--) {
+                $animal = implode('.', array_slice($server, -$j)) . implode('.', array_slice($uri, 0, $i));
+                if(is_dir("$farmdir/$animal/conf/")) {
+                    $this->animal = $animal;
+                    return;
+                }
+            }
+        }
+
+        // no hit
+        $this->notfound = true;
+        return;
+    }
+
+    /**
+     * This sets up the default farming config cascade
+     */
+    protected function setupCascade() {
+        global $config_cascade;
+        $config_cascade = array(
+            'main' => array(
+                'default' => array(DOKU_INC . 'conf/dokuwiki.php',),
+                'local' => array(DOKU_CONF . 'local.php',),
+                'protected' => array(DOKU_CONF . 'local.protected.php',),
+            ),
+            'acronyms' => array(
+                'default' => array(DOKU_INC . 'conf/acronyms.conf',),
+                'local' => array(DOKU_CONF . 'acronyms.local.conf',),
+            ),
+            'entities' => array(
+                'default' => array(DOKU_INC . 'conf/entities.conf',),
+                'local' => array(DOKU_CONF . 'entities.local.conf',),
+            ),
+            'interwiki' => array(
+                'default' => array(DOKU_INC . 'conf/interwiki.conf',),
+                'local' => array(DOKU_CONF . 'interwiki.local.conf',),
+            ),
+            'license' => array(
+                'default' => array(DOKU_INC . 'conf/license.php',),
+                'local' => array(DOKU_CONF . 'license.local.php',),
+            ),
+            'mediameta' => array(
+                'default' => array(DOKU_INC . 'conf/mediameta.php',),
+                'local' => array(DOKU_CONF . 'mediameta.local.php',),
+            ),
+            'mime' => array(
+                'default' => array(DOKU_INC . 'conf/mime.conf',),
+                'local' => array(DOKU_CONF . 'mime.local.conf',),
+            ),
+            'scheme' => array(
+                'default' => array(DOKU_INC . 'conf/scheme.conf',),
+                'local' => array(DOKU_CONF . 'scheme.local.conf',),
+            ),
+            'smileys' => array(
+                'default' => array(DOKU_INC . 'conf/smileys.conf',),
+                'local' => array(DOKU_CONF . 'smileys.local.conf',),
+            ),
+            'wordblock' => array(
+                'default' => array(DOKU_INC . 'conf/wordblock.conf',),
+                'local' => array(DOKU_CONF . 'wordblock.local.conf',),
+            ),
+            'acl' => array(
+                'default' => DOKU_CONF . 'acl.auth.php',
+            ),
+            'plainauth.users' => array(
+                'default' => DOKU_CONF . 'users.auth.php',
+            ),
+            'plugins' => array( // needed since Angua
+                                'default' => array(DOKU_INC . 'conf/plugins.php',),
+                                'local' => array(DOKU_CONF . 'plugins.local.php',),
+                                'protected' => array(
+                                    DOKU_INC . 'conf/plugins.required.php',
+                                    DOKU_CONF . 'plugins.protected.php',
+                                ),
+            ),
+            'userstyle' => array(
+                'screen' => array(DOKU_CONF . 'userstyle.css', DOKU_CONF . 'userstyle.less',),
+                'print' => array(DOKU_CONF . 'userprint.css', DOKU_CONF . 'userprint.less',),
+                'feed' => array(DOKU_CONF . 'userfeed.css', DOKU_CONF . 'userfeed.less',),
+                'all' => array(DOKU_CONF . 'userall.css', DOKU_CONF . 'userall.less',),
+            ),
+            'userscript' => array(
+                'default' => array(DOKU_CONF . 'userscript.js',),
+            ),
+        );
+    }
+
+    /**
+     * This adds additional files to the config cascade based on the inheritence settings
+     *
+     * These are only added for animals, not the farmer
+     */
+    protected function adjustCascade() {
+        // FIXME check if this is an animal
+        global $config_cascade;
+
+        foreach($this->config['inherit'] as $key => $val) {
+            if(!$val) continue;
+
+            // prepare what is to append or prepend
+            $append = array();
+            $prepend = array();
+            if($key == 'main') {
+                $append = array('default' => array(DOKU_INC . 'conf/local.php'));
+            } elseif($key == 'license') {
+                $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.php'));
+            } elseif($key == 'userscript') {
+                $prepend = array('default' => array(DOKU_INC . 'conf/userscript.js'));
+            } elseif($key == 'userstyle') {
+                $prepend = array(
+                    'screen' => array(DOKU_INC . 'conf/userstyle.css', DOKU_INC . 'conf/userstyle.less',),
+                    'print' => array(DOKU_INC . 'conf/userprint.css', DOKU_INC . 'conf/userprint.less',),
+                    'feed' => array(DOKU_INC . 'conf/userfeed.css', DOKU_INC . 'conf/userfeed.less',),
+                    'all' => array(DOKU_INC . 'conf/userall.css', DOKU_INC . 'conf/userall.less',),
+                );
+            } else {
+                $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.conf'));
+            }
+
+            // add to cascade
+            foreach($prepend as $section => $data) {
+                $config_cascade[$key][$section] = array_merge($data, $config_cascade[$key][$section]);
+            }
+            foreach($append as $section => $data) {
+                $config_cascade[$key][$section] = array_merge($config_cascade[$key][$section], $data);
+            }
+        }
     }
 
     /**
@@ -55,8 +286,10 @@ class DokuWikiFarmCore {
                 );
             }
         }
-    }
 
+        $this->config['base']['farmdir'] = trim($this->config['base']['farmdir']);
+        $this->config['base']['farmhost'] = strtolower(trim($this->config['base']['farmhost']));
+    }
 
 }
 

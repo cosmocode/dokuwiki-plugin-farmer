@@ -99,18 +99,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      */
     public function getAllAnimals() {
         $animals = array();
-
-        $dir = dir(DOKU_FARMDIR);
-        while (false !== ($entry = $dir->read())) {
-            if ($entry == '.' || $entry == '..' || $entry == '_animal' || $entry == '.htaccess') {
-                continue;
-            }
-            if (!is_dir(DOKU_FARMDIR . $entry)) {
-                continue;
-            }
-            $animals[] = $entry;
+        $list = glob(DOKU_FARMDIR . '/*/conf/', GLOB_ONLYDIR);
+        foreach($list as $path) {
+            $animal = basename(dirname($path));
+            if($animal == '_animal') continue; // old template
+            $animals[] = $animal;
         }
-        $dir->close();
+        sort($animals);
         return $animals;
     }
 

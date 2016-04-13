@@ -36,13 +36,15 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
 
         echo '<table class="inline">';
         $this->line('thisis', $animal ? $this->getLang('thisis.animal') : $this->getLang('thisis.farmer'));
-        if($animal) $this->line('animal', $animal);
+        if($animal) {
+            $this->line('animal', $animal);
+        }
         echo '</table>';
 
         echo '<table class="inline">';
         $this->line('baseinstall', DOKU_INC);
         $this->line('farm dir', DOKU_FARMDIR);
-        $this->line('animals', count(glob(DOKU_FARMDIR . '/*/conf', GLOB_ONLYDIR)));
+        $this->line('animals', count($helper->getAllAnimals()));
         echo '</table>';
     }
 

@@ -61,7 +61,12 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
             return;
         }
 
-        if($this->createPreloadPHP($farmdir . "/", $INPUT->str('serversetup'))) {
+        // create the files
+        $ok = $this->createPreloadPHP($farmdir);
+        if($ok && $INPUT->str('serversetup') == 'htaccess') $ok &= $this->createHtaccess();
+        $ok &= $this->createFarmIni($farmdir);
+
+        if($ok) {
             msg($this->getLang('preload creation success'), 1);
             $link = wl($ID, array('do' => 'admin', 'page' => 'farmer'), true, '&');
             send_redirect($link);
@@ -96,19 +101,13 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
     }
 
     /**
-     * @param string $animalpath path to where the animals are stored
-     * @param bool $htaccess Should the .htaccess be adjusted?
-     * @return bool
+     * Creates the preload that loads our farm controller
+     * @return bool true if saving was successful
      */
-    protected function createPreloadPHP($animalpath, $htaccess) {
-        if($htaccess && !$this->createHtaccess()) {
-            return false;
-        }
-
+    protected function createPreloadPHP() {
         $content = "<?php\n";
         $content .= "# farm setup by farmer plugin\n";
-        $content .= "if(!defined('DOKU_FARMDIR')) define('DOKU_FARMDIR', '$animalpath');\n";
-        $content .= "include(fullpath(dirname(__FILE__)).'/../lib/plugins/farmer/farm.php');\n";
+        $content .= "include(fullpath(dirname(__FILE__)).'/../lib/plugins/farmer/DokuWikiFarmCore.php');\n";
         return io_saveFile(DOKU_INC . 'inc/preload.php', $content);
     }
 
@@ -118,7 +117,7 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
      * @return bool true if saving was successful
      */
     protected function createHtaccess() {
-        $content = "\n\n# Options added for farm setup by Farmer Plugin:\n";
+        $content = "\n\n# Options added for farm setup by farmer plugin:\n";
         $content .= "RewriteEngine On\n";
         $content .= 'RewriteRule ^/?!([^/]+)/(.*)  ' . DOKU_REL . '$2?animal=$1 [QSA]' . "\n";
         $content .= 'RewriteRule ^/?!([^/]+)$      ' . DOKU_REL . '?animal=$1 [QSA]' . "\n";
@@ -126,6 +125,19 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         return io_saveFile(DOKU_INC . '.htaccess', $content, true);
     }
 
+    /**
+     * Creates the initial configuration
+     *
+     * @param $animalpath
+     * @return bool true if saving was successful
+     */
+    protected function createFarmIni($animalpath) {
+        $content = "; farm config created by the farmer plugin\n\n";
+        $content .= "[base]\n";
+        $content .= "farmdir = $animalpath\n";
+        $content .= "farmhost = {$_SERVER['HTTP_HOST']}\n";
+        return io_saveFile(DOKU_INC . 'conf/farm.ini', $content);
+    }
 }
 
 // vim:ts=4:sw=4:et:
