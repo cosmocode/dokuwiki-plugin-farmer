@@ -231,7 +231,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @return bool
      */
     public function checkFarmSetup () {
-        return defined('DOKU_FARMDIR');
+        return defined('DOKU_FARMDIR') && isset($GLOBALS['FARMCORE']);
     }
 
     /**

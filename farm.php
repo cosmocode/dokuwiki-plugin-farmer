@@ -28,6 +28,9 @@ if(!defined('DOKU_CONF')) define('DOKU_CONF', farm_confpath(DOKU_FARMDIR));
 if(!defined('DOKU_FARM')) define('DOKU_FARM', false);
 if(!defined('DOKU_FARM_ANIMAL')) define('DOKU_FARM_ANIMAL', false);
 
+// FIXME we later include this one directly from inc/preload
+require(DOKU_INC . 'lib/plugins/farmer/DokuWikiFarmCore.php');
+
 
 /**
  * Find the appropriate configuration directory.

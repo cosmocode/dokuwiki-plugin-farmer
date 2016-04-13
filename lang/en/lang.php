@@ -17,7 +17,6 @@ $lang['tab_config'] = 'Configuration';
 $lang['tab_plugins'] = 'Manage Plugins';
 $lang['tab_new'] = 'Add new Animal';
 
-
 //labels
 $lang['preloadPHPForm'] = 'Create a new preload.php';
 $lang['farm dir'] = 'Animal Directory';
@@ -45,13 +44,35 @@ $lang['js']['reset'] = $lang['reset'];
 $lang['animal name'] = 'Animal name / Wiki Title';
 $lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory relativ to the server root:';
 
-
 $lang['animal'] = 'Animal Name';
 $lang['thisis'] = 'This is';
 $lang['thisis.farmer'] = 'The farmer!';
 $lang['thisis.animal'] = 'An animal!';
 $lang['baseinstall'] = 'Farmer Install';
 $lang['animals'] = 'Animals';
+
+// config
+$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
+$lang['conf_inherit_main'] = 'Configuration Settings';
+$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
+$lang['conf_inherit_entities'] = 'Entity Definitions';
+$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
+$lang['conf_inherit_license'] = 'License Definitions';
+$lang['conf_inherit_mime'] = 'MIME Type Definitions';
+$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
+$lang['conf_inherit_smileys'] = 'Smiley Definitions';
+$lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
+$lang['conf_inherit_userstyle'] = 'User Styles';
+$lang['conf_inherit_userscript'] = 'User Scripts';
+
+$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
+$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
+$lang['conf_notfound_404'] = 'Show a 404 error page';
+$lang['conf_notfound_list'] = 'Show a list of available animals';
+$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
+$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
+
+$lang['save'] = 'Save';
 
 // input placeholders
 $lang['js']['animalSelect'] = 'Select an animal';
