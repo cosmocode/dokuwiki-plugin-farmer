@@ -12,6 +12,16 @@ if(!defined('DOKU_INC')) die();
  */
 class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
 
+    /** @var  helper_plugin_farmer */
+    protected $helper;
+
+    /**
+     * action_plugin_farmer_startup constructor.
+     */
+    public function __construct() {
+        $this->helper = plugin_load('helper', 'farmer');
+    }
+
     /**
      * plugin should use this method to register its handlers with the DokuWiki's event controller
      *
@@ -24,10 +34,7 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
 
 
     public function before_start(Doku_Event $event, $param) {
-        if(!isset($GLOBALS['FARMCORE'])) return;
-        global $FARMCORE;
-
-        if($FARMCORE->wasNotfound()) $this->handleNotFound();
+        if($this->helper->wasNotfound()) $this->handleNotFound();
     }
 
     /**
@@ -36,10 +43,9 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
      * Will abort the current script unless the farmer is wanted
      */
     protected function handleNotFound() {
-        global $FARMCORE;
-        global $conf;
-        global $lang;
-        $config = $FARMCORE->getConfig();
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        global $conf, $lang;
+        $config = $this->helper->getConfig();
         $show = $config['notfound']['show'];
         $url = $config['notfound']['url'];
         if($show == 'farmer') return;
@@ -47,8 +53,10 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
         if($show == '404' || $show == 'list') {
             http_status(404);
             $body = $this->locale_xhtml('notfound_'.$show);
+            /** @noinspection PhpUnusedLocalVariableInspection */
             $title = '404';
             if($show == 'list') {
+                /** @noinspection PhpUnusedLocalVariableInspection */
                 $body .= $this->animalList();
             }
 
@@ -67,14 +75,10 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
      * @return string
      */
     protected function animalList() {
-        /** @var helper_plugin_farmer $helper */
-        $helper = plugin_load('helper', 'farmer');
-        global $FARMCORE;
-
         $html = '<ul>';
-        $animals = $helper->getAllAnimals();
+        $animals = $this->helper->getAllAnimals();
         foreach($animals as $animal) {
-            if($FARMCORE->isHostbased()) {
+            if($this->helper->isHostbased()) {
                 $link = '//:'.$animal.'/';
             } else {
                 $link = DOKU_BASE.'!'.$animal.'/';

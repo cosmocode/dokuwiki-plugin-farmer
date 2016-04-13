@@ -6,7 +6,8 @@
  * This class is initialized before any other DokuWiki code runs. Therefore it is
  * completely selfcontained and does not use any of DokuWiki's utility functions.
  *
- * It's registered as a global $FARMCORE variable.
+ * It's registered as a global $FARMCORE variable but you should not interact with
+ * it directly. Instead use the Farmer plugin's helper component.
  */
 class DokuWikiFarmCore {
     /**
@@ -96,8 +97,6 @@ class DokuWikiFarmCore {
     public function wasNotfound() {
         return $this->notfound;
     }
-
-
 
     /**
      * Detect the current animal

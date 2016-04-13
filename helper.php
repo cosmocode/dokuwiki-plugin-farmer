@@ -19,9 +19,83 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @return string|false
      */
     public function getAnimal() {
-        if(defined('DOKU_FARM_ANIMAL')) return DOKU_FARM_ANIMAL;
-        return false;
+        if(!isset($GLOBALS['FARMCORE'])) return false;
+        return $GLOBALS['FARMCORE']->getAnimal();
     }
+
+    /**
+     * Get the farm config
+     *
+     * @return array
+     */
+    public function getConfig() {
+        if(!isset($GLOBALS['FARMCORE'])) return array();
+        return $GLOBALS['FARMCORE']->getConfig();
+    }
+
+    /**
+     * Was the current animal requested by host?
+     *
+     * @return bool
+     */
+    public function isHostbased() {
+        if(!isset($GLOBALS['FARMCORE'])) return false;
+        return $GLOBALS['FARMCORE']->isHostbased();
+    }
+
+    /**
+     * Was an animal requested that could not be found?
+     *
+     * @return bool
+     */
+    public function wasNotfound() {
+        if(!isset($GLOBALS['FARMCORE'])) return false;
+        return $GLOBALS['FARMCORE']->wasNotfound();
+    }
+
+    /**
+     * List of all animals, i.e. directories within DOKU_FARMDIR without the template.
+     *
+     * @return array
+     */
+    public function getAllAnimals() {
+        $animals = array();
+        $list = glob(DOKU_FARMDIR . '/*/conf/', GLOB_ONLYDIR);
+        foreach($list as $path) {
+            $animal = basename(dirname($path));
+            if($animal == '_animal') continue; // old template
+            $animals[] = $animal;
+        }
+        sort($animals);
+        return $animals;
+    }
+
+    /**
+     * checks wether $path is in under $container
+     *
+     * @param string $path
+     * @param string $container
+     * @return bool
+     */
+    public function isInPath ($path, $container) {
+        return (strpos(fullpath($path), fullpath($container)) === 0);
+    }
+
+    /**
+     * Check if the farm is correctly configured for this farmer plugin
+     *
+     * @return bool
+     */
+    public function checkFarmSetup () {
+        return defined('DOKU_FARMDIR') && isset($GLOBALS['FARMCORE']);
+    }
+
+
+
+
+
+
+
 
     /**
      * Copy a file, or recursively copy a folder and its contents. Adapted for DokuWiki.
@@ -92,22 +166,6 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return $plugins;
     }
 
-    /**
-     * List of all animals, i.e. directories within DOKU_FARMDIR without the template.
-     *
-     * @return array
-     */
-    public function getAllAnimals() {
-        $animals = array();
-        $list = glob(DOKU_FARMDIR . '/*/conf/', GLOB_ONLYDIR);
-        foreach($list as $path) {
-            $animal = basename(dirname($path));
-            if($animal == '_animal') continue; // old template
-            $animals[] = $animal;
-        }
-        sort($animals);
-        return $animals;
-    }
 
     /**
      * Actiate a specific plugin in a specific animal
@@ -209,25 +267,6 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         unlink($animalpath.'/_animal.zip');
     }
 
-    /**
-     * checks wether $path is in under $container
-     *
-     * @param string $path
-     * @param string $container
-     * @return bool
-     */
-    public function isInPath ($path, $container) {
-        return (strpos(fullpath($path), fullpath($container)) === 0);
-    }
-
-    /**
-     * Check if the farm is correctly configured for this farmer plugin
-     *
-     * @return bool
-     */
-    public function checkFarmSetup () {
-        return defined('DOKU_FARMDIR') && isset($GLOBALS['FARMCORE']);
-    }
 
     /**
      * The subdomain must contain at least two dots

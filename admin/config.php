@@ -13,11 +13,21 @@ if(!defined('DOKU_INC')) die();
 
 class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
 
+    /** @var  helper_plugin_farmer */
+    protected $helper;
+
     /**
      * @return bool admin only!
      */
     public function forAdminOnly() {
         return false;
+    }
+
+    /**
+     * admin_plugin_farmer_config constructor.
+     */
+    public function __construct() {
+        $this->helper = plugin_load('helper', 'farmer');
     }
 
     /**
@@ -29,8 +39,7 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         if(!$INPUT->has('farmconf')) return;
         if(!checkSecurityToken()) return;
 
-        global $FARMCORE;
-        $farmconf = $FARMCORE->getConfig();
+        $farmconf = $this->helper->getConfig();
         $farmconf = array_merge($farmconf, $INPUT->arr('farmconf'));
 
         $ini = DOKU_INC . 'conf/farm.ini';
@@ -46,8 +55,7 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
      * Render HTML output, e.g. helpful text and a form
      */
     public function html() {
-        global $FARMCORE;
-        $farmconf = $FARMCORE->getConfig();
+        $farmconf = $this->helper->getConfig();
 
         $form = new Form(array('method' => 'post'));
         $form->addFieldsetOpen($this->getLang('conf_inherit'));
