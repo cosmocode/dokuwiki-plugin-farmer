@@ -110,7 +110,7 @@ class DokuWikiFarmCore {
      */
     public function getAnimalBaseDir() {
         if($this->isHostbased()) return '';
-        return getBaseURL().'!'.$this->getAnimal();
+        return getBaseURL() . '!' . $this->getAnimal();
     }
 
     /**
@@ -151,23 +151,42 @@ class DokuWikiFarmCore {
             return;
         }
 
-        // still here? check for host based FIXME this has to be adjusted for our way of doing it
+        // still here? check for host based
         $this->hostbased = true;
-        $uri = explode('/', $_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['SCRIPT_FILENAME']);
-        $server = explode('.', implode('.', array_reverse(explode(':', rtrim($_SERVER['HTTP_HOST'], '.')))));
-        for($i = count($uri) - 1; $i > 0; $i--) {
-            for($j = count($server); $j > 0; $j--) {
-                $animal = implode('.', array_slice($server, -$j)) . implode('.', array_slice($uri, 0, $i));
-                if(is_dir("$farmdir/$animal/conf/")) {
-                    $this->animal = $animal;
-                    return;
-                }
+        $possible = $this->getAnimalNamesForHost($_SERVER['HTTP_HOST']);
+        foreach($possible as $animal) {
+            if(is_dir("$farmdir/$animal/conf/")) {
+                $this->animal = $animal;
+                return;
             }
         }
 
         // no hit
         $this->notfound = true;
         return;
+    }
+
+    /**
+     * Return a list of possible animal names for the given host
+     *
+     * @param string $host the HTTP_HOST header
+     * @return array
+     */
+    protected function getAnimalNamesForHost($host) {
+        $animals = array();
+        $parts = explode('.', implode('.', explode(':', rtrim($host, '.'))));
+        for($j = count($parts); $j > 0; $j--) {
+            // strip from the end
+            $animals[] = implode('.', array_slice($parts, 0, $j));
+            // strip from the end without host part
+            $animals[] = implode('.', array_slice($parts, 1, $j));
+        }
+        $animals = array_unique($animals);
+        $animals = array_filter($animals);
+        usort($animals, function($a, $b) {
+            return strlen($b) - strlen($a);
+        });
+        return $animals;
     }
 
     /**
@@ -312,5 +331,7 @@ class DokuWikiFarmCore {
 }
 
 // initialize it globally
-global $FARMCORE;
-$FARMCORE = new DokuWikiFarmCore();
+if(!defined('DOKU_UNITTEST')) {
+    global $FARMCORE;
+    $FARMCORE = new DokuWikiFarmCore();
+}
