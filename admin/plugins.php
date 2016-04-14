@@ -60,8 +60,6 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
      * output appropriate html
      */
     public function html() {
-        echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>';
-        echo '<link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css" type="text/css" rel="stylesheet" />';
 
         echo $this->locale_xhtml('plugins');
         $switchForm = new \dokuwiki\Form\Form();
@@ -113,14 +111,5 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         $switchForm->addFieldsetClose();
         echo $singleForm->toHTML();
     }
-
-    public function getMenuText() {
-        return 'Farmer: Change animal plugins';
-    }
-
-    public function getMenuSort() {
-        return 42;
-    }
-
 }
 

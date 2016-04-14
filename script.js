@@ -1,1 +1,2 @@
-/* DOKUWIKI:include scripts/plugins.js */
+/* DOKUWIKI:include_once script/jquery.chosen.js */
+/* DOKUWIKI:include script/plugins.js */
