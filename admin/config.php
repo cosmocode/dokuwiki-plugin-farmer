@@ -67,6 +67,10 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($this->getLang('conf_notfound'));
+        $form->addTagOpen('label');
+        $form->addTagOpen('span');
+        $form->addHTML($this->getLang('conf_notfound'));
+        $form->addTagClose('span');
         $form->addTagOpen('select')->attr('name', 'farmconf[notfound][show]');
         foreach(array('farmer', '404', 'list', 'redirect') as $key) {
             $opt = $form->addTagOpen('option')->attr('value', $key);
@@ -75,6 +79,8 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
             $form->addTagClose('option');
         }
         $form->addTagClose('select');
+        $form->addTagClose('label');
+
         $form->addTextInput('farmconf[notfound][url]', $this->getLang('conf_notfound_url'))->val($farmconf['notfound']['url']);
         $form->addFieldsetClose();
 
