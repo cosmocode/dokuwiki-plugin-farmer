@@ -20,6 +20,7 @@ $lang['tab_new'] = 'Add new Animal';
 //labels
 $lang['preloadPHPForm'] = 'Create a new preload.php';
 $lang['farm dir'] = 'Animal Directory';
+$lang['farm host'] = 'Farmer Host Name';
 $lang['animal configuration'] = 'Basic animal configuration';
 $lang['admin password'] = 'Password for the new admin';
 $lang['animal administrator'] = 'Animal administrator';
@@ -66,6 +67,8 @@ $lang['conf_inherit_smileys'] = 'Smiley Definitions';
 $lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
 $lang['conf_inherit_userstyle'] = 'User Styles';
 $lang['conf_inherit_userscript'] = 'User Scripts';
+$lang['conf_inherit_yes'] = 'inherited from farmer';
+$lang['conf_inherit_no'] = 'independent from farmer';
 
 $lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
 $lang['conf_notfound_farmer'] = 'Show the farmer wiki';

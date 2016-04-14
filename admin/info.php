@@ -33,18 +33,25 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
         $animal = $helper->getAnimal();
+        $config = $helper->getConfig();
 
         echo '<table class="inline">';
+
         $this->line('thisis', $animal ? $this->getLang('thisis.animal') : $this->getLang('thisis.farmer'));
         if($animal) {
             $this->line('animal', $animal);
         }
-        echo '</table>';
 
-        echo '<table class="inline">';
         $this->line('baseinstall', DOKU_INC);
+        $this->line('farm host', $config['base']['farmhost']);
         $this->line('farm dir', DOKU_FARMDIR);
         $this->line('animals', count($helper->getAllAnimals()));
+
+
+        foreach($config['inherit'] as $key => $value) {
+            $this->line('conf_inherit_'.$key, $this->getLang($value ? 'conf_inherit_yes' : 'conf_inherit_no'));
+        }
+
         echo '</table>';
     }
 
