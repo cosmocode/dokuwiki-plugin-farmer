@@ -16,12 +16,15 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
     /** @var helper_plugin_farmer $helper */
     private $helper;
 
+    public function __construct() {
+        $this->helper = plugin_load('helper', 'farmer');
+    }
+
     /**
      * handle user request
      */
     public function handle() {
         global $INPUT;
-        $this->helper = plugin_load('helper', 'farmer');
 
         if (!$this->helper->checkFarmSetup()) {
             $this->helper->reloadAdminPage('farmer_createAnimal');

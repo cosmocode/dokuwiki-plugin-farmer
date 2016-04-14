@@ -18,16 +18,8 @@ class action_plugin_farmer_handleAjax extends DokuWiki_Action_Plugin {
      * @param Doku_Event_Handler $controller DokuWiki's event controller object. Also available as global $EVENT_HANDLER
      *
      */
-    function register(Doku_Event_Handler $controller) {
+    public function register(Doku_Event_Handler $controller) {
         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');
-        $controller->register_hook('DOKUWIKI_STARTED', 'AFTER',  $this, '_add_DOKU_FARMRELDIR_to_JSINFO');
-    }
-
-    function _add_DOKU_FARMRELDIR_to_JSINFO(Doku_Event $event, $param) {
-        global $JSINFO;
-        if (defined('DOKU_FARMRELDIR')) {
-            $JSINFO['FARMRELDIR'] = DOKU_FARMRELDIR;
-        }
     }
 
     /**
@@ -36,7 +28,7 @@ class action_plugin_farmer_handleAjax extends DokuWiki_Action_Plugin {
      * @param Doku_Event $event
      * @param $param
      */
-    function _ajax_call(Doku_Event $event, $param) {
+    public function _ajax_call(Doku_Event $event, $param) {
         if (substr($event->data, 0, 13) !== 'plugin_farmer') {
             return;
         }
@@ -76,7 +68,10 @@ class action_plugin_farmer_handleAjax extends DokuWiki_Action_Plugin {
         $helper = plugin_load('helper','farmer');
         $allPlugins = $helper->getAllPlugins();
         $plugins = array();
-        include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+
+        // FIXME do we need to check other files as well? refer to config cascade
+        $local = DOKU_FARMDIR . '/' . $animal . '/conf/plugins.local.php';
+        if(file_exists($local)) include($local);
         $data = array($allPlugins, $plugins,);
 
         //json library of DokuWiki
