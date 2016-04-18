@@ -90,8 +90,11 @@ class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
         echo '<div class="panelHeader">';
         echo $this->locale_xhtml('tab_'.$this->page);
         echo '</div>';
-        echo '<div class="sub">';
+        echo '<div class="panelMain">';
         $this->adminplugin->html();
+        echo '</div>';
+        echo '<div class="panelFooter">';
+        echo $this->locale_xhtml('tab_'.$this->page.'_help');
         echo '</div>';
         echo '</div>';
     }

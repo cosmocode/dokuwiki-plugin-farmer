@@ -1,0 +1,26 @@
+===== Farm Configuration =====
+
+All settings made here are saved to the Farmer's ''conf/farm.ini''.
+
+==== Base Configuration ====
+
+The **Farmer's host name** was set automatically during the setup, but you can change it here. It
+will be used to detect if a request was made directly to the Farmer when using host based farms. This
+should be a full qualified hostname (''foo.example.com'' instead of just ''foo'').
+
+When using a subdomain wildcard setup you should specify the main domain in the **Base Domain** setting.
+Eg. if you specify ''example.com'' it is assumed an animal named ''foo'' is reachable via ''foo.example.com''.
+The base domain is only appended to animal names not containing any dots.
+
+==== Inheritence ====
+
+Here you can specify what configuration settings made in the farmer should be used as defaults in the animals.
+Animals can still override the Farmer settings in their own configuration files. When inheritance is disabled,
+DokuWiki's default settings are the defaults for all animals as well.
+
+==== Non Existing Animals ====
+
+By default, when accessing a non-existing animal no error message is shown. You can pick between different
+behavior here. Be sure that your Farmer's host name is set up correctly above, before switching away from the
+default.
+

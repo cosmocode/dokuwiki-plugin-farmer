@@ -1,1 +1,1 @@
-Your Wiki is not set up as a farm managed by the Farmer Plugin, yet. The settings below will do that for you. FIXME wording
+Your Wiki is not set up as a farm managed by the Farmer Plugin, yet. Please use the wizard below to enable farming.

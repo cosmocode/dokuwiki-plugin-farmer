@@ -1,8 +1,0 @@
-To create a [[doku>farms|dokuwiki farm and animals]], it is necessary to define a directory where these 'subwikis' will be stored.
-It is also necessary to define if your setup will be [[doku>farms#two_different_setups|virtual host/subdomain-based or htaccess-based]].
-
-The farm directory must be currently empty and must not be within your master wiki. One of the more common locations for the farm direcory would be ''../farm''.
-
-If you choose the .htaccess based setup and the above suggested farm directory, then the requested path relativ to the server root might be ''%s''. Please make also sure that in your Server configuration ''AllowOverwrite'' is at least set to ''Options FileInfo'' for the farm directory.
-
-Should you choose the virtual host/subdomain based approach please follow the instructions in the [[doku>farms#virtual_host_based_setup|documentation]].

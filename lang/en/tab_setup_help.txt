@@ -1,0 +1,37 @@
+===== About Farms =====
+
+Farms allow you to have a single DokuWiki installation (The "Farmer") that powers an arbitrary number of
+other wikis (The "Animals"). You install plugins and templates in the Farmer only and then make them available
+through to the animals. You only need to keep one wiki uptodate and all other wikis just use the same code base.
+
+After completing this setup step your current DokuWiki (the one you're looking at) will be known as the "Farmer".
+
+===== What does this Setup do? =====
+
+This setup wizard will do three things:
+
+  - create a ''inc/preload.php'' file
+  - create a ''conf/farm.ini'' file
+  - optionally append to the ''.htaccess'' file
+
+The ''preload.php'' is a file that is loaded at the very beginning of loading DokuWiki. Here the farm mechanism is
+inititialized. The Farmer plugin will detect if the current request should access an Animal or the Farmer and
+reconfigure everything accordingly.
+
+The ''conf/farm.ini'' contains the basic configuration of the farm setup. Most importantly it will contain the
+location where all the animal's data will be stored.
+
+The ''.htaccess'' modification makes animals accessible through the //bang!// mechanism. (See below)
+
+===== What to fill in? =====
+
+The **Animal Directory** is where a new directory is created for each Animal you create. This directory has to be
+outside your current DokuWiki. You can specify a relative directory like ''../animals''.
+
+Enabling the **.htaccess** support is recommended. This feature requires Apache with mod_rewrite and .htaccess support.
+
+When enabled, your animals will be accessible under the farmer's URL using the //bang!// mechanism.  Eg. if your farmer is
+running at ''%%http://www.example.com/dokuwiki/%%'', an animal will be accessible at
+''%%http://www.example.com/dokuwiki/!animal%%''.
+
+If you do not enable this, you will have to configure your Webserver and DNS to access the animals.

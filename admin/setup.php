@@ -89,7 +89,7 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         $form->addFieldsetClose();
         echo $form->toHTML();
 
-        echo sprintf($this->locale_xhtml('preload'), dirname(DOKU_REL) . '/farm/');
+        
 
     }
 

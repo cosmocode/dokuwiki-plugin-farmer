@@ -69,8 +69,6 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
 
         $form->addButton('farmer__submit', $this->getLang('submit'))->attr('type', 'submit')->val('newAnimal');
         echo $form->toHTML();
-
-        echo $this->locale_xhtml('tab_new_help');
     }
 
     /**
