@@ -80,7 +80,7 @@
                 jQuery('#farmer__singlePluginForm').css('display','none');
             }
         });
-
+        jQuery('#farmer__bulk').click();
 
 
     });
