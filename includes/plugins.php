@@ -7,3 +7,4 @@
  */
 $plugins['extension'] = 0;
 $plugins['upgrade'] = 0;
+$plugins['farmer'] = 1;
