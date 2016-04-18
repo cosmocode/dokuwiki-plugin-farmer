@@ -133,7 +133,21 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         // append title to local config
         $ok &= io_saveFile($animaldir.'/conf/local.php', "\n".'$conf[\'title\'] = \''.$name.'\';'."\n", true);
 
-        // fixme add logo
+        // create a random logo and favicon
+        if(!class_exists('\splitbrain\RingIcon\RingIcon', false)) {
+            require(__DIR__ . '/../3rdparty/RingIcon.php');
+        }
+        if(!class_exists('\chrisbliss18\phpico\PHPIco', false)) {
+            require(__DIR__ . '/../3rdparty/PHPIco.php');
+        }
+        try {
+            $ringicon = new \splitbrain\RingIcon\RingIcon(64);
+            $ringicon->createImage($animaldir, $animaldir . '/data/media/wiki/logo.png');
+            $icongen = new \chrisbliss18\phpico\PHPIco($animaldir . '/data/media/wiki/logo.png');
+            $icongen->save_ico($animaldir . '/data/media/wiki/favicon.ico');
+        } catch(\Exception $ignore) {
+            // something went wrong, but we don't care. this is a nice to have feature only
+        }
 
         // create admin user
         if($adminSetup === 'newAdmin') {
