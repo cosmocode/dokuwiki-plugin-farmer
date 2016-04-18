@@ -19,18 +19,17 @@ $lang['tab_new'] = 'Add new Animal';
 
 //labels
 $lang['preloadPHPForm'] = 'Create a new preload.php';
+$lang['base'] = 'Base Configuration';
 $lang['farm dir'] = 'Animal Directory';
 $lang['farm host'] = 'Farmer Host Name';
+$lang['base domain'] = 'Base Domain for subdomain animals';
 $lang['animal configuration'] = 'Basic animal configuration';
 $lang['admin password'] = 'Password for the new admin';
 $lang['animal administrator'] = 'Animal administrator';
 $lang['importUsers'] = 'Import all users of the master wiki to the new animal';
 $lang['currentAdmin'] = 'Set the current user as admin';
 $lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['server configuration'] = 'Server configuration';
-$lang['htaccess setup'] = 'htaccess setup';
-$lang['subdomain setup'] = 'Subdomain setup';
-$lang['animal subdomain'] = 'Animal subdomain';
+$lang['htaccess setup'] = 'Add farm code to .htaccess?';
 $lang['bulkSingleSwitcher'] = 'Edit a single animal or all at once?';
 $lang['bulkEdit'] = 'Bulk edit all animals';
 $lang['singleEdit'] = 'Edit a single animal';

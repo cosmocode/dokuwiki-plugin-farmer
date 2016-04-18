@@ -50,10 +50,6 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
             $errors[] = $this->getLang('farmdir_notEmpty');
         }
 
-        if($INPUT->str('serversetup', '', true) === '') {
-            $errors[] = $this->getLang('serversetup_missing');
-        }
-
         if($errors) {
             foreach($errors as $error) {
                 msg($error, -1);
@@ -62,13 +58,13 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         }
 
         // create the files
-        $ok = $this->createPreloadPHP($farmdir);
-        if($ok && $INPUT->str('serversetup') == 'htaccess') $ok &= $this->createHtaccess();
+        $ok = $this->createPreloadPHP();
+        if($ok && $INPUT->bool('htaccess')) $ok &= $this->createHtaccess();
         $ok &= $this->createFarmIni($farmdir);
 
         if($ok) {
             msg($this->getLang('preload creation success'), 1);
-            $link = wl($ID, array('do' => 'admin', 'page' => 'farmer'), true, '&');
+            $link = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'config'), true, '&');
             send_redirect($link);
         } else {
             msg($this->getLang('preload creation error'), -1);
@@ -87,11 +83,8 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         $form = new \dokuwiki\Form\Form();
         $form->addClass('plugin_farmer');
         $form->addFieldsetOpen($this->getLang('preloadPHPForm'));
-        $form->addTextInput('farmdir', $this->getLang('farm dir'))->addClass('block edit');
-
-        $form->addRadioButton('serversetup', $this->getLang('subdomain setup'))->val('subdomain')->attr('type', 'radio')->addClass('block edit')->id('subdomain__setup');
-        $form->addRadioButton('serversetup', $this->getLang('htaccess setup'))->val('htaccess')->attr('type', 'radio')->addClass('block edit')->attr('checked', true)->id('htaccess__setup');
-
+        $form->addTextInput('farmdir', $this->getLang('farm dir'));
+        $form->addCheckbox('htaccess', $this->getLang('htaccess setup'))->attr('checked', 'checked');
         $form->addButton('farmer__submit', $this->getLang('submit'))->attr('type', 'submit');
         $form->addFieldsetClose();
         echo $form->toHTML();
@@ -107,7 +100,9 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
     protected function createPreloadPHP() {
         $content = "<?php\n";
         $content .= "# farm setup by farmer plugin\n";
-        $content .= "include(fullpath(dirname(__FILE__)).'/../lib/plugins/farmer/DokuWikiFarmCore.php');\n";
+        $content .= "if(file_exists(__DIR__ . '/../lib/plugins/farmer/DokuWikiFarmCore.php')) {\n";
+        $content .= "    include(__DIR__ . '/../lib/plugins/farmer/DokuWikiFarmCore.php');\n";
+        $content .= "}\n";
         return io_saveFile(DOKU_INC . 'inc/preload.php', $content);
     }
 

@@ -5,6 +5,7 @@
  * This file is added to the protected cascade for animals only.
  * You should not edit it!
  */
+global $FARMCORE;
 $conf['savedir'] = $FARMCORE->getAnimalDataDir();
 $conf['basedir'] = $FARMCORE->getAnimalBaseDir();
 $conf['upgradecheck'] = 0;

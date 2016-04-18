@@ -54,6 +54,25 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     }
 
     /**
+     * Guess the URL for an animal
+     *
+     * @param $animal
+     * @return string
+     */
+    public function getAnimalURL($animal) {
+        $config = $this->getConfig();
+
+        if(strpos($animal, '.') !== false) {
+            return 'http://'.$animal;
+        } elseif($config['base']['basedomain']) {
+            return 'http://'.$animal.'.'.$config['base']['basedomain'];
+        } else {
+            return DOKU_URL.'!'.$animal;
+        }
+    }
+
+
+    /**
      * List of all animals, i.e. directories within DOKU_FARMDIR without the template.
      *
      * @return array

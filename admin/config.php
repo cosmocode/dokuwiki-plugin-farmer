@@ -40,7 +40,11 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         if(!checkSecurityToken()) return;
 
         $farmconf = $this->helper->getConfig();
+        $farmdir = $farmconf['base']['farmdir'];
         $farmconf = array_merge($farmconf, $INPUT->arr('farmconf'));
+        $farmconf['base']['farmdir'] = $farmdir;
+
+        $farmconf['base']['basedomain'] = trim(trim($farmconf['base']['basedomain'],'.'));
 
         $ini = DOKU_INC . 'conf/farm.ini';
         $data = "; Farm config created by the farmer plugin\n";
@@ -58,6 +62,14 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         $farmconf = $this->helper->getConfig();
 
         $form = new Form(array('method' => 'post'));
+
+        $form->addFieldsetOpen($this->getLang('base'));
+        $form->addHTML('<label><span>'.$this->getLang('farm dir').'</span>'.DOKU_FARMDIR);
+        $form->addTextInput('farmconf[base][farmhost]', $this->getLang('farm host'))->val($farmconf['base']['farmhost']);
+        $form->addTextInput('farmconf[base][basedomain]', $this->getLang('base domain'))->val($farmconf['base']['basedomain']);
+        $form->addFieldsetClose();
+
+
         $form->addFieldsetOpen($this->getLang('conf_inherit'));
         foreach($farmconf['inherit'] as $key => $val) {
             $form->setHiddenField("farmconf[inherit][$key]", 0);

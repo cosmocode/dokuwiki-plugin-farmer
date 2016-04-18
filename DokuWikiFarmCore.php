@@ -16,7 +16,8 @@ class DokuWikiFarmCore {
     protected $config = array(
         'base' => array(
             'farmdir' => '',
-            'farmhost' => ''
+            'farmhost' => '',
+            'basedomain' => '',
         ),
         'notfound' => array(
             'show' => 'farmer',

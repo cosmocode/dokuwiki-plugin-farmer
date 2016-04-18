@@ -78,12 +78,7 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
         $html = '<ul>';
         $animals = $this->helper->getAllAnimals();
         foreach($animals as $animal) {
-            if($this->helper->isHostbased()) {
-                $link = '//:'.$animal.'/';
-            } else {
-                $link = DOKU_BASE.'!'.$animal.'/';
-            }
-
+            $link = $this->helper->getAnimalURL($animal);
             $html .= '<li><div class="li"><a href="'.$link.'">'.hsc($animal).'</a></div></li>';
         }
         $html .= '</ul>';
