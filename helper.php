@@ -67,7 +67,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         } elseif($config['base']['basedomain']) {
             return 'http://'.$animal.'.'.$config['base']['basedomain'];
         } else {
-            return DOKU_URL.'!'.$animal;
+            return DOKU_URL.'!'.$animal.'/';
         }
     }
 

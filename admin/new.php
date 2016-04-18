@@ -39,7 +39,10 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $data = $this->validateAnimalData();
         if(!$data) return;
         if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'])){
-            msg($this->getLang('animal creation success'), 1);
+            $url = $this->helper->getAnimalURL($data['name']);
+            $link = '<a href="'.$url.'">'.hsc($data['name']).'</a>';
+
+            msg(sprintf($this->getLang('animal creation success'), $link), 1);
             $link = wl($ID, array('do'=>'admin', 'page'=>'farmer', 'sub'=>'new'), true, '&');
             send_redirect($link);
         }
