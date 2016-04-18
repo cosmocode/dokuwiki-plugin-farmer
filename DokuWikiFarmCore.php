@@ -243,13 +243,13 @@ class DokuWikiFarmCore {
             'plainauth.users' => array(
                 'default' => DOKU_CONF . 'users.auth.php',
             ),
-            'plugins' => array( // needed since Angua
-                                'default' => array(DOKU_INC . 'conf/plugins.php',),
-                                'local' => array(DOKU_CONF . 'plugins.local.php',),
-                                'protected' => array(
-                                    DOKU_INC . 'conf/plugins.required.php',
-                                    DOKU_CONF . 'plugins.protected.php',
-                                ),
+            'plugins' => array(
+                'default' => array(DOKU_INC . 'conf/plugins.php',),
+                'local' => array(DOKU_CONF . 'plugins.local.php',),
+                'protected' => array(
+                    DOKU_INC . 'conf/plugins.required.php',
+                    DOKU_CONF . 'plugins.protected.php',
+                ),
             ),
             'userstyle' => array(
                 'screen' => array(DOKU_CONF . 'userstyle.css', DOKU_CONF . 'userstyle.less',),
@@ -307,6 +307,9 @@ class DokuWikiFarmCore {
                 $config_cascade[$key][$section] = array_merge($config_cascade[$key][$section], $data);
             }
         }
+
+        // add plugin overrides
+        $config_cascade['plugins']['protected'][] = DOKU_INC . 'lib/plugins/farmer/includes/plugins.php';
     }
 
     /**
