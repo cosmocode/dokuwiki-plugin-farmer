@@ -78,21 +78,16 @@ class admin_plugin_farmer_config extends DokuWiki_Admin_Plugin {
         }
         $form->addFieldsetClose();
 
-        $form->addFieldsetOpen($this->getLang('conf_notfound'));
-        $form->addTagOpen('label');
-        $form->addTagOpen('span');
-        $form->addHTML($this->getLang('conf_notfound'));
-        $form->addTagClose('span');
-        $form->addTagOpen('select')->attr('name', 'farmconf[notfound][show]');
-        foreach(array('farmer', '404', 'list', 'redirect') as $key) {
-            $opt = $form->addTagOpen('option')->attr('value', $key);
-            if($farmconf['notfound']['show'] == $key) $opt->attr('selected', 'selected');
-            $form->addHTML($this->getLang('conf_notfound_' . $key));
-            $form->addTagClose('option');
-        }
-        $form->addTagClose('select');
-        $form->addTagClose('label');
 
+        $options = array(
+            'farmer' => $this->getLang('conf_notfound_farmer'),
+            '404' => $this->getLang('conf_notfound_404'),
+            'list' => $this->getLang('conf_notfound_list'),
+            'redirect'  => $this->getLang('conf_notfound_redirect')
+        );
+
+        $form->addFieldsetOpen($this->getLang('conf_notfound'));
+        $form->addDropdown('farmconf[notfound][show]', $options, $this->getLang('conf_notfound'))->val($farmconf['notfound']['show']);
         $form->addTextInput('farmconf[notfound][url]', $this->getLang('conf_notfound_url'))->val($farmconf['notfound']['url']);
         $form->addFieldsetClose();
 
