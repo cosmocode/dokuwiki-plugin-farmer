@@ -30,6 +30,8 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
      * Render HTML output, e.g. helpful text and a form
      */
     public function html() {
+        global $conf;
+
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
         $animal = $helper->getAnimal();
@@ -41,11 +43,13 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
         if($animal) {
             $this->line('animal', $animal);
         }
-
+        $this->line('confdir', DOKU_CONF);
+        $this->line('savedir', $conf['savedir']);
         $this->line('baseinstall', DOKU_INC);
         $this->line('farm host', $config['base']['farmhost']);
         $this->line('farm dir', DOKU_FARMDIR);
         $this->line('animals', count($helper->getAllAnimals()));
+
 
 
         foreach($config['inherit'] as $key => $value) {

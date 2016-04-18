@@ -48,11 +48,13 @@ $lang['animal name'] = 'Animal Name / Domain';
 $lang['htaccess_basedir'] = 'Enter the path to the above-entered farm directory relativ to the server root:';
 
 $lang['animal'] = 'Animal Name';
-$lang['thisis'] = 'This is';
+$lang['thisis'] = 'Instance is';
 $lang['thisis.farmer'] = 'The farmer!';
 $lang['thisis.animal'] = 'An animal!';
 $lang['baseinstall'] = 'Farmer Install';
 $lang['animals'] = 'Animals';
+$lang['confdir'] = 'Instance Configuration Directory';
+$lang['savedir'] = 'Instance Data Directory';
 
 // config
 $lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
