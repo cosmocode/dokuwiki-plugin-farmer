@@ -64,7 +64,7 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         // create the files
         $ok = $this->createPreloadPHP();
         if($ok && $INPUT->bool('htaccess')) $ok &= $this->createHtaccess();
-        $ok &= $this->createFarmIni($farmdir);
+        if($ok) $ok &= $this->createFarmIni($farmdir);
 
         if($ok) {
             msg($this->getLang('preload creation success'), 1);

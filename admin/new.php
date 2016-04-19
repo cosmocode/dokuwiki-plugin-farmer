@@ -58,7 +58,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $form->addClass('plugin_farmer')->id('farmer__create_animal_form');
 
         $form->addFieldsetOpen($this->getLang('animal configuration'));
-        $form->addTextInput('animalname', $this->getLang('animal name'));
+        $form->addTextInput('animalname', $this->getLang('animal'));
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($this->getLang('animal administrator'));
