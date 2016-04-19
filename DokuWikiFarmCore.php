@@ -8,6 +8,9 @@
  *
  * It's registered as a global $FARMCORE variable but you should not interact with
  * it directly. Instead use the Farmer plugin's helper component.
+ *
+ * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * @author  Andreas Gohr <gohr@cosmocode.de>
  */
 class DokuWikiFarmCore {
     /**
@@ -185,9 +188,11 @@ class DokuWikiFarmCore {
         }
         $animals = array_unique($animals);
         $animals = array_filter($animals);
-        usort($animals, function($a, $b) {
+        usort(
+            $animals, function ($a, $b) {
             return strlen($b) - strlen($a);
-        });
+        }
+        );
         return $animals;
     }
 

@@ -1,14 +1,16 @@
 <?php
 /**
+ * DokuWiki Plugin farmer (Action Component)
  *
- *
- * @author     Michael Große <grosse@cosmocode.de>
+ * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * @author  Michael Große <grosse@cosmocode.de>
+ * @author  Andreas Gohr <gohr@cosmocode.de>
  */
 
 if(!defined('DOKU_INC')) die();
 
 /**
- * Class action_plugin_farmer_pluginSettings
+ * Handles Farm mechanisms on DokuWiki startup
  */
 class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
 
@@ -29,9 +31,8 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
      *
      */
     public function register(Doku_Event_Handler $controller) {
-        $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE',  $this, 'before_start');
+        $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'before_start');
     }
-
 
     public function before_start(Doku_Event $event, $param) {
         if($this->helper->wasNotfound()) $this->handleNotFound();
@@ -52,7 +53,7 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
 
         if($show == '404' || $show == 'list') {
             http_status(404);
-            $body = $this->locale_xhtml('notfound_'.$show);
+            $body = $this->locale_xhtml('notfound_' . $show);
             /** @noinspection PhpUnusedLocalVariableInspection */
             $title = '404';
             if($show == 'list') {
@@ -79,7 +80,7 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
         $animals = $this->helper->getAllAnimals();
         foreach($animals as $animal) {
             $link = $this->helper->getAnimalURL($animal);
-            $html .= '<li><div class="li"><a href="'.$link.'">'.hsc($animal).'</a></div></li>';
+            $html .= '<li><div class="li"><a href="' . $link . '">' . hsc($animal) . '</a></div></li>';
         }
         $html .= '</ul>';
         return $html;

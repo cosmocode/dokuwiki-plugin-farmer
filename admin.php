@@ -1,20 +1,24 @@
 <?php
 
 /**
- * Plugin Skeleton: Displays "Hello World!"
+ * DokuWiki Plugin farmer (Admin Component)
  *
- * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Andreas Gohr <dokuwiki@cosmocode.de>
+ * This is the main admin page. It displays the tabs and then loads the sub components
+ * according to the selected tab
+ *
+ * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * @author  Michael Große <grosse@cosmocode.de>
+ * @author  Andreas Gohr <gohr@cosmocode.de>
  */
 class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
 
     /** @var helper_plugin_farmer */
     protected $helper;
-    /** @var array The available pages for the current user in the current wiki*/
+    /** @var array The available pages for the current user in the current wiki */
     protected $pages;
     /** @var string The currently selected page */
     protected $page;
-    /** @var DokuWiki_Admin_Plugin the plugin to use for the current page*/
+    /** @var DokuWiki_Admin_Plugin the plugin to use for the current page */
     protected $adminplugin;
 
     /**
@@ -59,8 +63,8 @@ class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
         }
 
         // load the sub component
-        $this->adminplugin = plugin_load('admin', 'farmer_'.$this->page);
-        if(!$this->adminplugin) nice_die('Something went wrong loading the plugin component for '.hsc($this->page));
+        $this->adminplugin = plugin_load('admin', 'farmer_' . $this->page);
+        if(!$this->adminplugin) nice_die('Something went wrong loading the plugin component for ' . hsc($this->page));
     }
 
     /**
@@ -77,7 +81,7 @@ class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
         global $ID;
 
         echo '<div id="plugin__farmer_admin">';
-        echo '<h1>'.$this->getLang('menu').'</h1>';
+        echo '<h1>' . $this->getLang('menu') . '</h1>';
 
         echo '<ul class="tabs" id="plugin__farmer_tabs">';
         foreach($this->pages as $page) {
@@ -88,13 +92,13 @@ class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
         }
         echo '</ul>';
         echo '<div class="panelHeader">';
-        echo $this->locale_xhtml('tab_'.$this->page);
+        echo $this->locale_xhtml('tab_' . $this->page);
         echo '</div>';
         echo '<div class="panelMain">';
         $this->adminplugin->html();
         echo '</div>';
         echo '<div class="panelFooter">';
-        echo $this->locale_xhtml('tab_'.$this->page.'_help');
+        echo $this->locale_xhtml('tab_' . $this->page . '_help');
         echo '</div>';
         echo '</div>';
     }

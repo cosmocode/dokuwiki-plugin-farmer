@@ -5,6 +5,5 @@
  * @author Michael Große <grosse@cosmocode.de>
  */
 
-
 $meta['deactivated plugins'] = array('string');
 

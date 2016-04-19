@@ -22,8 +22,6 @@
  * @license GPL 2 (http://www.gnu.org/licenses/gpl.html)
  */
 
-
-
 // FIXME we later include this one directly from inc/preload
 require(DOKU_INC . 'lib/plugins/farmer/DokuWikiFarmCore.php');
 

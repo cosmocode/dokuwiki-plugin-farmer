@@ -4,11 +4,15 @@
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Michael Große <grosse@cosmocode.de>
+ * @author  Andreas Gohr <gohr@cosmocode.de>
  */
 
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 
+/**
+ * Information about the farm and the current instance
+ */
 class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
 
     /** @var helper_plugin_farmer */

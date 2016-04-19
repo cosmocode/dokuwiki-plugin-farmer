@@ -1,3 +1,10 @@
+/**
+ * DokuWiki Plugin farmer (JS for plugin management)
+ *
+ * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * @author  Michael Große <grosse@cosmocode.de>
+ * @author  Andreas Gohr <gohr@cosmocode.de>
+ */
 (function(exports) {
     'use strict';
 

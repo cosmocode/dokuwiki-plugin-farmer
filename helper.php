@@ -4,6 +4,7 @@
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Michael Große <grosse@cosmocode.de>
+ * @author  Andreas Gohr <gohr@cosmocode.de>
  */
 
 // must be run within Dokuwiki
@@ -63,14 +64,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $config = $this->getConfig();
 
         if(strpos($animal, '.') !== false) {
-            return 'http://'.$animal;
+            return 'http://' . $animal;
         } elseif($config['base']['basedomain']) {
-            return 'http://'.$animal.'.'.$config['base']['basedomain'];
+            return 'http://' . $animal . '.' . $config['base']['basedomain'];
         } else {
-            return DOKU_URL.'!'.$animal.'/';
+            return DOKU_URL . '!' . $animal . '/';
         }
     }
-
 
     /**
      * List of all animals, i.e. directories within DOKU_FARMDIR without the template.
@@ -96,7 +96,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param string $container
      * @return bool
      */
-    public function isInPath ($path, $container) {
+    public function isInPath($path, $container) {
         return (strpos(fullpath($path), fullpath($container)) === 0);
     }
 
@@ -105,7 +105,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function checkFarmSetup () {
+    public function checkFarmSetup() {
         return defined('DOKU_FARMDIR') && isset($GLOBALS['FARMCORE']);
     }
 
@@ -114,8 +114,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function validateAnimalName ($animalname) {
-        return preg_match("/^[a-z0-9]+(\\.-[a-z0-9]+)*$/i",$animalname) === 1;
+    public function validateAnimalName($animalname) {
+        return preg_match("/^[a-z0-9]+(\\.-[a-z0-9]+)*$/i", $animalname) === 1;
     }
 
     /**
@@ -128,34 +128,34 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
      *
-     * @param       string $source       Source path
-     * @param       string $destination  Destination path
+     * @param       string $source Source path
+     * @param       string $destination Destination path
      *
      * @return      bool     Returns TRUE on success, FALSE on failure
      */
     function io_copyDir($source, $destination) {
-        if (is_link($source)) {
+        if(is_link($source)) {
             io_lock($destination);
-            $result=symlink(readlink($source), $destination);
+            $result = symlink(readlink($source), $destination);
             io_unlock($destination);
             return $result;
         }
 
-        if (is_file($source)) {
+        if(is_file($source)) {
             io_lock($destination);
-            $result=copy($source, $destination);
+            $result = copy($source, $destination);
             io_unlock($destination);
             return $result;
         }
 
-        if (!is_dir($destination)) {
+        if(!is_dir($destination)) {
             io_mkdir_p($destination);
         }
 
         $dir = @dir($source);
         if($dir === false) return false;
-        while (false !== ($entry = $dir->read())) {
-            if ($entry == '.' || $entry == '..') {
+        while(false !== ($entry = $dir->read())) {
+            if($entry == '.' || $entry == '..') {
                 continue;
             }
 
@@ -167,10 +167,6 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return true;
     }
 
-
-
-
-
     /**
      * get a list of all Plugins installed in the farmer wiki, regardless whether they are active or not.
      *
@@ -179,11 +175,11 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     public function getAllPlugins() {
         $dir = dir(DOKU_PLUGIN);
         $plugins = array();
-        while (false !== ($entry = $dir->read())) {
+        while(false !== ($entry = $dir->read())) {
             if($entry == '.' || $entry == '..' || $entry == 'testing' || $entry == 'farmer') {
                 continue;
             }
-            if (!is_dir(DOKU_PLUGIN ."/$entry")) {
+            if(!is_dir(DOKU_PLUGIN . "/$entry")) {
                 continue;
             }
             $plugins[] = $entry;
@@ -192,7 +188,6 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         return $plugins;
     }
 
-
     /**
      * Actiate a specific plugin in a specific animal
      *
@@ -200,12 +195,12 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param string $animal Directory of the animal within DOKU_FARMDIR
      */
     public function activatePlugin($plugin, $animal) {
-        if (isset($this->allPlugins[$animal])) {
+        if(isset($this->allPlugins[$animal])) {
             $plugins = $this->allPlugins[$animal];
         } else {
             include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
         }
-        if (isset($plugins[$plugin]) && $plugins[$plugin] === 0) {
+        if(isset($plugins[$plugin]) && $plugins[$plugin] === 0) {
             unset($plugins[$plugin]);
             $this->writePluginConf($plugins, $animal);
         }
@@ -217,12 +212,12 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param string $animal Directory of the animal within DOKU_FARMDIR
      */
     public function deactivatePlugin($plugin, $animal) {
-        if (isset($this->allPlugins[$animal])) {
+        if(isset($this->allPlugins[$animal])) {
             $plugins = $this->allPlugins[$animal];
         } else {
             include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
         }
-        if (!isset($plugins[$plugin]) || $plugins[$plugin] !== 0) {
+        if(!isset($plugins[$plugin]) || $plugins[$plugin] !== 0) {
             $plugins[$plugin] = 0;
             $this->writePluginConf($plugins, $animal);
         }
@@ -232,13 +227,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     /**
      * Write the list of (deactivated) plugins as plugin configuration of an animal to file
      *
-     * @param array  $plugins associative array with the key being the plugin name and the value 0 or 1
-     * @param string $animal  Directory of the animal within DOKU_FARMDIR
+     * @param array $plugins associative array with the key being the plugin name and the value 0 or 1
+     * @param string $animal Directory of the animal within DOKU_FARMDIR
      */
     public function writePluginConf($plugins, $animal) {
         $pluginConf = '<?php' . "\n";
-        foreach ($plugins as $plugin => $status) {
-            $pluginConf .= '$plugins["' . $plugin  . '"] = ' . $status . ";\n";
+        foreach($plugins as $plugin => $status) {
+            $pluginConf .= '$plugins["' . $plugin . '"] = ' . $status . ";\n";
         }
         io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', $pluginConf);
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
@@ -247,16 +242,16 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     /**
      * Show a message for all errors which occured during form validation
      *
-     * @param \dokuwiki\Form\Form $form        The form to which the errors should be added.
-     * @param array               $errorArray  An associative array with the key being the name of the element at fault
+     * @param \dokuwiki\Form\Form $form The form to which the errors should be added.
+     * @param array $errorArray An associative array with the key being the name of the element at fault
      *                                         and the value being the associated error message.
      */
     public function addErrorsToForm(\dokuwiki\Form\Form &$form, $errorArray) {
-        foreach ($errorArray as $elementName => $errorMessage) {
+        foreach($errorArray as $elementName => $errorMessage) {
             $offset = 0;
             msg($errorMessage, -1);
-            while ($form->findPositionByAttribute('name',$elementName, $offset)) {
-                $offset = $form->findPositionByAttribute('name',$elementName, $offset);
+            while($form->findPositionByAttribute('name', $elementName, $offset)) {
+                $offset = $form->findPositionByAttribute('name', $elementName, $offset);
                 $form->getElementAt($offset)->addClass('error');
                 ++$offset;
             }
@@ -270,7 +265,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         global $ID;
         $get = $_GET;
         if(isset($get['id'])) unset($get['id']);
-        if ($page !== null ) {
+        if($page !== null) {
             $get['page'] = $page;
         }
         $self = wl($ID, $get, false, '&');
@@ -285,14 +280,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @throws \splitbrain\PHPArchive\ArchiveIOException
      */
     public function downloadTemplate($animalpath) {
-        file_put_contents($animalpath . '/_animal.zip',fopen('https://www.dokuwiki.org/_media/dokuwiki_farm_animal.zip','r'));
+        file_put_contents($animalpath . '/_animal.zip', fopen('https://www.dokuwiki.org/_media/dokuwiki_farm_animal.zip', 'r'));
         $zip = new splitbrain\PHPArchive\Zip();
-        $zip->open($animalpath.'/_animal.zip');
+        $zip->open($animalpath . '/_animal.zip');
         $zip->extract($animalpath);
         $zip->close();
-        unlink($animalpath.'/_animal.zip');
+        unlink($animalpath . '/_animal.zip');
     }
-
 
     /**
      * The subdomain must contain at least two dots
@@ -303,12 +297,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function validateSubdomain ($subdomain) {
-        return preg_match("/^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.){2,}[a-z]{2,63}$/i",$subdomain) === 1;
+    public function validateSubdomain($subdomain) {
+        return preg_match("/^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.){2,}[a-z]{2,63}$/i", $subdomain) === 1;
     }
-
-
-
-
 
 }

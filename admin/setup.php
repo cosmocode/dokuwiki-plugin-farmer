@@ -4,11 +4,15 @@
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Michael Große <grosse@cosmocode.de>
+ * @author  Andreas Gohr <gohr@cosmocode.de>
  */
 
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 
+/**
+ * Setup the farm by creating preload.php etc
+ */
 class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
 
     /** @var helper_plugin_farmer $helper */
@@ -89,8 +93,6 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         $form->addFieldsetClose();
         echo $form->toHTML();
 
-        
-
     }
 
     /**
@@ -116,7 +118,7 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         $content .= "RewriteEngine On\n";
         $content .= 'RewriteRule ^/?!([^/]+)/(.*)  ' . DOKU_REL . '$2?animal=$1 [QSA]' . "\n";
         $content .= 'RewriteRule ^/?!([^/]+)$      ' . DOKU_REL . '?animal=$1 [QSA]' . "\n";
-        $content .= 'Options +FollowSymLinks'."\n";
+        $content .= 'Options +FollowSymLinks' . "\n";
         return io_saveFile(DOKU_INC . '.htaccess', $content, true);
     }
 

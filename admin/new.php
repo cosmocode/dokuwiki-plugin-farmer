@@ -197,12 +197,12 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $pass = auth_cryptPassword($password);
         $line = join(
             "\t", array(
-            'admin',
-            $pass,
-            'Administrator',
-            'admin@example.org',
-            'admin,user'
-        )
+                    'admin',
+                    $pass,
+                    'Administrator',
+                    'admin@example.org',
+                    'admin,user'
+                )
         );
         return $line;
     }

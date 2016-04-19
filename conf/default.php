@@ -5,4 +5,4 @@
  * @author Michael Große <grosse@cosmocode.de>
  */
 
-$conf['deactivated plugins']    = '';
+$conf['deactivated plugins'] = '';
