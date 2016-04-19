@@ -17,5 +17,7 @@ The latter two require the appropriate DNS setup!
 
 ==== Animal Administrator ====
 
-The Animal will be a fully functional wiki with it's own user base. You will need at least one adminitrative user
+The Animal will be a fully functional wiki with it's own user base. You will need at least one administrative user
 to configure it. You can copy your current user or all users from the farmer or create a completely new user for the Animal.
+When inheriting users from the Farmer was enabled in the configuration tab, you can also select to not create any
+explicit Animal users.

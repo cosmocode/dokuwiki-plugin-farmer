@@ -38,12 +38,12 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
 
         $data = $this->validateAnimalData();
         if(!$data) return;
-        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'])){
+        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'])) {
             $url = $this->helper->getAnimalURL($data['name']);
-            $link = '<a href="'.$url.'">'.hsc($data['name']).'</a>';
+            $link = '<a href="' . $url . '">' . hsc($data['name']) . '</a>';
 
             msg(sprintf($this->getLang('animal creation success'), $link), 1);
-            $link = wl($ID, array('do'=>'admin', 'page'=>'farmer', 'sub'=>'new'), true, '&');
+            $link = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'new'), true, '&');
             send_redirect($link);
         }
     }
@@ -52,6 +52,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * Render HTML output, e.g. helpful text and a form
      */
     public function html() {
+        $farmconfig = $this->helper->getConfig();
 
         $form = new \dokuwiki\Form\Form();
         $form->addClass('plugin_farmer')->id('farmer__create_animal_form');
@@ -61,9 +62,18 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($this->getLang('animal administrator'));
+        $btn = $form->addRadioButton('adminsetup', $this->getLang('noUsers'))->val('noUsers');
+        if($farmconfig['inherit']['users']) {
+            $btn->attr('checked', 'checked');  // default when inherit available
+        } else {
+            $btn->attr('disabled', 'disabled');
+        }
         $form->addRadioButton('adminsetup', $this->getLang('importUsers'))->val('importUsers');
         $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin');
-        $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin')->attr('checked', 'checked');
+        $btn = $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin');
+        if(!$farmconfig['inherit']['users']) {
+            $btn->attr('checked', 'checked'); // default when inherit not available
+        }
         $form->addPasswordInput('adminPassword', $this->getLang('admin password'));
         $form->addFieldsetClose();
 
@@ -132,7 +142,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         }
 
         // append title to local config
-        $ok &= io_saveFile($animaldir.'/conf/local.php', "\n".'$conf[\'title\'] = \''.$name.'\';'."\n", true);
+        $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'title\'] = \'' . $name . '\';' . "\n", true);
 
         // create a random logo and favicon
         if(!class_exists('\splitbrain\RingIcon\RingIcon', false)) {
@@ -152,9 +162,11 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
 
         // create admin user
         if($adminSetup === 'newAdmin') {
-            $users = "# <?php exit()?>\n".$this->makeAdminLine($adminPassword)."\n";
+            $users = "# <?php exit()?>\n" . $this->makeAdminLine($adminPassword) . "\n";
         } elseif($adminSetup === 'currentAdmin') {
-            $users = "# <?php exit()?>\n".$this->getAdminLine()."\n";
+            $users = "# <?php exit()?>\n" . $this->getAdminLine() . "\n";
+        } elseif($adminSetup === 'noUsers') {
+            $users = "# <?php exit()?>\n";
         } else {
             $users = io_readFile(DOKU_CONF . 'users.auth.php');
         }
@@ -183,13 +195,15 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      */
     protected function makeAdminLine($password) {
         $pass = auth_cryptPassword($password);
-        $line = join("\t", array(
+        $line = join(
+            "\t", array(
             'admin',
             $pass,
             'Administrator',
             'admin@example.org',
             'admin,user'
-        ));
+        )
+        );
         return $line;
     }
 
@@ -205,7 +219,6 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $newAdmin = substr($masterUsers, 0, strpos($masterUsers, "\n") + 1);
         return $newAdmin;
     }
-
 
 }
 
