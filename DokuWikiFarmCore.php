@@ -189,9 +189,13 @@ class DokuWikiFarmCore {
         $animals = array_unique($animals);
         $animals = array_filter($animals);
         usort(
-            $animals, function ($a, $b) {
-            return strlen($b) - strlen($a);
-        }
+            $animals,
+            // compare by length, then alphabet
+            function ($a, $b) {
+                $ret = strlen($b) - strlen($a);
+                if($ret != 0) return $ret;
+                return $a > $b;
+            }
         );
         return $animals;
     }
