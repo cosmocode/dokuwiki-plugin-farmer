@@ -28,10 +28,6 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
     public function handle() {
         global $INPUT;
 
-        if(!$this->helper->checkFarmSetup()) {
-            $this->helper->reloadAdminPage('farmer_createAnimal');
-        }
-
         if($INPUT->has('farmer__submitBulk')) {
             $animals = $this->helper->getAllAnimals();
             $plugin = $INPUT->str('farmer__bulkPluginSelect');
