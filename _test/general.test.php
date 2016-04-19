@@ -1,4 +1,5 @@
 <?php
+
 /**
  * General tests for the farmer plugin
  *
@@ -13,7 +14,7 @@ class general_plugin_farmer_test extends DokuWikiTest {
      * Simple test to make sure the plugin.info.txt is in correct format
      */
     public function test_plugininfo() {
-        $file = __DIR__.'/../plugin.info.txt';
+        $file = __DIR__ . '/../plugin.info.txt';
         $this->assertFileExists($file);
 
         $info = confToHash($file);
@@ -31,12 +32,5 @@ class general_plugin_farmer_test extends DokuWikiTest {
         $this->assertTrue(mail_isvalid($info['email']));
         $this->assertRegExp('/^\d\d\d\d-\d\d-\d\d$/', $info['date']);
         $this->assertTrue(false !== strtotime($info['date']));
-    }
-
-    public function test_isInPath () {
-        /** @var helper_plugin_farmer $helper */
-        $helper = plugin_load('helper', 'farmer');
-        $result = $helper->isInPath('../inc',DOKU_INC);
-        $this->assertTrue($result);
     }
 }

@@ -115,7 +115,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @return bool
      */
     public function validateAnimalName($animalname) {
-        return preg_match("/^[a-z0-9]+(\\.-[a-z0-9]+)*$/i", $animalname) === 1;
+        return preg_match("/^[a-z0-9]+([\\.\\-][a-z0-9]+)*$/i", $animalname) === 1;
     }
 
     /**
