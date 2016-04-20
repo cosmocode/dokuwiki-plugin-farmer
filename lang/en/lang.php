@@ -68,6 +68,7 @@ $lang['conf_notfound_url'] = 'URL to redirect to if selected above';
 $lang['save'] = 'Save';
 
 // new
+$lang['animal template'] = 'Copy existing animal';
 $lang['animal creation success'] = 'The animal "%s" has been successfully created.';
 $lang['animal creation error'] = 'There was an error while creating the animal.';
 $lang['animal configuration'] = 'Basic animal configuration';
@@ -81,6 +82,7 @@ $lang['animalname_missing'] = 'Please enter a name for the new animal.';
 $lang['animalname_invalid'] = 'The animalname may only contain alphanumeric characters and hyphens(but not as first or last character).';
 $lang['animalname_preexisting'] = 'An animal with that name already exists.';
 $lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
+$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
 
 // plugins
 $lang['bulkSingleSwitcher'] = 'Edit a single animal or all at once?';

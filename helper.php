@@ -125,15 +125,19 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @author      Aidan Lister <aidan@php.net>
      * @author      Michael Große <grosse@cosmocode.de>
-     * @version     1.0.1
+     * @author      Andreas Gohr <gohr@cosmocode.de>
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
      *
-     * @param       string $source Source path
-     * @param       string $destination Destination path
-     *
-     * @return      bool     Returns TRUE on success, FALSE on failure
+     * @param string $source Source path
+     * @param string $destination Destination path
+     * @param string $exclude Regular expression to exclude files or directories (complete with delimiters)
+     * @return bool Returns TRUE on success, FALSE on failure
      */
-    function io_copyDir($source, $destination) {
+    function io_copyDir($source, $destination, $exclude = '') {
+        if($exclude && preg_match($exclude, $source)) {
+            return true;
+        }
+
         if(is_link($source)) {
             io_lock($destination);
             $result = symlink(readlink($source), $destination);
@@ -160,7 +164,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
             }
 
             // recurse into directories
-            $this->io_copyDir("$source/$entry", "$destination/$entry");
+            $this->io_copyDir("$source/$entry", "$destination/$entry", $exclude);
         }
 
         $dir->close();

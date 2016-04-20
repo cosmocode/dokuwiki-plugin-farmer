@@ -15,9 +15,17 @@ Examples:
 
 The latter two require the appropriate DNS setup!
 
+==== Copy Animal ====
+
+You can select an existing animal to base the new one on. All configuration, page, media and meta data will be copied
+to the new animal. Page and media revisions will not be copied.
+
+The title and logo image will be overwritten to make sure you can distinguish the new from the old wiki.
+
 ==== Animal Administrator ====
 
 The Animal will be a fully functional wiki with it's own user base. You will need at least one administrative user
 to configure it. You can copy your current user or all users from the farmer or create a completely new user for the Animal.
-When inheriting users from the Farmer was enabled in the configuration tab, you can also select to not create any
-explicit Animal users.
+
+You can choose to not create any users. This should only be chosen when inheriting users from the Farmer was enabled in the
+configuration tab or you copied a different animal with existing users.

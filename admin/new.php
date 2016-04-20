@@ -38,7 +38,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
 
         $data = $this->validateAnimalData();
         if(!$data) return;
-        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'])) {
+        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'], $data['template'])) {
             $url = $this->helper->getAnimalURL($data['name']);
             $link = '<a href="' . $url . '">' . hsc($data['name']) . '</a>';
 
@@ -61,12 +61,16 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $form->addTextInput('animalname', $this->getLang('animal'));
         $form->addFieldsetClose();
 
+        $animals = $this->helper->getAllAnimals();
+        array_unshift($animals, '');
+        $form->addFieldsetOpen($this->getLang('animal template'));
+        $form->addDropdown('animaltemplate', $animals)->addClass('farmer_choosen_animals');
+        $form->addFieldsetClose();
+
         $form->addFieldsetOpen($this->getLang('animal administrator'));
         $btn = $form->addRadioButton('adminsetup', $this->getLang('noUsers'))->val('noUsers');
         if($farmconfig['inherit']['users']) {
             $btn->attr('checked', 'checked');  // default when inherit available
-        } else {
-            $btn->attr('disabled', 'disabled');
         }
         $form->addRadioButton('adminsetup', $this->getLang('importUsers'))->val('importUsers');
         $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin');
@@ -92,6 +96,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $animalname = $INPUT->filter('trim')->str('animalname');
         $adminsetup = $INPUT->str('adminsetup');
         $adminpass = $INPUT->filter('trim')->str('adminPassword');
+        $template = $INPUT->filter('trim')->str('animaltemplate');
 
         $errors = array();
 
@@ -116,10 +121,15 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
             return false;
         }
 
+        if(!is_dir(DOKU_FARMDIR . '/' . $template)) {
+            $template = '';
+        }
+
         return array(
             'name' => $animalname,
             'admin' => $adminsetup,
-            'pass' => $adminpass
+            'pass' => $adminpass,
+            'template' => $template
         );
     }
 
@@ -129,9 +139,10 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * @param string $name name/title of the animal, will be the directory name for htaccess setup
      * @param string $adminSetup newAdmin, currentAdmin or importUsers
      * @param string $adminPassword required if $adminSetup is newAdmin
+     * @param string $template name of animal to copy
      * @return bool true if successful
      */
-    protected function createNewAnimal($name, $adminSetup, $adminPassword) {
+    protected function createNewAnimal($name, $adminSetup, $adminPassword, $template) {
         $animaldir = DOKU_FARMDIR . '/' . $name;
 
         // copy basic template
@@ -139,6 +150,24 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         if(!$ok) {
             msg($this->getLang('animal creation error'), -1);
             return false;
+        }
+
+        // copy animal template
+        if($template != '') {
+            foreach(array('conf', 'data/pages', 'data/media', 'data/meta', 'data/media_meta', 'index') as $dir) {
+                $templatedir = DOKU_FARMDIR . '/' . $template . '/' . $dir;
+                if(!is_dir($templatedir)) continue;
+                // do not copy changelogs in meta
+                if(substr($dir, -4) == 'meta') {
+                    $exclude = '/\.changes$/';
+                } else {
+                    $exclude = '';
+                }
+                if(!$this->helper->io_copyDir($templatedir, $animaldir . '/' . $dir, $exclude)) {
+                    msg(sprintf($this->getLang('animal template copy error'), $dir), -1);
+                    // we go on anyway
+                }
+            }
         }
 
         // append title to local config
@@ -166,11 +195,19 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         } elseif($adminSetup === 'currentAdmin') {
             $users = "# <?php exit()?>\n" . $this->getAdminLine() . "\n";
         } elseif($adminSetup === 'noUsers') {
-            $users = "# <?php exit()?>\n";
+            if(file_exists($animaldir . '/conf/users.auth.php')) {
+                // a user file exists already, probably from animal template - don't overwrite
+                $users = '';
+            } else {
+                // create empty user file
+                $users = "# <?php exit()?>\n";
+            }
         } else {
             $users = io_readFile(DOKU_CONF . 'users.auth.php');
         }
-        $ok &= io_saveFile($animaldir . '/conf/users.auth.php', $users);
+        if($users) {
+            $ok &= io_saveFile($animaldir . '/conf/users.auth.php', $users);
+        }
 
         /* FIXME handle deactivated plugins
         if($this->getConf('deactivated plugins') === '') {
