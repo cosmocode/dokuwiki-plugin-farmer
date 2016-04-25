@@ -109,17 +109,28 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
     }
 
     /**
-     * Appends the needed config to the main .htaccess for htaccess type setups
+     * Prepends the needed config to the main .htaccess for htaccess type setups
      *
      * @return bool true if saving was successful
      */
     protected function createHtaccess() {
-        $content = "\n\n# Options added for farm setup by farmer plugin:\n";
+        // load existing or template
+        if(file_exists(DOKU_INC . '.htaccess')) {
+            $old = io_readFile(DOKU_INC . '.htaccess');
+        } elseif(file_exists(DOKU_INC . '.htaccess.dist')) {
+            $old = io_readFile(DOKU_INC . '.htaccess.dist');
+        } else {
+            $old = '';
+        }
+
+        $content = "# Options added for farm setup by farmer plugin:\n";
         $content .= "RewriteEngine On\n";
-        $content .= 'RewriteRule ^/?!([^/]+)/(.*)  ' . DOKU_REL . '$2?animal=$1 [QSA]' . "\n";
-        $content .= 'RewriteRule ^/?!([^/]+)$      ' . DOKU_REL . '?animal=$1 [QSA]' . "\n";
+        $content .= 'RewriteRule ^!([^/]+)/(.*)  $2?animal=$1 [QSA,DPI]' . "\n";
+        $content .= 'RewriteRule ^!([^/]+)$      ?animal=$1 [QSA,DPI]' . "\n";
         $content .= 'Options +FollowSymLinks' . "\n";
-        return io_saveFile(DOKU_INC . '.htaccess', $content, true);
+        $content .= '# end of farm configuration' . "\n\n";
+        $content .= $old;
+        return io_saveFile(DOKU_INC . '.htaccess', $content);
     }
 
     /**
