@@ -209,17 +209,14 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
             $ok &= io_saveFile($animaldir . '/conf/users.auth.php', $users);
         }
 
-        /* FIXME handle deactivated plugins
-        if($this->getConf('deactivated plugins') === '') {
-            $deactivatedPluginsList = array('farmer',);
-        } else {
-            $deactivatedPluginsList = explode(',', $this->getConf('deactivated plugins'));
-            array_push($deactivatedPluginsList, 'farmer');
-        }
+        // deactivate plugins by default FIXME this should be nicer
+        $deactivatedPluginsList = explode(',', $this->getConf('deactivated plugins'));
+        $deactivatedPluginsList = array_map('trim', $deactivatedPluginsList);
+        $deactivatedPluginsList = array_unique($deactivatedPluginsList);
+        $deactivatedPluginsList = array_filter($deactivatedPluginsList);
         foreach($deactivatedPluginsList as $plugin) {
-            $this->helper->deactivatePlugin(trim($plugin), $animal);
+            $this->helper->deactivatePlugin(trim($plugin), $name);
         }
-        */
 
         return $ok;
     }
