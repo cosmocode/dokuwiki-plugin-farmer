@@ -1,0 +1,1 @@
+You can delete existing animals here. This deletes **all data, including pages and media files** of the selected animal. **This is irreversible!**

@@ -15,6 +15,7 @@ $lang['tab_info'] = 'Info';
 $lang['tab_config'] = 'Configuration';
 $lang['tab_plugins'] = 'Manage Plugins';
 $lang['tab_new'] = 'Add new Animal';
+$lang['tab_delete'] = 'Delete Animal';
 
 // setup
 $lang['preloadPHPForm'] = 'Initialize Farming';
@@ -96,5 +97,16 @@ $lang['js']['animalSelect'] = 'Select an animal';
 $lang['js']['pluginSelect'] = 'Select a plugin';
 $lang['js']['submit'] = 'Submit';
 $lang['js']['reset'] = 'Reset';
+
+// delete
+$lang['delete_animal'] = 'Select Animal to delete';
+$lang['delete_confirm'] = 'Please type the Animal name to confirm';
+$lang['delete'] = 'Delete the Animal and all its data';
+
+$lang['delete_noanimal'] = 'Please select an Animal to delete';
+$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
+$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
+$lang['delete_success'] = 'Animal successfully deleted.';
+$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
 
 //Setup VIM: ex: et ts=4 :

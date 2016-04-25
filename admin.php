@@ -52,6 +52,7 @@ class admin_plugin_farmer extends DokuWiki_Admin_Plugin {
                     'config',
                     'new',
                     'plugins',
+                    'delete'
                 );
             }
         }
