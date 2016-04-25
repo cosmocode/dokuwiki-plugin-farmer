@@ -1,0 +1,1 @@
+Sie können bestehende Animals hier löschen. Dies löscht **alle Daten, inklusive Seiten und Medieninhalte** des gewählten Animals. **Dies kann nicht rückgängig gemacht werden!**
