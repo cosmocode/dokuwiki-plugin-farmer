@@ -92,12 +92,17 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     /**
      * checks wether $path is in under $container
      *
+     * Also returns false if $path and $container are the same directory
+     *
      * @param string $path
      * @param string $container
      * @return bool
      */
     public function isInPath($path, $container) {
-        return (strpos(fullpath($path), fullpath($container)) === 0);
+        $path = fullpath($path);
+        $container = fullpath($container);
+        if($path == $container) return false;
+        return (strpos($path, $container) === 0);
     }
 
     /**

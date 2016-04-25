@@ -53,5 +53,9 @@ class helper_plugin_farmer_test extends DokuWikiTest {
         $this->assertTrue($helper->isInPath('/var/www/foo', '/var/www'));
         $this->assertFalse($helper->isInPath('/var/www/../foo', '/var/www'));
 
+        // same dir should return false, too
+        $this->assertFalse($helper->isInPath('/var/www/foo', '/var/www/foo'));
+        $this->assertFalse($helper->isInPath('/var/www/foo/', '/var/www/foo'));
+        $this->assertFalse($helper->isInPath('/var/www/foo/bar/../', '/var/www/foo'));
     }
 }
