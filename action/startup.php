@@ -61,7 +61,7 @@ class action_plugin_farmer_startup extends DokuWiki_Action_Plugin {
                 $body .= $this->animalList();
             }
 
-            include __DIR__ . '/../template.php';
+            include __DIR__ . '/../includes/template.php';
             exit;
         }
 
