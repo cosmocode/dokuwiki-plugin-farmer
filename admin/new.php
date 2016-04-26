@@ -71,9 +71,11 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $btn = $form->addRadioButton('adminsetup', $this->getLang('noUsers'))->val('noUsers');
         if($farmconfig['inherit']['users']) {
             $btn->attr('checked', 'checked');  // default when inherit available
+        } else {
+            // no user copying when inheriting
+            $form->addRadioButton('adminsetup', $this->getLang('importUsers'))->val('importUsers');
+            $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin');
         }
-        $form->addRadioButton('adminsetup', $this->getLang('importUsers'))->val('importUsers');
-        $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin');
         $btn = $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin');
         if(!$farmconfig['inherit']['users']) {
             $btn->attr('checked', 'checked'); // default when inherit not available
