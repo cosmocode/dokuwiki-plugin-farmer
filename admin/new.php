@@ -230,7 +230,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
     protected function makeAdminLine($password) {
         $pass = auth_cryptPassword($password);
         $line = join(
-            "\t", array(
+            ':', array(
                     'admin',
                     $pass,
                     'Administrator',
