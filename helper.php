@@ -182,23 +182,25 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @return array
      */
     public function getAllPlugins() {
-        $dir = dir(DOKU_PLUGIN);
-        $plugins = array();
-        while(false !== ($entry = $dir->read())) {
-            if($entry == '.' || $entry == '..' || $entry == 'testing' || $entry == 'farmer') {
-                continue;
-            }
-            if(!is_dir(DOKU_PLUGIN . "/$entry")) {
-                continue;
-            }
-            $plugins[] = $entry;
-        }
+        /** @var Doku_Plugin_Controller $plugin_controller */
+        global $plugin_controller;
+
+        $plugins = $plugin_controller->getList('', true);
+
+        // filter out a few plugins
+        $plugins = array_filter($plugins, function($item) {
+            if($item == 'farmer') return false;
+            if($item == 'extension') return false;
+            if($item == 'testing') return false;
+            return true;
+        });
+
         sort($plugins);
         return $plugins;
     }
 
     /**
-     * Actiate a specific plugin in a specific animal
+     * Activate a specific plugin in a specific animal
      *
      * @param string $plugin Name of the plugin to be activated
      * @param string $animal Directory of the animal within DOKU_FARMDIR
