@@ -52,7 +52,7 @@ class admin_plugin_farmer_delete extends DokuWiki_Admin_Plugin {
             return;
         }
 
-        $animaldir = DOKU_FARMDIR . '/' . $INPUT->str('delanimal');
+        $animaldir = DOKU_FARMDIR . $INPUT->str('delanimal');
 
         if(!$this->helper->isInPath($animaldir, DOKU_FARMDIR) || !is_dir($animaldir)) {
             msg($this->getLang('delete_invalid'), -1);

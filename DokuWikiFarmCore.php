@@ -58,6 +58,7 @@ class DokuWikiFarmCore {
     public function __construct() {
         $this->loadConfig();
         if($this->config['base']['farmdir'] === '') return; // farm setup not complete
+        $this->config['base']['farmdir'] = rtrim($this->config['base']['farmdir'], '/').'/'; // trailing slash always
         define('DOKU_FARMDIR', $this->config['base']['farmdir']);
 
         // animal?
@@ -66,7 +67,7 @@ class DokuWikiFarmCore {
         // setup defines
         define('DOKU_FARM_ANIMAL', $this->animal);
         if($this->animal) {
-            define('DOKU_CONF', DOKU_FARMDIR . '/' . $this->animal . '/conf/');
+            define('DOKU_CONF', DOKU_FARMDIR . $this->animal . '/conf/');
         } else {
             define('DOKU_CONF', DOKU_INC . '/conf/');
         }
@@ -107,7 +108,7 @@ class DokuWikiFarmCore {
      * @return string
      */
     public function getAnimalDataDir() {
-        return DOKU_FARMDIR . '/' . $this->getAnimal() . '/data/';
+        return DOKU_FARMDIR . $this->getAnimal() . '/data/';
     }
 
     /**

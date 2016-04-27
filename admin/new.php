@@ -123,7 +123,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
             return false;
         }
 
-        if(!is_dir(DOKU_FARMDIR . '/' . $template)) {
+        if(!is_dir(DOKU_FARMDIR . $template)) {
             $template = '';
         }
 
@@ -145,7 +145,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * @return bool true if successful
      */
     protected function createNewAnimal($name, $adminSetup, $adminPassword, $template) {
-        $animaldir = DOKU_FARMDIR . '/' . $name;
+        $animaldir = DOKU_FARMDIR . $name;
 
         // copy basic template
         $ok = $this->helper->io_copyDir(__DIR__ . '/../_animal', $animaldir);
@@ -157,7 +157,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         // copy animal template
         if($template != '') {
             foreach(array('conf', 'data/pages', 'data/media', 'data/meta', 'data/media_meta', 'index') as $dir) {
-                $templatedir = DOKU_FARMDIR . '/' . $template . '/' . $dir;
+                $templatedir = DOKU_FARMDIR . $template . '/' . $dir;
                 if(!is_dir($templatedir)) continue;
                 // do not copy changelogs in meta
                 if(substr($dir, -4) == 'meta') {

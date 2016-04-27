@@ -79,7 +79,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      */
     public function getAllAnimals() {
         $animals = array();
-        $list = glob(DOKU_FARMDIR . '/*/conf/', GLOB_ONLYDIR);
+        $list = glob(DOKU_FARMDIR . '*/conf/', GLOB_ONLYDIR);
         foreach($list as $path) {
             $animal = basename(dirname($path));
             if($animal == '_animal') continue; // old template
