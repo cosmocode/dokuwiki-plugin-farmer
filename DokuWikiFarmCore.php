@@ -37,6 +37,7 @@ class DokuWikiFarmCore {
             'smileys' => 1,
             'wordblock' => 1,
             'users' => 0,
+            'plugins' => 0,
             'userstyle' => 0,
             'userscript' => 0
         )
@@ -308,6 +309,8 @@ class DokuWikiFarmCore {
                 );
             } elseif($key == 'users') {
                 $config_cascade['plainauth.users']['protected'] = DOKU_INC . 'conf/users.auth.php';
+            } elseif($key == 'plugins') {
+                $append = array('default' => array(DOKU_INC . 'conf/plugins.local.php'));
             } else {
                 $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.conf'));
             }

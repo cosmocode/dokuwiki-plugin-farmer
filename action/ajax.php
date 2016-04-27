@@ -68,20 +68,71 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
         $animal = substr($event->data, 25);
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
-        $allPlugins = $helper->getAllPlugins();
-        $plugins = array();
 
-        // FIXME do we need to check other files as well? refer to config cascade
-        $local = DOKU_FARMDIR . '/' . $animal . '/conf/plugins.local.php';
-        if(file_exists($local)) include($local);
-        $data = array($allPlugins, $plugins,);
+        $plugins = $helper->getAnimalPluginRealState($animal);
 
-        //json library of DokuWiki
-        $json = new JSON();
+        header('Content-Type: text/html; charset=utf-8');
 
-        //set content type
-        header('Content-Type: application/json');
-        echo $json->encode($data);
+        echo '<table>';
+        echo '<tr>';
+        echo '<th>' . $this->getLang('plugin') . '</th>';
+        echo '<th>' . $this->getLang('plugin_default') . '</th>';
+        echo '<th>' . $this->getLang('plugin_enabled') . '</th>';
+        echo '<th>' . $this->getLang('plugin_disabled') . '</th>';
+        echo '</tr>';
+
+        foreach($plugins as $plugin) {
+            echo '<tr>';
+            echo '<th>' . hsc($plugin['name']) . '</th>';
+
+            echo '<td>';
+            $attr = array();
+            $attr['type'] = 'radio';
+            $attr['name'] = 'bulk_plugins[' . $plugin['name'] . ']';
+            $attr['value'] = '-1';
+            if($plugin['isdefault']) {
+                $attr['checked'] = 'checked';
+            }
+            echo '<label>';
+            echo '<input ' . buildAttributes($attr) . ' />';
+            if($plugin['default']) {
+                echo ' (' . $this->getLang('plugin_on') . ')';
+            } else {
+                echo ' (' . $this->getLang('plugin_off') . ')';
+            }
+            echo '</label>';
+            echo '</td>';
+
+            echo '<td>';
+            $attr = array();
+            $attr['type'] = 'radio';
+            $attr['name'] = 'bulk_plugins[' . $plugin['name'] . ']';
+            $attr['value'] = '1';
+            if(!$plugin['isdefault'] && $plugin['actual']) {
+                $attr['checked'] = 'checked';
+            }
+            echo '<label>';
+            echo '<input ' . buildAttributes($attr) . ' />';
+            echo ' ' . $this->getLang('plugin_on');
+            echo '</label>';
+            echo '</td>';
+
+            echo '<td>';
+            $attr = array();
+            $attr['type'] = 'radio';
+            $attr['name'] = 'bulk_plugins[' . $plugin['name'] . ']';
+            $attr['value'] = '0';
+            if(!$plugin['isdefault'] && !$plugin['actual']) {
+                $attr['checked'] = 'checked';
+            }
+            echo '<label>';
+            echo '<input ' . buildAttributes($attr) . ' />';
+            echo ' ' . $this->getLang('plugin_off');
+            echo '</label>';
+            echo '</td>';
+
+            echo '</tr>';
+        }
     }
 
 }

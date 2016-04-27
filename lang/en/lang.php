@@ -40,6 +40,7 @@ $lang['baseinstall'] = 'Farmer Install';
 $lang['animals'] = 'Animals';
 $lang['confdir'] = 'Instance Configuration Directory';
 $lang['savedir'] = 'Instance Data Directory';
+$lang['plugins'] = 'Plugins active in this instance';
 
 // config
 $lang['base'] = 'Base Configuration';
@@ -58,6 +59,7 @@ $lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
 $lang['conf_inherit_userstyle'] = 'User Styles';
 $lang['conf_inherit_userscript'] = 'User Scripts';
 $lang['conf_inherit_users'] = 'Users (Plain Auth only)';
+$lang['conf_inherit_plugins'] = 'Plugin State';
 $lang['conf_inherit_yes'] = 'inherited from farmer';
 $lang['conf_inherit_no'] = 'independent from farmer';
 $lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
@@ -90,14 +92,19 @@ $lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
 $lang['bulkEdit'] = 'Bulk edit all Animals';
 $lang['singleEdit'] = 'Edit a single Animal';
 $lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
+$lang['default'] = 'Set to default';
 $lang['activate'] = 'Activate';
 $lang['deactivate'] = 'Deactivate';
 $lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
 $lang['plugindone'] = 'Plugin states updated';
+$lang['plugin'] = 'Plugin';
+$lang['plugin_on'] = 'on';
+$lang['plugin_off'] = 'off';
+$lang['plugin_default'] = 'Default';
+$lang['plugin_enabled'] = 'Enabled';
+$lang['plugin_disabled'] = 'Disabled';
 $lang['js']['animalSelect'] = 'Select an animal';
 $lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['js']['submit'] = 'Submit';
-$lang['js']['reset'] = 'Reset';
 
 // delete
 $lang['delete_animal'] = 'Select Animal to delete';

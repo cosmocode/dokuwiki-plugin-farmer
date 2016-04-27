@@ -217,7 +217,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $deactivatedPluginsList = array_unique($deactivatedPluginsList);
         $deactivatedPluginsList = array_filter($deactivatedPluginsList);
         foreach($deactivatedPluginsList as $plugin) {
-            $this->helper->deactivatePlugin(trim($plugin), $name);
+            $this->helper->setPluginState(trim($plugin), $name, 0);
         }
 
         return $ok;
@@ -233,12 +233,12 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $pass = auth_cryptPassword($password);
         $line = join(
             ':', array(
-                    'admin',
-                    $pass,
-                    'Administrator',
-                    'admin@example.org',
-                    'admin,user'
-                )
+                   'admin',
+                   $pass,
+                   'Administrator',
+                   'admin@example.org',
+                   'admin,user'
+               )
         );
         return $line;
     }

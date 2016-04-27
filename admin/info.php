@@ -66,6 +66,8 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
             $this->line('conf_inherit_' . $key, $this->getLang($value ? 'conf_inherit_yes' : 'conf_inherit_no'));
         }
 
+        $this->line('plugins', join(', ', $this->helper->getAllPlugins(false)));
+
         echo '</table>';
     }
 

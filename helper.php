@@ -12,7 +12,8 @@ if(!defined('DOKU_INC')) die();
 
 class helper_plugin_farmer extends DokuWiki_Plugin {
 
-    private $allPlugins = array();
+    protected $defaultPluginState = null;
+    protected $animalPluginState  = array();
 
     /**
      * Returns the name of the current animal if any, false otherwise
@@ -179,78 +180,144 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
     /**
      * get a list of all Plugins installed in the farmer wiki, regardless whether they are active or not.
      *
+     * @param bool $all get all plugins, even disabled ones
      * @return array
      */
-    public function getAllPlugins() {
+    public function getAllPlugins($all = true) {
+
         /** @var Doku_Plugin_Controller $plugin_controller */
         global $plugin_controller;
 
-        $plugins = $plugin_controller->getList('', true);
+        $plugins = $plugin_controller->getList('', $all);
 
         // filter out a few plugins
-        $plugins = array_filter($plugins, function($item) {
+        $plugins = array_filter(
+            $plugins, function ($item) {
             if($item == 'farmer') return false;
             if($item == 'extension') return false;
             if($item == 'testing') return false;
             return true;
-        });
+        }
+        );
 
         sort($plugins);
         return $plugins;
     }
 
     /**
-     * Activate a specific plugin in a specific animal
+     * Get the plugin states configured locally in the given animal
      *
-     * @param string $plugin Name of the plugin to be activated
-     * @param string $animal Directory of the animal within DOKU_FARMDIR
+     * Response is cached
+     *
+     * @param $animal
+     * @return array
      */
-    public function activatePlugin($plugin, $animal) {
-        if(isset($this->allPlugins[$animal])) {
-            $plugins = $this->allPlugins[$animal];
-        } else {
-            if(file_exists(DOKU_FARMDIR . $animal . '/conf/plugins.local.php')) {
-                include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
-            }
+    public function getAnimalPluginLocalStates($animal) {
+        if(isset($this->animalPluginState[$animal])) return $this->animalPluginState[$animal];
+
+        $localfile = DOKU_FARMDIR . $animal . '/conf/plugins.local.php';
+        $plugins = array();
+        if(file_exists($localfile)) {
+            include($localfile);
         }
-        if(isset($plugins[$plugin]) && $plugins[$plugin] === 0) {
-            unset($plugins[$plugin]);
-            $this->writePluginConf($plugins, $animal);
-        }
-        $this->allPlugins[$animal] = $plugins;
+
+        $this->animalPluginState[$animal] = $plugins;
+        return $plugins;
     }
 
     /**
-     * @param string $plugin Name of the plugin to be deactivated
-     * @param string $animal Directory of the animal within DOKU_FARMDIR
+     * Return the default state plugins would have in animals
+     *
+     * Response is cached
+     *
+     * @return array
      */
-    public function deactivatePlugin($plugin, $animal) {
-        if(isset($this->allPlugins[$animal])) {
-            $plugins = $this->allPlugins[$animal];
-        } else {
-            if(file_exists(DOKU_FARMDIR . $animal . '/conf/plugins.local.php')) {
-                include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+    public function getDefaultPluginStates() {
+        if(!is_null($this->defaultPluginState)) return $this->defaultPluginState;
+
+        $farmconf = $this->getConfig();
+        $all = $this->getAllPlugins();
+
+        $plugins = array();
+        foreach($all as $one) {
+            if($farmconf['inherit']['plugins']) {
+                $plugins[$one] = !plugin_isdisabled($one);
+            } else {
+                $plugins[$one] = true; // default state is enabled
             }
         }
-        if(!isset($plugins[$plugin]) || $plugins[$plugin] !== 0) {
-            $plugins[$plugin] = 0;
-            $this->writePluginConf($plugins, $animal);
+
+        $this->defaultPluginState = $plugins;
+        return $plugins;
+    }
+
+    /**
+     * Return a structure giving detailed info about the state of all plugins in an animal
+     *
+     * @param $animal
+     * @return array
+     */
+    public function getAnimalPluginRealState($animal) {
+        $info = array();
+
+        $defaults = $this->getDefaultPluginStates();
+        $local = $this->getAnimalPluginLocalStates($animal);
+
+        foreach($defaults as $plugin => $set) {
+            $current = array(
+                'name' => $plugin,
+                'default' => $set,
+                'actual' => $set,
+                'isdefault' => true
+            );
+
+            if(isset($local[$plugin])) {
+                $current['actual'] = (bool) $local[$plugin];
+                $current['isdefault'] = false;
+            }
+
+            $info[] = $current;
         }
-        $this->allPlugins[$animal] = $plugins;
+
+        return $info;
+    }
+
+    /**
+     * Set the state of a plugin in an animal
+     *
+     * @param string $plugin
+     * @param string $animal
+     * @param int $state -1 = default, 1 = enabled, 0 = disabled
+     */
+    public function setPluginState($plugin, $animal, $state) {
+        $state = (int) $state;
+
+        $plugins = $this->getAnimalPluginLocalStates($animal);
+        if($state < 0) {
+            if(isset($plugins[$plugin])) unset($plugins[$plugin]);
+        } else {
+            $plugins[$plugin] = $state;
+        }
+
+        $this->writePluginConf($plugins, $animal);
     }
 
     /**
      * Write the list of (deactivated) plugins as plugin configuration of an animal to file
      *
+     * updates the plugin state cache
+     *
      * @param array $plugins associative array with the key being the plugin name and the value 0 or 1
      * @param string $animal Directory of the animal within DOKU_FARMDIR
      */
     public function writePluginConf($plugins, $animal) {
-        $pluginConf = '<?php' . "\n";
+        $pluginConf = '<?php' . "\n# plugins enabled and disabled by the farmer plugin\n";
         foreach($plugins as $plugin => $status) {
-            $pluginConf .= '$plugins["' . $plugin . '"] = ' . $status . ";\n";
+            $pluginConf .= '$plugins[\'' . $plugin . '\'] = ' . $status . ";\n";
         }
         io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', $pluginConf);
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
+
+        $this->animalPluginState[$animal] = $plugins;
     }
 }

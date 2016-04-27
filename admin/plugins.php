@@ -31,34 +31,21 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
 
         $self = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'plugins'), true, '&');
 
-        if($INPUT->has('farmer__submitBulk')) {
+        if($INPUT->has('bulk_plugin') && $INPUT->has('state')) {
             $animals = $this->helper->getAllAnimals();
-            $plugin = $INPUT->str('farmer__bulkPluginSelect');
+            $plugin = $INPUT->str('bulk_plugin');
             foreach($animals as $animal) {
-                if($INPUT->str('farmer__submitBulk') === 'activate') {
-                    $this->helper->activatePlugin($plugin, $animal);
-                } else {
-                    $this->helper->deactivatePlugin($plugin, $animal);
-                }
+                $this->helper->setPluginState($plugin, $animal, $INPUT->int('state'));
             }
             msg($this->getLang('plugindone'), 1);
             send_redirect($self);
         }
-        if($INPUT->has('plugin_farmer')) {
-            $inputArray = $INPUT->arr('plugin_farmer');
-            if($inputArray['submit_type'] === 'updateSingleAnimal') {
-                $animal = $inputArray ['selectedAnimal'];
-                $allPlugins = $this->helper->getAllPlugins();
-                $activePlugins = $INPUT->arr('plugin_farmer_plugins');
-                foreach($allPlugins as $plugin) {
-                    if(isset($activePlugins[$plugin]) &&
-                        $activePlugins[$plugin] === 'on'
-                    ) {
-                        $this->helper->activatePlugin($plugin, $animal);
-                    } else {
-                        $this->helper->deactivatePlugin($plugin, $animal);
-                    }
-                }
+
+        if($INPUT->has('bulk_animal') && $INPUT->has('bulk_plugins')) {
+            $animal = $INPUT->str('bulk_animal');
+            $activePlugins = $INPUT->arr('bulk_plugins');
+            foreach($activePlugins as $plugin => $state) {
+                $this->helper->setPluginState($plugin, $animal, $state);
             }
             msg($this->getLang('plugindone'), 1);
             send_redirect($self);
@@ -84,27 +71,29 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         $plugins = $helper->getAllPlugins();
         array_unshift($plugins, '');
 
+        // All Animals at once
         $bulkForm = new \dokuwiki\Form\Form();
-        $bulkForm->id('farmer__bulkForm');
-        $bulkForm->addClass('plugin_farmer');
+        $bulkForm->id('farmer__pluginsforall');
         $bulkForm->addFieldsetOpen($this->getLang('bulkEditForm'));
-        $bulkForm->addDropdown('farmer__bulkPluginSelect', $plugins)->id('farmer__bulkPluginSelect');
-        $bulkForm->addButton('farmer__submitBulk', $this->getLang('activate'))->attr('value', 'activate')->attr('type', 'submit')->attr('disabled', 'disabled');
-        $bulkForm->addButton('farmer__submitBulk', $this->getLang('deactivate'))->attr('value', 'deactivate')->attr('type', 'submit')->attr('disabled', 'disabled');
+        $bulkForm->addDropdown('bulk_plugin', $plugins);
+        $bulkForm->addButton('state', $this->getLang('default'))->attr('value', '-1')->attr('type', 'submit')->attr('disabled', 'disabled');
+        $bulkForm->addButton('state', $this->getLang('activate'))->attr('value', '1')->attr('type', 'submit')->attr('disabled', 'disabled');
+        $bulkForm->addButton('state', $this->getLang('deactivate'))->attr('value', '0')->attr('type', 'submit')->attr('disabled', 'disabled');
         $bulkForm->addFieldsetClose();
         echo $bulkForm->toHTML();
 
         $animals = $helper->getAllAnimals();
         array_unshift($animals, '');
 
+        // One Animal, all the plugins
         $singleForm = new \dokuwiki\Form\Form();
-        $singleForm->id('farmer__singlePluginForm');
-        $singleForm->addClass('plugin_farmer');
+        $singleForm->id('farmer__pluginsforone');
         $singleForm->addFieldsetOpen($this->getLang('singleEditForm'));
-        $singleForm->addDropdown('plugin_farmer[selectedAnimal]', $animals)->id('farmer__animalSelect');
-        $singleForm->addTagOpen('div')->id('farmer__animalPlugins');
+        $singleForm->addDropdown('bulk_animal', $animals);
+        $singleForm->addTagOpen('div')->addClass('output');
         $singleForm->addTagClose('div');
-        $switchForm->addFieldsetClose();
+        $singleForm->addButton('save', $this->getLang('save'))->attr('disabled', 'disabled');
+
         echo $singleForm->toHTML();
     }
 }

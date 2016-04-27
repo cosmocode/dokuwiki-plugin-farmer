@@ -39,6 +39,7 @@ $lang['baseinstall'] = 'Farmer Installation';
 $lang['animals'] = 'Animals';
 $lang['confdir'] = 'Konfigurationsverzeichnis dieser Instanz';
 $lang['savedir'] = 'data-Verzeichnis dieser Instanz';
+$lang['plugins'] = 'In dieser Instanz aktivierte Plugins';
 
 // config
 $lang['base'] = 'Grundkonfiguration';
@@ -57,6 +58,7 @@ $lang['conf_inherit_wordblock'] = 'Spamfiltereinträge';
 $lang['conf_inherit_userstyle'] = 'Nutzer-Styles';
 $lang['conf_inherit_userscript'] = 'Nutzer-Scripts';
 $lang['conf_inherit_users'] = 'Benutzer (nur Plain Auth)';
+$lang['conf_inherit_plugins'] = 'Plugin-Zustand';
 $lang['conf_inherit_yes'] = 'vom Farmer geerbt';
 $lang['conf_inherit_no'] = 'unabhängig vom Farmer';
 $lang['conf_notfound'] = 'Verhalten bei zugriff auf nicht-existierende Animals';
@@ -92,10 +94,15 @@ $lang['bulkEditForm'] = 'Plugins in allen Animals ein- oder ausschalten';
 $lang['activate'] = 'Aktivieren';
 $lang['deactivate'] = 'Deaktivieren';
 $lang['singleEditForm'] = 'Plugins eines spezifischen Animals bearbeiten';
+$lang['plugindone'] = 'Plugin states updated';
+$lang['plugin'] = 'Plugin';
+$lang['plugin_on'] = 'an';
+$lang['plugin_off'] = 'aus';
+$lang['plugin_default'] = 'Voreinstellung';
+$lang['plugin_enabled'] = 'Aktiviert';
+$lang['plugin_disabled'] = 'Deaktiviert';
 $lang['js']['animalSelect'] = 'Wählen Sie ein Animal';
 $lang['js']['pluginSelect'] = 'Wählen Sie ein Plugin';
-$lang['js']['submit'] = 'Abschicken';
-$lang['js']['reset'] = 'Zurücksetzen';
 
 // delete
 $lang['delete_animal'] = 'Animal zum Löschen auswählen';
