@@ -93,6 +93,7 @@ $lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
 $lang['activate'] = 'Activate';
 $lang['deactivate'] = 'Deactivate';
 $lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
+$lang['plugindone'] = 'Plugin states updated';
 $lang['js']['animalSelect'] = 'Select an animal';
 $lang['js']['pluginSelect'] = 'Select a plugin';
 $lang['js']['submit'] = 'Submit';

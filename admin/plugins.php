@@ -27,6 +27,9 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
      */
     public function handle() {
         global $INPUT;
+        global $ID;
+
+        $self = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'plugins'), true, '&');
 
         if($INPUT->has('farmer__submitBulk')) {
             $animals = $this->helper->getAllAnimals();
@@ -38,6 +41,8 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
                     $this->helper->deactivatePlugin($plugin, $animal);
                 }
             }
+            msg($this->getLang('plugindone'), 1);
+            send_redirect($self);
         }
         if($INPUT->has('plugin_farmer')) {
             $inputArray = $INPUT->arr('plugin_farmer');
@@ -55,6 +60,8 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
                     }
                 }
             }
+            msg($this->getLang('plugindone'), 1);
+            send_redirect($self);
         }
     }
 

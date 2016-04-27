@@ -25,7 +25,7 @@
             "placeholder_text_single": LANG.plugins.farmer.pluginSelect
         });
         bulkPluginSelector.change(function () {
-            jQuery(".bulkButton").prop('disabled', false);
+            jQuery('button').prop('disabled', false);
         });
 
         // Plugin Management of a single Animal

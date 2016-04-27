@@ -209,7 +209,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         if(isset($this->allPlugins[$animal])) {
             $plugins = $this->allPlugins[$animal];
         } else {
-            include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+            if(file_exists(DOKU_FARMDIR . $animal . '/conf/plugins.local.php')) {
+                include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+            }
         }
         if(isset($plugins[$plugin]) && $plugins[$plugin] === 0) {
             unset($plugins[$plugin]);
@@ -226,7 +228,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         if(isset($this->allPlugins[$animal])) {
             $plugins = $this->allPlugins[$animal];
         } else {
-            include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+            if(file_exists(DOKU_FARMDIR . $animal . '/conf/plugins.local.php')) {
+                include(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+            }
         }
         if(!isset($plugins[$plugin]) || $plugins[$plugin] !== 0) {
             $plugins[$plugin] = 0;
