@@ -153,6 +153,9 @@ class DokuWikiFarmCore {
             }
         }
 
+        // no host - no host based setup. if we're still here then it's the farmer
+        if(!isset($_SERVER['HTTP_HOST'])) return;
+
         // is this the farmer?
         if(strtolower($_SERVER['HTTP_HOST']) == $farmhost) {
             return;
