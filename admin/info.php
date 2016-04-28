@@ -54,8 +54,8 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
         if($animal) {
             $this->line('animal', $animal);
         }
-        $this->line('confdir', fullpath(DOKU_CONF));
-        $this->line('savedir', fullpath($conf['savedir']));
+        $this->line('confdir', fullpath(DOKU_CONF) . '/');
+        $this->line('savedir', fullpath($conf['savedir']) . '/');
         $this->line('baseinstall', DOKU_INC);
         $this->line('farm host', $config['base']['farmhost']);
         $this->line('farm dir', DOKU_FARMDIR);
