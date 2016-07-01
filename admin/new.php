@@ -65,7 +65,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $animals = $this->helper->getAllAnimals();
         array_unshift($animals, '');
         $form->addFieldsetOpen($this->getLang('animal template'));
-        $form->addDropdown('animaltemplate', $animals)->addClass('farmer_choosen_animals');
+        $form->addDropdown('animaltemplate', $animals)->addClass('farmer_chosen_animals');
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($lang['i_policy'])->attr('id', 'aclPolicyFieldset');

@@ -10,7 +10,7 @@
 
     jQuery(function () {
         // general animal select
-        var $animalSelect = jQuery('select.farmer_choosen_animals');
+        var $animalSelect = jQuery('select.farmer_chosen_animals');
         $animalSelect.chosen({
             width: '100%',
             search_contains: true,
