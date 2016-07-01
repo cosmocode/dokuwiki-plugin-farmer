@@ -10,11 +10,17 @@
 
     jQuery(function () {
         // general animal select
-        jQuery('select.farmer_choosen_animals').chosen({
+        var $animalSelect = jQuery('select.farmer_choosen_animals');
+        $animalSelect.chosen({
             width: '100%',
             search_contains: true,
             allow_single_deselect: true,
             "placeholder_text_single": LANG.plugins.farmer.animalSelect
+        });
+
+        jQuery('select.acl_chosen').chosen({
+            disable_search: true,
+            width: '100%'
         });
 
 
@@ -59,7 +65,7 @@
 
 
         // make sure there's enough space for the dropdown
-        jQuery('select').on('chosen:showing_dropdown', function (evt, params) {
+        $animalSelect.on('chosen:showing_dropdown', function (evt, params) {
             jQuery(evt.target).parent('fieldset').animate({
                 "padding-bottom": '20em'
             }, 400);
@@ -68,6 +74,18 @@
                 "padding-bottom": '7px'
             }, 400);
         });
+
+        var $aclPolicyFieldset = jQuery('#aclPolicyFieldset');
+        if ($aclPolicyFieldset.length) {
+            $animalSelect.on('change', function (evt, params) {
+                var $this = jQuery(this);
+                if ($this.val() == '') {
+                    $aclPolicyFieldset.slideDown();
+                } else {
+                    $aclPolicyFieldset.slideUp();
+                }
+            });
+        }
 
 
         jQuery("input[name=bulkSingleSwitch]:radio").change(function () {

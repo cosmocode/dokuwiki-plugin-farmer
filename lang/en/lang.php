@@ -75,6 +75,9 @@ $lang['animal template'] = 'Copy existing Animal';
 $lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
 $lang['animal creation error'] = 'There was an error while creating the Animal.';
 $lang['animal configuration'] = 'Basic Animal configuration';
+$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
+$lang['enable user registration'] = 'Allow users to register themselves';
+$lang['disable user registration'] = 'Disable user register';
 $lang['animal administrator'] = 'Animal administrator';
 $lang['noUsers'] = 'Do not create any users';
 $lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
@@ -86,6 +89,7 @@ $lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric cha
 $lang['animalname_preexisting'] = 'An Animal with that name already exists.';
 $lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
 $lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
+$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
 
 // plugins
 $lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
