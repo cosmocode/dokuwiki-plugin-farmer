@@ -38,7 +38,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
 
         $data = $this->validateAnimalData();
         if(!$data) return;
-        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'], $data['template'])) {
+        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'], $data['template'], $data['aclpolicy'], $data['allowreg'])) {
             $url = $this->helper->getAnimalURL($data['name']);
             $link = '<a href="' . $url . '">' . hsc($data['name']) . '</a>';
 
@@ -52,6 +52,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * Render HTML output, e.g. helpful text and a form
      */
     public function html() {
+        global $lang;
         $farmconfig = $this->helper->getConfig();
 
         $form = new \dokuwiki\Form\Form();
@@ -64,7 +65,20 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $animals = $this->helper->getAllAnimals();
         array_unshift($animals, '');
         $form->addFieldsetOpen($this->getLang('animal template'));
-        $form->addDropdown('animaltemplate', $animals)->addClass('farmer_choosen_animals');
+        $form->addDropdown('animaltemplate', $animals)->addClass('farmer_chosen_animals');
+        $form->addFieldsetClose();
+
+        $form->addFieldsetOpen($lang['i_policy'])->attr('id', 'aclPolicyFieldset');
+        $policyOptions = array('open' => $lang['i_pol0'],'public' => $lang['i_pol1'], 'closed' => $lang['i_pol2']);
+        $form->addDropdown('aclpolicy', $policyOptions)->addClass('acl_chosen');
+        if ($farmconfig['inherit']['main']) {
+            $form->addRadioButton('allowreg',$this->getLang('inherit user registration'))->val('inherit')->attr('checked', 'checked');
+            $form->addRadioButton('allowreg',$this->getLang('enable user registration'))->val('allow');
+            $form->addRadioButton('allowreg',$this->getLang('disable user registration'))->val('disable');
+        } else {
+            $form->addCheckbox('allowreg', $lang['i_allowreg'])->attr('checked', 'checked');
+        }
+
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($this->getLang('animal administrator'));
@@ -99,6 +113,8 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $adminsetup = $INPUT->str('adminsetup');
         $adminpass = $INPUT->filter('trim')->str('adminPassword');
         $template = $INPUT->filter('trim')->str('animaltemplate');
+        $aclpolicy = $INPUT->filter('trim')->str('aclpolicy');
+        $allowreg = $INPUT->str('allowreg');
 
         $errors = array();
 
@@ -116,6 +132,10 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
             $errors[] = $this->getLang('animalname_preexisting');
         }
 
+        if (!is_dir(DOKU_FARMDIR . $template) && !in_array($aclpolicy,array('open', 'public', 'closed'))) {
+            $errors[] = $this->getLang('aclpolicy missing/bad');
+        }
+
         if($errors) {
             foreach($errors as $error) {
                 msg($error, -1);
@@ -126,12 +146,17 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         if(!is_dir(DOKU_FARMDIR . $template)) {
             $template = '';
         }
+        if ($template != '') {
+            $aclpolicy = '';
+        }
 
         return array(
             'name' => $animalname,
             'admin' => $adminsetup,
             'pass' => $adminpass,
-            'template' => $template
+            'template' => $template,
+            'aclpolicy' => $aclpolicy,
+            'allowreg' => $allowreg
         );
     }
 
@@ -142,9 +167,12 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * @param string $adminSetup newAdmin, currentAdmin or importUsers
      * @param string $adminPassword required if $adminSetup is newAdmin
      * @param string $template name of animal to copy
+     * @param $aclpolicy
+     * @param $userreg
      * @return bool true if successful
+     * @throws Exception
      */
-    protected function createNewAnimal($name, $adminSetup, $adminPassword, $template) {
+    protected function createNewAnimal($name, $adminSetup, $adminPassword, $template, $aclpolicy, $userreg) {
         $animaldir = DOKU_FARMDIR . $name;
 
         // copy basic template
@@ -211,6 +239,45 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         }
         if($users) {
             $ok &= io_saveFile($animaldir . '/conf/users.auth.php', $users);
+        }
+
+        if ($aclpolicy != '') {
+            $aclfile = file($animaldir . '/conf/acl.auth.php');
+            array_pop($aclfile);
+            switch ($aclpolicy) {
+                case 'open':
+                    $aclfile[] = "* @ALL 8";
+                    break;
+                case 'public':
+                    $aclfile[] = "* @ALL 1";
+                    $aclfile[] = "* @user 8";
+                    break;
+                case 'closed':
+                    $aclfile[] = "* @ALL 0";
+                    $aclfile[] = "* @user 8";
+                    break;
+                default:
+                    throw new Exception('Undefined aclpolicy given');
+            }
+            $ok &= io_saveFile($animaldir . '/conf/acl.auth.php', join("\n", $aclfile));
+
+            global $conf;
+            switch ($userreg) {
+                case 'allow':
+                    $disableactions = join(',', array_diff(explode(',', $conf['disableactions']), array('register')));
+                    $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'disableactions\'] = \''.$disableactions.'\';' . "\n", true);
+                    break;
+                case 'disable':
+                    $disableactions = join(',', array_merge(explode(',', $conf['disableactions']), array('register')));
+                    $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'disableactions\'] = \''.$disableactions.'\';' . "\n", true);
+                    break;
+                case 'inherit':
+                case true:
+                    // nothing needs to be done
+                    break;
+                default:
+                    $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'disableactions\'] = \'register\';' . "\n", true);
+            }
         }
 
         // deactivate plugins by default FIXME this should be nicer

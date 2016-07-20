@@ -81,7 +81,7 @@ class admin_plugin_farmer_delete extends DokuWiki_Admin_Plugin {
 
         $animals = $this->helper->getAllAnimals();
         array_unshift($animals, '');
-        $form->addDropdown('delanimal', $animals)->addClass('farmer_choosen_animals');
+        $form->addDropdown('delanimal', $animals)->addClass('farmer_chosen_animals');
         $form->addTextInput('confirm', $this->getLang('delete_confirm'));
         $form->addButton('delete', $this->getLang('delete'));
         $form->addFieldsetClose();
