@@ -6,3 +6,4 @@
  */
 
 $conf['deactivated plugins'] = '';
+$conf['disable_new_plugins'] = 0;

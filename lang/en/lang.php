@@ -109,6 +109,8 @@ $lang['plugin_enabled'] = 'Enabled';
 $lang['plugin_disabled'] = 'Disabled';
 $lang['js']['animalSelect'] = 'Select an animal';
 $lang['js']['pluginSelect'] = 'Select a plugin';
+$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
+
 
 // delete
 $lang['delete_animal'] = 'Select Animal to delete';
