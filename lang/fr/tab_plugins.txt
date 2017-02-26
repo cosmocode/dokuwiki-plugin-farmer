@@ -1,0 +1,1 @@
+Vous pouvez activer ou désactiver soit un même greffon pour tous les animaux en une seule opération de masse, soit les greffons d'un animal particulier.

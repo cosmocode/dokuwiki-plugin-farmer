@@ -1,0 +1,37 @@
+===== Configuration de la ferme =====
+
+Tous les réglages faits ici sont enregistré dans le fichier ''conf/farm.ini'' du fermier.
+
+==== Configuration de base ====
+
+Le réglage de **Nom d'hôte du fermier** a été réglé automatiquement
+pendant l'initialisation, mais on peut le changer ici. Il sera utilisé
+pour déterminer si une requête est dirigée directement vers le fermier,
+lors de l'utilisation d'une ferme par nom. Ce devrait être un FQDN,
+''toto.example.com'' au lieu de simplement ''toto''.
+
+Lors de l'utilisation d'une configuration avec sous domaine
+générique((//wildcard subdomain//)), vous devez spécifier le
+nom principal dans le réglage **Domaine de base pour les animaux
+par sous domaine**. Par exemple, si vous indiquez ''example.com'',
+on part du principe qu'un animal nommé ''toto'' est joignable via
+''toto.example.com''. Le **Domaine de base** est simplement ajouté aux
+noms des animaux ne contenant aucun point.
+
+==== Héritage ====
+
+Vous pouvez indiquer ici quels réglages de configuration réalisés dans
+le fermier devraient être utilisés comme défaut dans les animaux.
+les animaux peuvent toujours écraser ces réglages dans leurs propres
+fichiers de configuration. Lorsque l'héritage est désactivé, les
+valeurs par défaut de DokuWiki sont également les valeurs par défaut
+pour les nouveaux animaux.
+
+==== Animaux non existant ====
+
+Par défaut, lors d'une tentative d'accès à un animal inexistant,
+aucun message d'erreur n'est affiché. Ici, vous pouvez choisir entre
+différents comportements.  Assurez vous que le nom d'hôte du fermier
+soit correctement réglé ci-dessus avant de vous écarter des valeurs
+par défaut.
+
