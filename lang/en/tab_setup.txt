@@ -1,1 +1,1 @@
-Ihr Wiki ist noch nicht für Farming mit dem Farmer-Plugin eingerichtet. Bitte nutzen Sie den folgenden Dialog zum Aufsetzen der Farm.
+Your Wiki is not set up as a farm managed by the Farmer Plugin, yet. Please use the wizard below to enable farming.
