@@ -1,0 +1,52 @@
+===== À propos de l'élevage =====
+
+L'élevage est une technique qui permet, à partir d'une unique
+installation de DokuWiki, connue comme le <<fermier>>, de propulser
+un nombre quelconque d'autres wikis appelés les animaux. Vous installez les
+greffons et thèmes uniquement dans le fermier, et les rendez disponibles
+à votre guise dans des animaux. Il suffit de mettre à jour le wiki principal et
+tous les autres wikis, qui partagent la même base de code, sont également mis
+à jour.
+
+Après avoir complété cette étape de configuration, votre wiki actuel,
+celui que vous lisez en ce moment même, sera connu comme le <<fermier>>.
+
+===== Que fait cette initialisation ?  =====
+
+Cet assistant de configuration fera trois choses :
+
+  - Créer un fichier ''inc/preload.php'',
+  - créer un fichier ''farm.ini''
+  - facultativement, ajouter un fichier ''.htaccess''.
+
+''preload.php'' est un fichier qui est chargé au tout début du chargement de DokuWiki.
+Là, le mécanisme de ferme est initialisé. Le greffon //farmer// détectera si la requête
+doit être adressée à un animal ou au fermier, et reconfigurera l'ensemble de manière
+appropriée.
+
+''conf/farm.ini'' contient les configurations de base du système de ferme. En particulier,
+ce fichier contient l'emplacement où les données des animaux seront
+enregistrées.
+
+La modification du fichier ''.htaccess'' permet de rendre accessible les animaux via
+le mécanisme ''!bang'' (voir ci-dessous).
+
+===== Que remplir ? =====
+
+Le **Dossier des animaux** est le dossier où un nouveau dossier est créé pour
+chaque nouvel animal. Ce dossier **doit** se trouver en dehors de l'arborescence
+de votre DokuWiki actuel. Vous pouvez utiliser un dossier relatif, tel que
+''../animaux'' ou un chemin absolu.
+
+Il est recommandé d'activer l'utilisation du fichier ''.htaccess''. Cette fonctionnalité
+nécessite un serveur [[https://httpd.apache.org/|Apache]] avec le module
+mod_rewrite et la prise en charge des fichiers .htaccess.
+
+Lorsque vous activez le .htaccess, les animaux sont accessibles sous l'URL du
+wiki fermier en utilisant le suffixe //!bang//. Par exemple, si votre fermier
+est accessible à l'URL 
+''%%http://www.example.com/dokuwiki/%%'', l'animal toto sera accessible à
+l'URL ''%%http://www.example.com/dokuwiki/!toto%%''.
+
+Si vous n'activez pas ce mécanisme, vous devrez configurer votre serveur web
+et votre DNS pour pouvoir accéder aux animaux.

@@ -1,0 +1,23 @@
+===== Gestion des greffons =====
+
+Le gestionnaire d'extensions est désactivé dans tous les animaux. On peut
+uniquement installer les thèmes et greffons dans le fermier.
+Seul le fermier peut contrôler quels greffons
+sont activés dans les animaux. La présente interface permet d'effectuer
+ces réglages.
+
+Dans le wiki fermier, les greffons peuvent être activés ou
+désactivés. De manière similaire,
+pour chaque animal, on peut activer ou désactiver les greffons.
+
+Dans un animal, il existe également un troisième état : hérité.
+Un greffon dans cet état se trouvera en fait dans le même état 
+que dans le fermier. Habituellement il s'agit de l'état activé.
+Si vous désactivez un greffon dans le fermier, il sera désactivé
+dans tous les animaux pour lesquels l'état est "hérité". Si vous
+l'activez à nouveau dans le fermier, il s'activera de la même
+manière dans tous les animaux concernés.
+
+Il existe deux manières de gérer les greffons :
+  - Choisir un greffon et fixer son état à la même valeur dans tous les animaux,
+  - choisir un animal particulier et gérer l'état de chacun de ses greffons.

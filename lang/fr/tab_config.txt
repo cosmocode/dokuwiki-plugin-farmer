@@ -1,0 +1,1 @@
+Ici, le comportement de base de la ferme est configurée. Veuillez garder à l'esprit que changer des options ici affecte tous les animaux.

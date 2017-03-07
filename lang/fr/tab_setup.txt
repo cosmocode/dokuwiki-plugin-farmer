@@ -1,0 +1,1 @@
+Votre Wiki est pas configuré pour l'élevage avec le greffon //farmer//. Veuillez utiliser la boîte de dialogue suivante pour la mise en place de la ferme.

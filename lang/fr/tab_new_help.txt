@@ -1,0 +1,43 @@
+===== Création d'animaux =====
+
+Les animaux sont des sous-wikis indépendants d'une ferme de DokuWiki. Pour créer un nouvel animal, il faut lui assigner un nom.
+
+==== Les noms d'animaux ==== 
+
+Pour les fermes basées sur la réécriture par fichier .htaccess
+cela devrait être un seul mot.
+Pour les configurations basées sur les noms de domaine vous devriez indiquer
+un nom de domaine totalement qualifié (FQDN).
+Pour les fermes à base de sous domaine générique((//wildcard subdomain//
+en bon anglais)), alors un nom d'hôte suffit, à condition
+d'indiquer également un domaine de base.
+
+Exemples:
+
+  * basé sur .htaccess : ''toto'' pour un animal accessible à ''%%http://example.org/dokuwiki/!toto/%%''
+  * basé sur le domaine : ''%%www.toto.com%%'' pour un animal accessible à ''%%http://www.toto.com/%%''
+  * basé sur le sous domaine : ''toto'' pour un animal accessible à ''%%http://toto.example.com/%%''
+
+Les deux derniers nécessitent un réglage du DNS approprié !
+
+==== Copie d'animal ====
+
+Vous pouvez sélectionner un animal existant comme base d'un
+nouvel animal.  Toute la configuration, toutes les pages et fichiers
+médias, ainsi que les méta données seront copiés vers le nouvel
+animal. L'historique des pages et médias ne sera pas copié.
+
+Le titre et l'image de logo seront modifiés de manière à être certain
+que vous pouvez distinguer la nouvelle copie de l'ancien.
+
+==== Administrateur de l'animal ====
+
+L'animal sera un wiki complètement fonctionnel, avec sa propre base
+d'utilisateurs.  Vous aurez besoin d'au moins un administrateur pour le
+gérer. Vous pouvez copier l'utilisateur courant, tous les utilisateurs
+du fermier, ou créer un tout nouvel utilisateur pour l'animal.
+
+Vous pouvez choisir de ne pas créer d'utilisateur. Vous ne devriez
+choisir cette possibilité que si l'héritage d'utilisateurs du fermier
+est activé dans l'onglet de configuration, ou si vous avez copié un
+animal déjà muni d'utilisateurs.
