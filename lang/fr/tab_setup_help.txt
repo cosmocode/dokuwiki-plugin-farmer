@@ -16,7 +16,7 @@ celui que vous lisez en ce moment même, sera connu comme le <<fermier>>.
 Cet assistant de configuration fera trois choses :
 
   - Créer un fichier ''inc/preload.php'',
-  - créer un fichier ''farm.ini''
+  - créer un fichier ''conf/farm.ini''
   - facultativement, ajouter un fichier ''.htaccess''.
 
 ''preload.php'' est un fichier qui est chargé au tout début du chargement de DokuWiki.

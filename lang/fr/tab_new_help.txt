@@ -28,7 +28,7 @@ médias, ainsi que les méta données seront copiés vers le nouvel
 animal. L'historique des pages et médias ne sera pas copié.
 
 Le titre et l'image de logo seront modifiés de manière à être certain
-que vous pouvez distinguer la nouvelle copie de l'ancien.
+que vous pourrez distinguer la nouvelle copie de l'ancien.
 
 ==== Administrateur de l'animal ====
 
