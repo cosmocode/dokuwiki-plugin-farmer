@@ -6,17 +6,15 @@ Seul le fermier peut contrôler quels greffons
 sont activés dans les animaux. La présente interface permet d'effectuer
 ces réglages.
 
-Dans le wiki fermier, les greffons peuvent être activés ou
-désactivés. De manière similaire,
-pour chaque animal, on peut activer ou désactiver les greffons.
+Un greffon peut avoir trois états dans un animal. Il peut être activé, ou désactivé. Il peut également avoir l'état par défaut. Cette dernière option signifie que l'état du greffon n'est pas explicitement choisi pour un animal. Habituellement, l'état par défaut est <<activé>>.
 
-Dans un animal, il existe également un troisième état : hérité.
-Un greffon dans cet état se trouvera en fait dans le même état 
-que dans le fermier. Habituellement il s'agit de l'état activé.
-Si vous désactivez un greffon dans le fermier, il sera désactivé
-dans tous les animaux pour lesquels l'état est "hérité". Si vous
-l'activez à nouveau dans le fermier, il s'activera de la même
-manière dans tous les animaux concernés.
+Lorsque les animaux sont configurés pour hériter l'état du fermier, un
+greffon dans l'état par défaut aura le même état que dans le fermier.
+C'est à dire que désactiver un greffon dans le fermier le désactivera
+aussi dans tous les animaux pour lesquels l'état du greffon n'a pas été
+explicitement spécifié. Si vous l'activez à nouveau dans le fermier,
+le greffon s'activera de la même manière dans tous les animaux
+concernés.
 
 Il existe deux manières de gérer les greffons :
   - Choisir un greffon et fixer son état à la même valeur dans tous les animaux,

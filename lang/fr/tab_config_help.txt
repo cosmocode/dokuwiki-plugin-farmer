@@ -1,10 +1,10 @@
 ===== Configuration de la ferme =====
 
-Tous les réglages faits ici sont enregistré dans le fichier ''conf/farm.ini'' du fermier.
+Tous les réglages faits ici sont enregistrés dans le fichier ''conf/farm.ini'' du fermier.
 
 ==== Configuration de base ====
 
-Le réglage de **Nom d'hôte du fermier** a été réglé automatiquement
+Le réglage de **Nom d'hôte du fermier** a été effectué automatiquement
 pendant l'initialisation, mais on peut le changer ici. Il sera utilisé
 pour déterminer si une requête est dirigée directement vers le fermier,
 lors de l'utilisation d'une ferme par nom. Ce devrait être un FQDN,
