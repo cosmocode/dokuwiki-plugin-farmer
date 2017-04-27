@@ -247,6 +247,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
             }
         }
 
+        ksort($plugins);
         $this->defaultPluginState = $plugins;
         return $plugins;
     }
@@ -276,9 +277,10 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
                 $current['isdefault'] = false;
             }
 
-            $info[] = $current;
+            $info[$plugin] = $current;
         }
 
+        ksort($info);
         return $info;
     }
 
@@ -300,6 +302,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         }
 
         $this->writePluginConf($plugins, $animal);
+
+        // clear state cache
+        if(isset($this->animalPluginState[$animal])) unset($this->animalPluginState[$animal]);
     }
 
     /**

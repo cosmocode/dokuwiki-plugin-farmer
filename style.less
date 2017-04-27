@@ -53,4 +53,52 @@
         }
     }
 
+    .pluginmatrix {
+        width: 80%;
+        margin: 1em auto;
+
+        table {
+            thead th {
+                position: relative;
+                height: 8em;
+                vertical-align: bottom;
+                overflow: visible;
+                background-color: transparent;
+                border: none;
+
+                div {
+                    transform-origin: bottom left;
+                    transform: rotate(-60deg);
+                    position: absolute;
+                    left: 1em;
+                    bottom: 0;
+                    z-index: 5;
+                }
+            }
+
+            tbody {
+                position: relative;
+
+                td {
+                    cursor: pointer;
+                }
+
+                th.off,
+                td.off {
+                    background-color: #c33;
+                }
+
+                th.on,
+                td.on {
+                    background-color: #3c3;
+                }
+
+                th.default,
+                td.default {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+
 }

@@ -96,6 +96,7 @@ $lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
 $lang['bulkEdit'] = 'Bulk edit all Animals';
 $lang['singleEdit'] = 'Edit a single Animal';
 $lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
+$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
 $lang['default'] = 'Set to default';
 $lang['activate'] = 'Activate';
 $lang['deactivate'] = 'Deactivate';

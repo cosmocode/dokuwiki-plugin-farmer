@@ -38,6 +38,16 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
         $event->stopPropagation();
         $event->preventDefault();
 
+        if(!auth_isadmin()) die('Only admins allowed');
+
+        if(substr($event->data, 14) === 'getPluginMatrix') {
+            $this->get_plugin_matrix($event, $param);
+            return;
+        }
+        if(substr($event->data, 14) === 'modPlugin') {
+            $this->plugin_mod($event, $param);
+            return;
+        }
         if(substr($event->data, 14, 10) === 'getPlugins') {
             $this->get_animal_plugins($event, $param);
             return;
@@ -58,6 +68,124 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
         $json = new JSON();
         header('Content-Type: application/json');
         echo $json->encode($data);
+    }
+
+    public function plugin_mod(Doku_Event $event, $param) {
+        global $INPUT;
+
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+
+        $pname = $INPUT->str('plugin');
+        $animal = $INPUT->str('ani');
+
+
+        $plugins = $helper->getAnimalPluginRealState($animal);
+        if(!isset($plugins[$pname])) die('no such plugin');
+        $plugin = $plugins[$pname];
+
+        // figure out what to toggle to
+        if($plugin['isdefault']) {
+            $new = (int) !$plugin['actual'];
+        } else {
+            $new = -1;
+        }
+        $helper->setPluginState($pname, $animal, $new);
+
+        // show new state
+        $plugins = $helper->getAnimalPluginRealState($animal);
+        $plugin = $plugins[$pname];
+        header('Content-Type: text/html; charset=utf-8');
+        echo $this->plugin_matrix_cell($plugin, $animal);
+    }
+
+    /**
+     * Create a matrix of all animals and plugin states
+     *
+     * @param Doku_Event $event
+     * @param $param
+     */
+    public function get_plugin_matrix(Doku_Event $event, $param) {
+        /** @var helper_plugin_farmer $helper */
+        $helper = plugin_load('helper', 'farmer');
+
+        $animals = $helper->getAllAnimals();
+        $plugins = $helper->getAnimalPluginRealState($animals[0]);
+
+        header('Content-Type: text/html; charset=utf-8');
+
+        echo '<div class="table pluginmatrix">';
+        echo '<table>';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th></th>';
+        foreach($plugins as $plugin) {
+            echo '<th><div>' . hsc($plugin['name']) . '</div></th>';
+        }
+        echo '</tr>';
+        echo '</thead>';
+
+        echo '<tbody>';
+
+        echo '<tr>';
+        echo '<th>Default</th>';
+        foreach($plugins as $plugin) {
+            echo $this->plugin_matrix_cell($plugin, $this->getLang('plugin_default'), true);
+        }
+        echo '</tr>';
+
+        foreach($animals as $animal) {
+            $plugins = $helper->getAnimalPluginRealState($animal);
+            echo '<tr>';
+            echo '<th>' . hsc($animal) . '</th>';
+            foreach($plugins as $plugin) {
+                echo $this->plugin_matrix_cell($plugin, $animal);
+            }
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+    }
+
+    /**
+     * create a single cell in the matrix
+     *
+     * @param array $plugin
+     * @param string $animal
+     * @param bool $defaults show the defaults
+     * @return string
+     */
+    protected function plugin_matrix_cell($plugin, $animal, $defaults=false) {
+        if($defaults) {
+            $current = $plugin['default'];
+            $isdefault = true;
+            $td = 'th';
+        } else {
+            $current = $plugin['actual'];
+            $isdefault = $plugin['isdefault'];
+            $td = 'td';
+        }
+
+        if($current) {
+            $class = 'on';
+            $lbl = '✓';
+        } else {
+            $class = 'off';
+            $lbl = '✗';
+        }
+        if($isdefault) $class .= ' default';
+
+
+        $attrs = array(
+            'class' => $class,
+            'title' => $animal . ': ' . $plugin['name'],
+            'data-animal' => $animal,
+            'data-plugin' => $plugin['name']
+        );
+        $attr = buildAttributes($attrs);
+
+        return "<$td $attr>$lbl</$td>";
     }
 
     /**

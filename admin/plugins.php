@@ -63,6 +63,7 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         $switchForm->addFieldsetOpen($this->getLang('bulkSingleSwitcher'));
         $switchForm->addRadioButton('bulkSingleSwitch', $this->getLang('bulkEdit'))->id('farmer__bulk')->attr('type', 'radio');
         $switchForm->addRadioButton('bulkSingleSwitch', $this->getLang('singleEdit'))->id('farmer__single')->attr('type', 'radio');
+        $switchForm->addRadioButton('bulkSingleSwitch', $this->getLang('matrixEdit'))->id('farmer__matrix')->attr('type', 'radio');
         $switchForm->addFieldsetClose();
         echo $switchForm->toHTML();
 
@@ -95,6 +96,9 @@ class admin_plugin_farmer_plugins extends DokuWiki_Admin_Plugin {
         $singleForm->addButton('save', $this->getLang('save'))->attr('disabled', 'disabled');
 
         echo $singleForm->toHTML();
+
+
+        echo '<div id="farmer__pluginmatrix"></div>';
     }
 }
 

@@ -62,7 +62,43 @@
             })
         ;
 
+        /**
+         * Handle clicks on the matrix
+         */
+        var $formPluginMatrix = jQuery('#farmer__pluginmatrix').hide();
+        $formPluginMatrix.on('click', 'td', function () {
+            var $td = jQuery(this);
+            $td.html('⌛').css('background-color','transparent');
+            jQuery.post(
+                DOKU_BASE + 'lib/exe/ajax.php',
+                {
+                    call: 'plugin_farmer_modPlugin',
+                    plugin: $td.data('plugin'),
+                    ani: $td.data('animal')
+                },
+                function (data) {
+                    $td.replaceWith(data);
+                },
+                'html'
+            );
+        });
 
+        /**
+         * show the matrix interface
+         */
+        function showMatrix() {
+            jQuery.post(
+                DOKU_BASE + 'lib/exe/ajax.php',
+                {
+                    call: 'plugin_farmer_getPluginMatrix'
+                },
+                function (data) {
+                    $formPluginMatrix.html(data);
+                    $formPluginMatrix.show();
+                },
+                'html'
+            )
+        }
 
         // make sure there's enough space for the dropdown
         $animalSelect.on('chosen:showing_dropdown', function (evt, params) {
@@ -79,7 +115,7 @@
         if ($aclPolicyFieldset.length) {
             $animalSelect.on('change', function (evt, params) {
                 var $this = jQuery(this);
-                if ($this.val() == '') {
+                if ($this.val() === '') {
                     $aclPolicyFieldset.slideDown();
                 } else {
                     $aclPolicyFieldset.slideUp();
@@ -88,15 +124,21 @@
         }
 
 
+
+
         jQuery("input[name=bulkSingleSwitch]:radio").change(function () {
             if (jQuery('#farmer__bulk').prop("checked")) {
                 $formAllAnimals.show();
                 $formSingleAnimal.hide();
-            } else {
+                $formPluginMatrix.hide();
+            } else if (jQuery('#farmer__single').prop("checked")) {
                 $formAllAnimals.hide();
                 $formSingleAnimal.show();
-
-
+                $formPluginMatrix.hide();
+            } else {
+                $formAllAnimals.hide();
+                $formSingleAnimal.hide();
+                showMatrix();
             }
         });
         jQuery('#farmer__bulk').click();
