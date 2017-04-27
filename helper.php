@@ -195,6 +195,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
             $plugins, function ($item) {
             if($item == 'farmer') return false;
             if($item == 'extension') return false;
+            if($item == 'upgrade') return false;
             if($item == 'testing') return false;
             return true;
         }
