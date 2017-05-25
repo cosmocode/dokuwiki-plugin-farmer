@@ -5,6 +5,7 @@
  *
  * @author Schplurtz le Déboulonné <Schplurtz@laposte.net>
  * @author Schplurtz le Déboulonné <Schlurtz@laposte.net>
+ * @author ubibene <services.m@benard.info>
  */
 $lang['menu']                  = 'Élevage';
 $lang['tab_setup']             = 'Configuration de la ferme';
@@ -83,6 +84,7 @@ $lang['bulkSingleSwitcher']    = 'Modifier un seul animal ou tout le troupeau ?'
 $lang['bulkEdit']              = 'Modifier tout le troupeau';
 $lang['singleEdit']            = 'Modifier un seul animal';
 $lang['bulkEditForm']          = 'Activer ou désactiver un greffon sur tout le troupeau.';
+$lang['matrixEdit']            = 'Modifier la matrice Animal/Plugin';
 $lang['default']               = 'Hériter du fermier';
 $lang['activate']              = 'Activer';
 $lang['deactivate']            = 'Désactiver';
