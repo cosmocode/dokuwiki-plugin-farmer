@@ -297,7 +297,7 @@ class DokuWikiFarmCore {
             if($key == 'main') {
                 $append = array(
                     'default' => array(DOKU_INC . 'conf/local.php'),
-                    'protected' => array(DOKU_INC . 'lib/plugins/farmer/includes/config.php')
+                    'protected' => array(DOKU_INC . 'lib/plugins/farmer/includes/config.php', DOKU_INC . 'conf/local.protected.php')
                 );
             } elseif($key == 'license') {
                 $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.php'));
