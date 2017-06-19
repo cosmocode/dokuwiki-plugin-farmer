@@ -65,9 +65,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $config = $this->getConfig();
 
         if(strpos($animal, '.') !== false) {
-            return 'http://' . $animal;
+            return '//' . $animal;
         } elseif($config['base']['basedomain']) {
-            return 'http://' . $animal . '.' . $config['base']['basedomain'];
+            return '//' . $animal . '.' . $config['base']['basedomain'];
         } else {
             return DOKU_URL . '!' . $animal . '/';
         }
