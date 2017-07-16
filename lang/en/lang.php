@@ -1,127 +1,155 @@
 <?php
+
 /**
- * English language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
  * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author ed sheeran songs <toneyrancourt@freenet.de>
  */
-
-// menu entry for admin plugins
-$lang['menu'] = 'Farming';
-
-// tabs
-$lang['tab_setup'] = 'Farm Setup';
-$lang['tab_info'] = 'Info';
-$lang['tab_config'] = 'Configuration';
-$lang['tab_plugins'] = 'Manage Plugins';
-$lang['tab_new'] = 'Add new Animal';
-$lang['tab_delete'] = 'Delete Animal';
-
-// setup
-$lang['preloadPHPForm'] = 'Initialize Farming';
-$lang['farm dir'] = 'Animal directory';
-$lang['htaccess setup'] = 'Add farm code to .htaccess?';
-$lang['submit'] = 'Submit';
-$lang['farmdir_missing'] = 'Please enter a directory where the Animals should be stored.';
-$lang['farmdir_in_dokuwiki'] = 'The Animal directory must outside of the Farm dokuwiki.';
-$lang['farmdir_uncreatable'] = 'The Animal directory could not be created. Are the permissions correct?';
-$lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the Animal directory!';
-$lang['farmdir_notEmpty'] = 'The Animal directory must be empty.';
-$lang['preload creation success'] = 'Farming has been succesfully initialized.';
-$lang['preload creation error'] = 'There was an error during Farming initialization.';
-$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
-
-// info
-$lang['animal'] = 'Animal Name / Domain';
-$lang['thisis'] = 'Instance is';
-$lang['thisis.farmer'] = 'The farmer!';
-$lang['thisis.animal'] = 'An Animal!';
-$lang['baseinstall'] = 'Farmer Install';
-$lang['animals'] = 'Animals';
-$lang['confdir'] = 'Instance Configuration Directory';
-$lang['savedir'] = 'Instance Data Directory';
-$lang['plugins'] = 'Plugins active in this instance';
-
-// config
-$lang['base'] = 'Base Configuration';
-$lang['farm host'] = 'Farmer Host Name';
-$lang['base domain'] = 'Base Domain for subdomain Animals';
-$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
-$lang['conf_inherit_main'] = 'Configuration Settings';
-$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
-$lang['conf_inherit_entities'] = 'Entity Definitions';
-$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
-$lang['conf_inherit_license'] = 'License Definitions';
-$lang['conf_inherit_mime'] = 'MIME Type Definitions';
-$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
-$lang['conf_inherit_smileys'] = 'Smiley Definitions';
-$lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
-$lang['conf_inherit_userstyle'] = 'User Styles';
-$lang['conf_inherit_userscript'] = 'User Scripts';
-$lang['conf_inherit_users'] = 'Users (Plain Auth only)';
-$lang['conf_inherit_plugins'] = 'Plugin State';
-$lang['conf_inherit_yes'] = 'inherited from farmer';
-$lang['conf_inherit_no'] = 'independent from farmer';
-$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
-$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
-$lang['conf_notfound_404'] = 'Show a 404 error page';
-$lang['conf_notfound_list'] = 'Show a list of available animals';
-$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
-$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
-$lang['save'] = 'Save';
-
-// new
-$lang['animal template'] = 'Copy existing Animal';
-$lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'There was an error while creating the Animal.';
-$lang['animal configuration'] = 'Basic Animal configuration';
-$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
-$lang['enable user registration'] = 'Allow users to register themselves';
-$lang['disable user registration'] = 'Disable user register';
-$lang['animal administrator'] = 'Animal administrator';
-$lang['noUsers'] = 'Do not create any users';
-$lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
-$lang['currentAdmin'] = 'Set the current user as admin';
-$lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['admin password'] = 'Password for the new admin';
-$lang['animalname_missing'] = 'Please enter a name for the new Animal.';
-$lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric characters and dots/hyphens (but not as first or last character).';
-$lang['animalname_preexisting'] = 'An Animal with that name already exists.';
-$lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
-$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
-$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
-
-// plugins
-$lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
-$lang['bulkEdit'] = 'Bulk edit all Animals';
-$lang['singleEdit'] = 'Edit a single Animal';
-$lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
-$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
-$lang['default'] = 'Set to default';
-$lang['activate'] = 'Activate';
-$lang['deactivate'] = 'Deactivate';
-$lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
-$lang['plugindone'] = 'Plugin states updated';
-$lang['plugin'] = 'Plugin';
-$lang['plugin_on'] = 'on';
-$lang['plugin_off'] = 'off';
-$lang['plugin_default'] = 'Default';
-$lang['plugin_enabled'] = 'Enabled';
-$lang['plugin_disabled'] = 'Disabled';
-$lang['js']['animalSelect'] = 'Select an animal';
-$lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
-
-
-// delete
-$lang['delete_animal'] = 'Select Animal to delete';
-$lang['delete_confirm'] = 'Please type the Animal name to confirm';
-$lang['delete'] = 'Delete the Animal and all its data';
-
-$lang['delete_noanimal'] = 'Please select an Animal to delete';
-$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
-$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
-$lang['delete_success'] = 'Animal successfully deleted.';
-$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
-
-//Setup VIM: ex: et ts=4 :
+$lang['menu']                  = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic 
+of unpredicted feelings.';
+$lang['tab_setup']             = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic 
+of unpredicted feelings.';
+$lang['tab_info']              = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted 
+feelings.';
+$lang['tab_config']            = 'What a information of un-ambiguity and preserveness 
+of valuable knowledge on the topic of unpredicted feelings.';
+$lang['tab_plugins']           = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted 
+feelings.';
+$lang['tab_new']               = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['tab_delete']            = 'What a information of un-ambiguity and preserveness 
+of valuable knowledge on the topic of unpredicted feelings.';
+$lang['preloadPHPForm']        = 'What a information of un-ambiguity and preserveness 
+of valuable knowledge on the topic of unpredicted feelings.';
+$lang['farm dir']              = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted 
+feelings.';
+$lang['htaccess setup']        = '-2|Error - No Subscription Detected';
+$lang['submit']                = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['farmdir_missing']       = 'Sankt Johann Im Pongau';
+$lang['farmdir_in_dokuwiki']   = 'What a information of un-ambiguity and preserveness of valuable knowledge 
+on the topic of unpredicted feelings.';
+$lang['farmdir_uncreatable']   = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['farmdir_unwritable']    = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['farmdir_notEmpty']      = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['preload creation success'] = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['preload creation error'] = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['overwrite_preload']     = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['animal']                = 'Rancourt';
+$lang['thisis']                = 'What a information of un-ambiguity and preserveness 
+of valuable knowledge on the topic of unpredicted feelings.';
+$lang['thisis.farmer']         = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['thisis.animal']         = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['baseinstall']           = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted 
+feelings.';
+$lang['animals']               = 'What a information of un-ambiguity and preserveness of valuable knowledge on the 
+topic of unpredicted feelings.';
+$lang['confdir']               = 'What a information of un-ambiguity and preserveness of valuable 
+knowledge on the topic of unpredicted feelings.';
+$lang['savedir']               = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic 
+of unpredicted feelings.';
+$lang['plugins']               = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['base']                  = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted 
+feelings.';
+$lang['farm host']             = 'Toney';
+$lang['base domain']           = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit']          = 'What a information of un-ambiguity and preserveness of valuable knowledge 
+on the topic of unpredicted feelings.';
+$lang['conf_inherit_main']     = 'What a information of un-ambiguity and preserveness 
+of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_acronyms'] = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_entities'] = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_interwiki'] = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_license']  = 'What a information of un-ambiguity and preserveness of valuable 
+knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_mime']     = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_scheme']   = 'http://www.edsheeran.co.uk';
+$lang['conf_inherit_smileys']  = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_wordblock'] = '-2|Error - No Subscription Detected';
+$lang['conf_inherit_userstyle'] = 'Toney';
+$lang['conf_inherit_userscript'] = 'Toney';
+$lang['conf_inherit_users']    = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_inherit_plugins']  = 'BURGENLAND';
+$lang['conf_inherit_yes']      = 'Toney';
+$lang['conf_inherit_no']       = 'Toney';
+$lang['conf_notfound']         = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of 
+unpredicted feelings.';
+$lang['conf_notfound_farmer']  = 'What a information of un-ambiguity and preserveness of valuable 
+knowledge on the topic of unpredicted feelings.';
+$lang['conf_notfound_404']     = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic 
+of unpredicted feelings.';
+$lang['conf_notfound_list']    = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['conf_notfound_redirect'] = 'http://www.edsheeran.co.uk';
+$lang['conf_notfound_url']     = 'http://www.edsheeran.co.uk';
+$lang['save']                  = '1';
+$lang['animal template']       = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['animal creation success'] = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of 
+unpredicted feelings.';
+$lang['animal creation error'] = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted 
+feelings.';
+$lang['animal configuration']  = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['inherit user registration'] = 'Toney';
+$lang['enable user registration'] = 'Toney';
+$lang['disable user registration'] = 'Toney';
+$lang['animal administrator']  = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['noUsers']               = 'What a information of un-ambiguity and preserveness of valuable 
+knowledge on the topic of unpredicted feelings.';
+$lang['importUsers']           = 'Sankt Johann Im Pongau';
+$lang['currentAdmin']          = 'Toney';
+$lang['newAdmin']              = 'Toney';
+$lang['admin password']        = 'What a information of un-ambiguity and preserveness of valuable knowledge 
+on the topic of unpredicted feelings.';
+$lang['animalname_missing']    = 'Rancourt';
+$lang['animalname_invalid']    = 'Rancourt';
+$lang['animalname_preexisting'] = 'Rancourt';
+$lang['adminPassword_empty']   = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['animal template copy error'] = 'Toney';
+$lang['aclpolicy missing/bad'] = '1';
+$lang['bulkSingleSwitcher']    = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['bulkEdit']              = 'What a information of un-ambiguity and preserveness of valuable knowledge 
+on the topic of unpredicted feelings.';
+$lang['singleEdit']            = 'What a information of un-ambiguity and preserveness of valuable knowledge on the 
+topic of unpredicted feelings.';
+$lang['bulkEditForm']          = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['matrixEdit']            = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['default']               = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
+$lang['activate']              = 'What a information of un-ambiguity and preserveness of valuable knowledge 
+on the topic of unpredicted feelings.';
+$lang['deactivate']            = 'What a information of un-ambiguity and preserveness of valuable 
+knowledge on the topic of unpredicted feelings.';
+$lang['singleEditForm']        = 'What a information of un-ambiguity and preserveness of valuable knowledge on the 
+topic of unpredicted feelings.';
+$lang['plugindone']            = 'BURGENLAND';
+$lang['plugin']                = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic 
+of unpredicted feelings.';
+$lang['plugin_on']             = 'What a information of un-ambiguity and preserveness 
+of valuable knowledge on the topic of unpredicted feelings.';
+$lang['plugin_off']            = 'What a information of un-ambiguity and preserveness of valuable knowledge on the 
+topic of unpredicted feelings.';
+$lang['plugin_default']        = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['plugin_enabled']        = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic 
+of unpredicted feelings.';
+$lang['plugin_disabled']       = 'What a information of un-ambiguity and preserveness of valuable knowledge on the 
+topic of unpredicted feelings.';
+$lang['js']['animalSelect']    = 'What a information of un-ambiguity and preserveness of valuable knowledge 
+on the topic of unpredicted feelings.';
+$lang['js']['pluginSelect']    = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['disable_new_plugins']   = '1976';
+$lang['delete_animal']         = 'What a information of un-ambiguity and preserveness of valuable knowledge on the 
+topic of unpredicted feelings.';
+$lang['delete_confirm']        = 'Rancourt';
+$lang['delete']                = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['delete_noanimal']       = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['delete_mismatch']       = 'Toney';
+$lang['delete_invalid']        = 'Rancourt';
+$lang['delete_success']        = 'What a information of un-ambiguity and preserveness of valuable knowledge on the topic of unpredicted feelings.';
+$lang['delete_fail']           = 'What a information of un-ambiguity and preserveness of 
+valuable knowledge on the topic of unpredicted feelings.';
