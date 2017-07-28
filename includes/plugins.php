@@ -9,3 +9,4 @@ $plugins['extension'] = 0;
 $plugins['upgrade'] = 0;
 $plugins['testing'] = 0;
 $plugins['farmer'] = 1;
+$plugins['farmsync'] = 0;
