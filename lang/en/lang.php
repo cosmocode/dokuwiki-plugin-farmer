@@ -1,127 +1,293 @@
 <?php
+
 /**
- * English language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
  * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author Fastest captcha bypass <king_madera@emailengine.net>
  */
+$lang['menu']                  = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of 
+this your broadcast provided shiny transparent concept';
+$lang['tab_setup']             = 'Great beat ! I wish to apprentice while you 
+amend your website, how can i subscribe for a 
+weblog web site? The account aided me a applicable deal.
 
-// menu entry for admin plugins
-$lang['menu'] = 'Farming';
+I had been a little bit familiar of this your broadcast provided 
+shiny transparent concept';
+$lang['tab_info']              = 'Great beat ! I wish to apprentice while you amend your website, 
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided 
+shiny transparent concept';
+$lang['tab_config']            = 'Great beat ! I wish to apprentice while you 
+amend your website, how can i subscribe for a weblog web site?
 
-// tabs
-$lang['tab_setup'] = 'Farm Setup';
-$lang['tab_info'] = 'Info';
-$lang['tab_config'] = 'Configuration';
-$lang['tab_plugins'] = 'Manage Plugins';
-$lang['tab_new'] = 'Add new Animal';
-$lang['tab_delete'] = 'Delete Animal';
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['tab_plugins']           = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['tab_new']               = 'Great beat ! I wish to apprentice while you amend your website, 
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
 
-// setup
-$lang['preloadPHPForm'] = 'Initialize Farming';
-$lang['farm dir'] = 'Animal directory';
-$lang['htaccess setup'] = 'Add farm code to .htaccess?';
-$lang['submit'] = 'Submit';
-$lang['farmdir_missing'] = 'Please enter a directory where the Animals should be stored.';
-$lang['farmdir_in_dokuwiki'] = 'The Animal directory must outside of the Farm dokuwiki.';
-$lang['farmdir_uncreatable'] = 'The Animal directory could not be created. Are the permissions correct?';
-$lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the Animal directory!';
-$lang['farmdir_notEmpty'] = 'The Animal directory must be empty.';
-$lang['preload creation success'] = 'Farming has been succesfully initialized.';
-$lang['preload creation error'] = 'There was an error during Farming initialization.';
-$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['tab_delete']            = 'Great beat ! I wish to apprentice while you amend your website,
+how can i subscribe for a weblog web site? The 
+account aided me a applicable deal. I had been a little bit familiar of this 
+your broadcast provided shiny transparent concept';
+$lang['preloadPHPForm']        = 'Great beat ! I wish to apprentice while you amend your website, how can i 
+subscribe for a weblog web site? The account aided me a 
+applicable deal. I had been a little bit familiar of this 
+your broadcast provided shiny transparent concept';
+$lang['farm dir']              = 'Great beat ! I wish to apprentice while you amend your website, how 
+can i subscribe for a weblog web site? The account aided me a 
+applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['htaccess setup']        = 'Not Recognized';
+$lang['submit']                = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['farmdir_missing']       = 'Eindhout';
+$lang['farmdir_in_dokuwiki']   = 'Great beat ! I wish to apprentice while you amend 
+your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided 
+shiny transparent concept';
+$lang['farmdir_uncreatable']   = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar 
+of this your broadcast provided shiny transparent concept';
+$lang['farmdir_unwritable']    = 'Great beat ! I wish to apprentice while you amend your website,
+how can i subscribe for a weblog web site? 
+The account aided me a applicable deal. I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['farmdir_notEmpty']      = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little 
+bit familiar of this your broadcast provided shiny transparent concept';
+$lang['preload creation success'] = 'Great beat ! I wish to apprentice while you amend your website, how can i 
+subscribe for a weblog web site? The account aided me a applicable deal.
 
-// info
-$lang['animal'] = 'Animal Name / Domain';
-$lang['thisis'] = 'Instance is';
-$lang['thisis.farmer'] = 'The farmer!';
-$lang['thisis.animal'] = 'An Animal!';
-$lang['baseinstall'] = 'Farmer Install';
-$lang['animals'] = 'Animals';
-$lang['confdir'] = 'Instance Configuration Directory';
-$lang['savedir'] = 'Instance Data Directory';
-$lang['plugins'] = 'Plugins active in this instance';
+I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['preload creation error'] = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit 
+familiar of this your broadcast provided shiny transparent concept';
+$lang['overwrite_preload']     = 'Great beat ! I wish to apprentice while you 
+amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['animal']                = 'Madera';
+$lang['thisis']                = 'Great beat ! I wish to apprentice while you amend your website,
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['thisis.farmer']         = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for 
+a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent 
+concept';
+$lang['thisis.animal']         = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this 
+your broadcast provided shiny transparent concept';
+$lang['baseinstall']           = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe 
+for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['animals']               = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for 
+a weblog web site? The account aided me a applicable deal.
 
-// config
-$lang['base'] = 'Base Configuration';
-$lang['farm host'] = 'Farmer Host Name';
-$lang['base domain'] = 'Base Domain for subdomain Animals';
-$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
-$lang['conf_inherit_main'] = 'Configuration Settings';
-$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
-$lang['conf_inherit_entities'] = 'Entity Definitions';
-$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
-$lang['conf_inherit_license'] = 'License Definitions';
-$lang['conf_inherit_mime'] = 'MIME Type Definitions';
-$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
-$lang['conf_inherit_smileys'] = 'Smiley Definitions';
-$lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
-$lang['conf_inherit_userstyle'] = 'User Styles';
-$lang['conf_inherit_userscript'] = 'User Scripts';
-$lang['conf_inherit_users'] = 'Users (Plain Auth only)';
-$lang['conf_inherit_plugins'] = 'Plugin State';
-$lang['conf_inherit_yes'] = 'inherited from farmer';
-$lang['conf_inherit_no'] = 'independent from farmer';
-$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
-$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
-$lang['conf_notfound_404'] = 'Show a 404 error page';
-$lang['conf_notfound_list'] = 'Show a list of available animals';
-$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
-$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
-$lang['save'] = 'Save';
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['confdir']               = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. 
+I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['savedir']               = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe 
+for a weblog web site? The account aided me a applicable deal.
 
-// new
-$lang['animal template'] = 'Copy existing Animal';
-$lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'There was an error while creating the Animal.';
-$lang['animal configuration'] = 'Basic Animal configuration';
-$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
-$lang['enable user registration'] = 'Allow users to register themselves';
-$lang['disable user registration'] = 'Disable user register';
-$lang['animal administrator'] = 'Animal administrator';
-$lang['noUsers'] = 'Do not create any users';
-$lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
-$lang['currentAdmin'] = 'Set the current user as admin';
-$lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['admin password'] = 'Password for the new admin';
-$lang['animalname_missing'] = 'Please enter a name for the new Animal.';
-$lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric characters and dots/hyphens (but not as first or last character).';
-$lang['animalname_preexisting'] = 'An Animal with that name already exists.';
-$lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
-$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
-$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['plugins']               = 'Great beat ! I wish to apprentice while you 
+amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['base']                  = 'Great beat ! I wish to apprentice while you amend your website, 
+how can i subscribe for a weblog web site? The account 
+aided me a applicable deal. I had been a little bit familiar of this 
+your broadcast provided shiny transparent concept';
+$lang['farm host']             = 'King';
+$lang['base domain']           = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a 
+weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny 
+transparent concept';
+$lang['conf_inherit']          = 'Great beat ! I wish to apprentice while you amend your website, how 
+can i subscribe for a weblog web site? The account aided me 
+a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_inherit_main']     = 'Great beat ! I wish to apprentice while you amend your website, 
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
 
-// plugins
-$lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
-$lang['bulkEdit'] = 'Bulk edit all Animals';
-$lang['singleEdit'] = 'Edit a single Animal';
-$lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
-$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
-$lang['default'] = 'Set to default';
-$lang['activate'] = 'Activate';
-$lang['deactivate'] = 'Deactivate';
-$lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
-$lang['plugindone'] = 'Plugin states updated';
-$lang['plugin'] = 'Plugin';
-$lang['plugin_on'] = 'on';
-$lang['plugin_off'] = 'off';
-$lang['plugin_default'] = 'Default';
-$lang['plugin_enabled'] = 'Enabled';
-$lang['plugin_disabled'] = 'Disabled';
-$lang['js']['animalSelect'] = 'Select an animal';
-$lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
+I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['conf_inherit_acronyms'] = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little 
+bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_inherit_entities'] = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe 
+for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent 
+concept';
+$lang['conf_inherit_interwiki'] = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had 
+been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_inherit_license']  = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
 
+The account aided me a applicable deal. I had been a little 
+bit familiar of this your broadcast provided shiny 
+transparent concept';
+$lang['conf_inherit_mime']     = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent 
+concept';
+$lang['conf_inherit_scheme']   = 'http://www.pagodajunior.com/?document_srl=1075961';
+$lang['conf_inherit_smileys']  = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a 
+weblog web site? The account aided me a applicable deal.
 
-// delete
-$lang['delete_animal'] = 'Select Animal to delete';
-$lang['delete_confirm'] = 'Please type the Animal name to confirm';
-$lang['delete'] = 'Delete the Animal and all its data';
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_inherit_wordblock'] = 'Unable To Solve';
+$lang['conf_inherit_userstyle'] = 'King';
+$lang['conf_inherit_userscript'] = 'King';
+$lang['conf_inherit_users']    = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe 
+for a weblog web site? The account aided me 
+a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_inherit_plugins']  = 'VAN';
+$lang['conf_inherit_yes']      = 'King';
+$lang['conf_inherit_no']       = 'King';
+$lang['conf_notfound']         = 'Great beat ! I wish to apprentice while you amend your website, how 
+can i subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_notfound_farmer']  = 'Great beat ! I wish to apprentice while you amend your website, how 
+can i subscribe for a weblog web site? The account aided me a applicable 
+deal. I had been a little bit familiar of this your broadcast provided shiny 
+transparent concept';
+$lang['conf_notfound_404']     = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog 
+web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['conf_notfound_list']    = 'Great beat ! I wish to apprentice while you amend your website, how 
+can i subscribe for a weblog web site? The account 
+aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['conf_notfound_redirect'] = 'http://www.pagodajunior.com/?document_srl=1075961';
+$lang['conf_notfound_url']     = 'http://www.pagodajunior.com/?document_srl=1075961';
+$lang['save']                  = '1';
+$lang['animal template']       = 'Great beat ! I wish to apprentice while you amend your website,
+how can i subscribe for a weblog web site? The account aided 
+me a applicable deal. I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['animal creation success'] = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for 
+a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['animal creation error'] = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog 
+web site? The account aided me a applicable deal. I had been a little bit familiar of this your broadcast 
+provided shiny transparent concept';
+$lang['animal configuration']  = 'Great beat ! I wish to apprentice while you amend your website, how 
+can i subscribe for a weblog web site? The account aided me a 
+applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['inherit user registration'] = 'King';
+$lang['enable user registration'] = 'King';
+$lang['disable user registration'] = 'King';
+$lang['animal administrator']  = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog 
+web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['noUsers']               = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit 
+familiar of this your broadcast provided shiny 
+transparent concept';
+$lang['importUsers']           = 'Eindhout';
+$lang['currentAdmin']          = 'King';
+$lang['newAdmin']              = 'King';
+$lang['admin password']        = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe 
+for a weblog web site? The account aided me a applicable deal.
 
-$lang['delete_noanimal'] = 'Please select an Animal to delete';
-$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
-$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
-$lang['delete_success'] = 'Animal successfully deleted.';
-$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['animalname_missing']    = 'Madera';
+$lang['animalname_invalid']    = 'Madera';
+$lang['animalname_preexisting'] = 'Madera';
+$lang['adminPassword_empty']   = 'Great beat ! I wish to apprentice while you amend your website, how can i 
+subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['animal template copy error'] = 'King';
+$lang['aclpolicy missing/bad'] = '1';
+$lang['bulkSingleSwitcher']    = 'Great beat ! I wish to apprentice while you amend your website,
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
 
-//Setup VIM: ex: et ts=4 :
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['bulkEdit']              = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['singleEdit']            = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web 
+site? The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['bulkEditForm']          = 'Great beat ! I wish to apprentice while you amend your website,
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['matrixEdit']            = 'Great beat ! I wish to apprentice while you 
+amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this 
+your broadcast provided shiny transparent concept';
+$lang['default']               = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['activate']              = 'Great beat ! I wish to apprentice while you amend your website, 
+how can i subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['deactivate']            = 'Great beat ! I wish to apprentice while you 
+amend your website, how can i subscribe for a weblog web 
+site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided 
+shiny transparent concept';
+$lang['singleEditForm']        = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web 
+site? The account aided me a applicable deal. I had been a little bit 
+familiar of this your broadcast provided shiny transparent concept';
+$lang['plugindone']            = 'VAN';
+$lang['plugin']                = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a 
+weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['plugin_on']             = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a 
+weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['plugin_off']            = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site?
+
+The account aided me a applicable deal. I had been a little bit familiar 
+of this your broadcast provided shiny transparent concept';
+$lang['plugin_default']        = 'Great beat ! I wish to apprentice while you amend your website, 
+how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar 
+of this your broadcast provided shiny transparent concept';
+$lang['plugin_enabled']        = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['plugin_disabled']       = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site? The account aided me a applicable deal.
+
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['js']['animalSelect']    = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for 
+a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny 
+transparent concept';
+$lang['js']['pluginSelect']    = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+
+The account aided me a applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['disable_new_plugins']   = '1976';
+$lang['delete_animal']         = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog 
+web site? The account aided me a applicable deal.
+I had been a little bit familiar of this 
+your broadcast provided shiny transparent concept';
+$lang['delete_confirm']        = 'Madera';
+$lang['delete']                = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of this your 
+broadcast provided shiny transparent concept';
+$lang['delete_noanimal']       = 'Great beat ! I wish to apprentice while you amend 
+your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little bit familiar of 
+this your broadcast provided shiny transparent concept';
+$lang['delete_mismatch']       = 'King';
+$lang['delete_invalid']        = 'Madera';
+$lang['delete_success']        = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site? The account aided me a 
+applicable deal. I had been a little bit familiar of this your broadcast provided shiny transparent concept';
+$lang['delete_fail']           = 'Great beat ! I wish to apprentice while you amend your website, how can i subscribe for a weblog web site?
+The account aided me a applicable deal. I had been a little 
+bit familiar of this your broadcast provided shiny transparent concept';

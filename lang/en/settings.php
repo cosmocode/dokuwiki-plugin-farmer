@@ -1,13 +1,12 @@
 <?php
+
 /**
- * english language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
+ * @author Fastest captcha bypass <king_madera@emailengine.net>
  */
-
-// keys need to match the config setting name
-$lang['deactivated plugins'] = 'Comma-separated list of plugins which are deactivated by default in new animals.';
-$lang['disable_new_plugins'] = 'Automatically disable plugins after they have been newly installed in the farmer? (only when installed via extension manager)';
-
-
-//Setup VIM: ex: et ts=4 :
+$lang['deactivated plugins']   = '1989';
+$lang['disable_new_plugins']   = 'Great beat ! I wish to apprentice while you amend your 
+website, how can i subscribe for a weblog web site? The account aided me a applicable deal.
+I had been a little bit familiar of this your broadcast provided shiny transparent concept';
