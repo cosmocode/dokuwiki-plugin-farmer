@@ -1,127 +1,173 @@
 <?php
+
 /**
- * English language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
  * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author captcha solving Services <roberto.teal@gmail.com>
  */
-
-// menu entry for admin plugins
-$lang['menu'] = 'Farming';
-
-// tabs
-$lang['tab_setup'] = 'Farm Setup';
-$lang['tab_info'] = 'Info';
-$lang['tab_config'] = 'Configuration';
-$lang['tab_plugins'] = 'Manage Plugins';
-$lang['tab_new'] = 'Add new Animal';
-$lang['tab_delete'] = 'Delete Animal';
-
-// setup
-$lang['preloadPHPForm'] = 'Initialize Farming';
-$lang['farm dir'] = 'Animal directory';
-$lang['htaccess setup'] = 'Add farm code to .htaccess?';
-$lang['submit'] = 'Submit';
-$lang['farmdir_missing'] = 'Please enter a directory where the Animals should be stored.';
-$lang['farmdir_in_dokuwiki'] = 'The Animal directory must outside of the Farm dokuwiki.';
-$lang['farmdir_uncreatable'] = 'The Animal directory could not be created. Are the permissions correct?';
-$lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the Animal directory!';
-$lang['farmdir_notEmpty'] = 'The Animal directory must be empty.';
-$lang['preload creation success'] = 'Farming has been succesfully initialized.';
-$lang['preload creation error'] = 'There was an error during Farming initialization.';
-$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
-
-// info
-$lang['animal'] = 'Animal Name / Domain';
-$lang['thisis'] = 'Instance is';
-$lang['thisis.farmer'] = 'The farmer!';
-$lang['thisis.animal'] = 'An Animal!';
-$lang['baseinstall'] = 'Farmer Install';
-$lang['animals'] = 'Animals';
-$lang['confdir'] = 'Instance Configuration Directory';
-$lang['savedir'] = 'Instance Data Directory';
-$lang['plugins'] = 'Plugins active in this instance';
-
-// config
-$lang['base'] = 'Base Configuration';
-$lang['farm host'] = 'Farmer Host Name';
-$lang['base domain'] = 'Base Domain for subdomain Animals';
-$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
-$lang['conf_inherit_main'] = 'Configuration Settings';
-$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
-$lang['conf_inherit_entities'] = 'Entity Definitions';
-$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
-$lang['conf_inherit_license'] = 'License Definitions';
-$lang['conf_inherit_mime'] = 'MIME Type Definitions';
-$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
-$lang['conf_inherit_smileys'] = 'Smiley Definitions';
-$lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
-$lang['conf_inherit_userstyle'] = 'User Styles';
-$lang['conf_inherit_userscript'] = 'User Scripts';
-$lang['conf_inherit_users'] = 'Users (Plain Auth only)';
-$lang['conf_inherit_plugins'] = 'Plugin State';
-$lang['conf_inherit_yes'] = 'inherited from farmer';
-$lang['conf_inherit_no'] = 'independent from farmer';
-$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
-$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
-$lang['conf_notfound_404'] = 'Show a 404 error page';
-$lang['conf_notfound_list'] = 'Show a list of available animals';
-$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
-$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
-$lang['save'] = 'Save';
-
-// new
-$lang['animal template'] = 'Copy existing Animal';
-$lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'There was an error while creating the Animal.';
-$lang['animal configuration'] = 'Basic Animal configuration';
-$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
-$lang['enable user registration'] = 'Allow users to register themselves';
-$lang['disable user registration'] = 'Disable user register';
-$lang['animal administrator'] = 'Animal administrator';
-$lang['noUsers'] = 'Do not create any users';
-$lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
-$lang['currentAdmin'] = 'Set the current user as admin';
-$lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['admin password'] = 'Password for the new admin';
-$lang['animalname_missing'] = 'Please enter a name for the new Animal.';
-$lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric characters and dots/hyphens (but not as first or last character).';
-$lang['animalname_preexisting'] = 'An Animal with that name already exists.';
-$lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
-$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
-$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
-
-// plugins
-$lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
-$lang['bulkEdit'] = 'Bulk edit all Animals';
-$lang['singleEdit'] = 'Edit a single Animal';
-$lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
-$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
-$lang['default'] = 'Set to default';
-$lang['activate'] = 'Activate';
-$lang['deactivate'] = 'Deactivate';
-$lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
-$lang['plugindone'] = 'Plugin states updated';
-$lang['plugin'] = 'Plugin';
-$lang['plugin_on'] = 'on';
-$lang['plugin_off'] = 'off';
-$lang['plugin_default'] = 'Default';
-$lang['plugin_enabled'] = 'Enabled';
-$lang['plugin_disabled'] = 'Disabled';
-$lang['js']['animalSelect'] = 'Select an animal';
-$lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
-
-
-// delete
-$lang['delete_animal'] = 'Select Animal to delete';
-$lang['delete_confirm'] = 'Please type the Animal name to confirm';
-$lang['delete'] = 'Delete the Animal and all its data';
-
-$lang['delete_noanimal'] = 'Please select an Animal to delete';
-$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
-$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
-$lang['delete_success'] = 'Animal successfully deleted.';
-$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
-
-//Setup VIM: ex: et ts=4 :
+$lang['menu']                  = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['tab_setup']             = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['tab_info']              = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once 
+again.';
+$lang['tab_config']            = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['tab_plugins']           = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['tab_new']               = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['tab_delete']            = 'Thanks for sharing your info. I really appreciate your efforts and I will be 
+waiting for your further post thanks once again.';
+$lang['preloadPHPForm']        = 'Thanks for sharing your info. I really appreciate your efforts and 
+I will be waiting for your further post thanks once again.';
+$lang['farm dir']              = 'Thanks for sharing your info. I really appreciate your efforts and 
+I will be waiting for your further post thanks once again.';
+$lang['htaccess setup']        = 'Not Recognized';
+$lang['submit']                = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for 
+your further post thanks once again.';
+$lang['farmdir_missing']       = 'Murwillumbah';
+$lang['farmdir_in_dokuwiki']   = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['farmdir_uncreatable']   = 'Thanks for sharing your info. I really appreciate your efforts and I 
+will be waiting for your further post thanks once again.';
+$lang['farmdir_unwritable']    = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['farmdir_notEmpty']      = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['preload creation success'] = 'Thanks for sharing your info. I really appreciate your efforts and I will 
+be waiting for your further post thanks once again.';
+$lang['preload creation error'] = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once 
+again.';
+$lang['overwrite_preload']     = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once 
+again.';
+$lang['animal']                = 'Teal';
+$lang['thisis']                = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['thisis.farmer']         = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post 
+thanks once again.';
+$lang['thisis.animal']         = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once 
+again.';
+$lang['baseinstall']           = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['animals']               = 'Thanks for sharing your info. I really appreciate 
+your efforts and I will be waiting for your further post thanks once again.';
+$lang['confdir']               = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['savedir']               = 'Thanks for sharing your info. I really appreciate 
+your efforts and I will be waiting for your further 
+post thanks once again.';
+$lang['plugins']               = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['base']                  = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['farm host']             = 'Roberto';
+$lang['base domain']           = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit']          = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further 
+post thanks once again.';
+$lang['conf_inherit_main']     = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_acronyms'] = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_entities'] = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_interwiki'] = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_license']  = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_mime']     = 'Thanks for sharing your info. I really appreciate 
+your efforts and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_scheme']   = 'http://www.vivianemorales.com/component/easyblog/blogger/listings/lorenzabrito44.html?Itemid=101';
+$lang['conf_inherit_smileys']  = 'Thanks for sharing your info. I really appreciate your efforts and I 
+will be waiting for your further post thanks once again.';
+$lang['conf_inherit_wordblock'] = 'Not Recognized';
+$lang['conf_inherit_userstyle'] = 'Roberto';
+$lang['conf_inherit_userscript'] = 'Roberto';
+$lang['conf_inherit_users']    = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['conf_inherit_plugins']  = 'NSW';
+$lang['conf_inherit_yes']      = 'Roberto';
+$lang['conf_inherit_no']       = 'Roberto';
+$lang['conf_notfound']         = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['conf_notfound_farmer']  = 'Thanks for sharing your info. I really appreciate your efforts and I will 
+be waiting for your further post thanks once again.';
+$lang['conf_notfound_404']     = 'Thanks for sharing your info. I really appreciate your efforts and I will 
+be waiting for your further post thanks once again.';
+$lang['conf_notfound_list']    = 'Thanks for sharing your info. I really appreciate your efforts and 
+I will be waiting for your further post thanks once again.';
+$lang['conf_notfound_redirect'] = 'http://www.vivianemorales.com/component/easyblog/blogger/listings/lorenzabrito44.html?Itemid=101';
+$lang['conf_notfound_url']     = 'http://www.vivianemorales.com/component/easyblog/blogger/listings/lorenzabrito44.html?Itemid=101';
+$lang['save']                  = '1';
+$lang['animal template']       = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['animal creation success'] = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['animal creation error'] = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['animal configuration']  = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once 
+again.';
+$lang['inherit user registration'] = 'Roberto';
+$lang['enable user registration'] = 'Roberto';
+$lang['disable user registration'] = 'Roberto';
+$lang['animal administrator']  = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['noUsers']               = 'Thanks for sharing your info. I really appreciate your efforts and I will be 
+waiting for your further post thanks once 
+again.';
+$lang['importUsers']           = 'Murwillumbah';
+$lang['currentAdmin']          = 'Roberto';
+$lang['newAdmin']              = 'Roberto';
+$lang['admin password']        = 'Thanks for sharing your info. I really appreciate your efforts and 
+I will be waiting for your further post thanks once 
+again.';
+$lang['animalname_missing']    = 'Teal';
+$lang['animalname_invalid']    = 'Teal';
+$lang['animalname_preexisting'] = 'Teal';
+$lang['adminPassword_empty']   = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['animal template copy error'] = 'Roberto';
+$lang['aclpolicy missing/bad'] = '1';
+$lang['bulkSingleSwitcher']    = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['bulkEdit']              = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['singleEdit']            = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks 
+once again.';
+$lang['bulkEditForm']          = 'Thanks for sharing your info. I really appreciate your efforts and I will 
+be waiting for your further post thanks once again.';
+$lang['matrixEdit']            = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['default']               = 'Thanks for sharing your info. I really appreciate your efforts and I will be 
+waiting for your further post thanks once again.';
+$lang['activate']              = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['deactivate']            = 'Thanks for sharing your info. I really appreciate your 
+efforts and I will be waiting for your further post thanks once again.';
+$lang['singleEditForm']        = 'Thanks for sharing your info. I really appreciate your efforts and I will 
+be waiting for your further post thanks once again.';
+$lang['plugindone']            = 'NSW';
+$lang['plugin']                = 'Thanks for sharing your info. I really appreciate your efforts and 
+I will be waiting for your further post thanks once again.';
+$lang['plugin_on']             = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
+$lang['plugin_off']            = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once again.';
+$lang['plugin_default']        = 'Thanks for sharing your info. I really appreciate your efforts and I 
+will be waiting for your further post thanks once again.';
+$lang['plugin_enabled']        = 'Thanks for sharing your info. I really appreciate your efforts and I will 
+be waiting for your further post thanks once again.';
+$lang['plugin_disabled']       = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further 
+post thanks once again.';
+$lang['js']['animalSelect']    = 'Thanks for sharing your info. I really appreciate 
+your efforts and I will be waiting for your further post thanks once again.';
+$lang['js']['pluginSelect']    = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post 
+thanks once again.';
+$lang['disable_new_plugins']   = '1977';
+$lang['delete_animal']         = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting for your further post thanks once 
+again.';
+$lang['delete_confirm']        = 'Teal';
+$lang['delete']                = 'Thanks for sharing your info. I really appreciate 
+your efforts and I will be waiting for your further post thanks once again.';
+$lang['delete_noanimal']       = 'Thanks for sharing your info. I really appreciate your efforts and 
+I will be waiting for your further post thanks once again.';
+$lang['delete_mismatch']       = 'Roberto';
+$lang['delete_invalid']        = 'Teal';
+$lang['delete_success']        = 'Thanks for sharing your info. I really appreciate your efforts and I will be waiting 
+for your further post thanks once again.';
+$lang['delete_fail']           = 'Thanks for sharing your info. I really appreciate your efforts 
+and I will be waiting for your further post thanks once again.';
