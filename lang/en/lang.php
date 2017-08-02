@@ -1,127 +1,337 @@
 <?php
+
 /**
- * English language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
  * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author cheapest captcha solver <kathiesson@arcor.de>
  */
+$lang['menu']                  = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge 
+so I wanted to get advice from someone with experience.
 
-// menu entry for admin plugins
-$lang['menu'] = 'Farming';
+Any help would be enormously appreciated!';
+$lang['tab_setup']             = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you 
+have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge 
+so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['tab_info']              = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience. Any help 
+would be enormously appreciated!';
+$lang['tab_config']            = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually code with 
+HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to 
+get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['tab_plugins']           = 'Hey there this is kind of of off topic but I was wondering if blogs use 
+WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['tab_new']               = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors 
+or if you have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['tab_delete']            = 'Hey there this is kind of of off topic but I was wondering if blogs 
+use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['preloadPHPForm']        = 'Hey there this is kind of of off topic but I was wondering if blogs use 
+WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['farm dir']              = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
 
-// tabs
-$lang['tab_setup'] = 'Farm Setup';
-$lang['tab_info'] = 'Info';
-$lang['tab_config'] = 'Configuration';
-$lang['tab_plugins'] = 'Manage Plugins';
-$lang['tab_new'] = 'Add new Animal';
-$lang['tab_delete'] = 'Delete Animal';
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['htaccess setup']        = 'Not Recognized';
+$lang['submit']                = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually code with HTML.
 
-// setup
-$lang['preloadPHPForm'] = 'Initialize Farming';
-$lang['farm dir'] = 'Animal directory';
-$lang['htaccess setup'] = 'Add farm code to .htaccess?';
-$lang['submit'] = 'Submit';
-$lang['farmdir_missing'] = 'Please enter a directory where the Animals should be stored.';
-$lang['farmdir_in_dokuwiki'] = 'The Animal directory must outside of the Farm dokuwiki.';
-$lang['farmdir_uncreatable'] = 'The Animal directory could not be created. Are the permissions correct?';
-$lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the Animal directory!';
-$lang['farmdir_notEmpty'] = 'The Animal directory must be empty.';
-$lang['preload creation success'] = 'Farming has been succesfully initialized.';
-$lang['preload creation error'] = 'There was an error during Farming initialization.';
-$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
+I\'m starting a blog soon but have no coding knowledge so I wanted to 
+get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['farmdir_missing']       = 'Kobenhavn K';
+$lang['farmdir_in_dokuwiki']   = 'Hey there this is kind of of off topic but I was wondering if blogs 
+use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no 
+coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['farmdir_uncreatable']   = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get 
+advice from someone with experience. Any help would be enormously appreciated!';
+$lang['farmdir_unwritable']    = 'Hey there this is kind of of off topic but I was wondering if 
+blogs use WYSIWYG editors or if you have to manually code with HTML.
 
-// info
-$lang['animal'] = 'Animal Name / Domain';
-$lang['thisis'] = 'Instance is';
-$lang['thisis.farmer'] = 'The farmer!';
-$lang['thisis.animal'] = 'An Animal!';
-$lang['baseinstall'] = 'Farmer Install';
-$lang['animals'] = 'Animals';
-$lang['confdir'] = 'Instance Configuration Directory';
-$lang['savedir'] = 'Instance Data Directory';
-$lang['plugins'] = 'Plugins active in this instance';
+I\'m starting a blog soon but have no coding knowledge 
+so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['farmdir_notEmpty']      = 'Hey there this is kind of of off topic but I was wondering if blogs 
+use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to 
+get advice from someone with experience. Any help would be 
+enormously appreciated!';
+$lang['preload creation success'] = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
 
-// config
-$lang['base'] = 'Base Configuration';
-$lang['farm host'] = 'Farmer Host Name';
-$lang['base domain'] = 'Base Domain for subdomain Animals';
-$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
-$lang['conf_inherit_main'] = 'Configuration Settings';
-$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
-$lang['conf_inherit_entities'] = 'Entity Definitions';
-$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
-$lang['conf_inherit_license'] = 'License Definitions';
-$lang['conf_inherit_mime'] = 'MIME Type Definitions';
-$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
-$lang['conf_inherit_smileys'] = 'Smiley Definitions';
-$lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
-$lang['conf_inherit_userstyle'] = 'User Styles';
-$lang['conf_inherit_userscript'] = 'User Scripts';
-$lang['conf_inherit_users'] = 'Users (Plain Auth only)';
-$lang['conf_inherit_plugins'] = 'Plugin State';
-$lang['conf_inherit_yes'] = 'inherited from farmer';
-$lang['conf_inherit_no'] = 'independent from farmer';
-$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
-$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
-$lang['conf_notfound_404'] = 'Show a 404 error page';
-$lang['conf_notfound_list'] = 'Show a list of available animals';
-$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
-$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
-$lang['save'] = 'Save';
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from 
+someone with experience. Any help would be enormously appreciated!';
+$lang['preload creation error'] = 'Hey there this is kind of of off topic but I was wondering if blogs use 
+WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['overwrite_preload']     = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have 
+to manually code with HTML. I\'m starting a blog soon but 
+have no coding knowledge so I wanted to get advice from someone with experience.
 
-// new
-$lang['animal template'] = 'Copy existing Animal';
-$lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'There was an error while creating the Animal.';
-$lang['animal configuration'] = 'Basic Animal configuration';
-$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
-$lang['enable user registration'] = 'Allow users to register themselves';
-$lang['disable user registration'] = 'Disable user register';
-$lang['animal administrator'] = 'Animal administrator';
-$lang['noUsers'] = 'Do not create any users';
-$lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
-$lang['currentAdmin'] = 'Set the current user as admin';
-$lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['admin password'] = 'Password for the new admin';
-$lang['animalname_missing'] = 'Please enter a name for the new Animal.';
-$lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric characters and dots/hyphens (but not as first or last character).';
-$lang['animalname_preexisting'] = 'An Animal with that name already exists.';
-$lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
-$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
-$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
+Any help would be enormously appreciated!';
+$lang['animal']                = 'Esson';
+$lang['thisis']                = 'Hey there this is kind of of off topic but I was wondering if 
+blogs use WYSIWYG editors or if you have to 
+manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted 
+to get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['thisis.farmer']         = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['thisis.animal']         = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['baseinstall']           = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
 
-// plugins
-$lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
-$lang['bulkEdit'] = 'Bulk edit all Animals';
-$lang['singleEdit'] = 'Edit a single Animal';
-$lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
-$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
-$lang['default'] = 'Set to default';
-$lang['activate'] = 'Activate';
-$lang['deactivate'] = 'Deactivate';
-$lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
-$lang['plugindone'] = 'Plugin states updated';
-$lang['plugin'] = 'Plugin';
-$lang['plugin_on'] = 'on';
-$lang['plugin_off'] = 'off';
-$lang['plugin_default'] = 'Default';
-$lang['plugin_enabled'] = 'Enabled';
-$lang['plugin_disabled'] = 'Disabled';
-$lang['js']['animalSelect'] = 'Select an animal';
-$lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
+I\'m starting a blog soon but have no coding knowledge 
+so I wanted to get advice from someone with experience. Any 
+help would be enormously appreciated!';
+$lang['animals']               = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['confdir']               = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or 
+if you have to manually code with HTML. I\'m starting a blog soon but 
+have no coding knowledge so I wanted to get advice from someone with 
+experience. Any help would be enormously appreciated!';
+$lang['savedir']               = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge 
+so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['plugins']               = 'Hey there this is kind of of off topic but I was 
+wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with 
+experience. Any help would be enormously appreciated!';
+$lang['base']                  = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
 
+I\'m starting a blog soon but have no coding knowledge so I wanted 
+to get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['farm host']             = 'Kathi';
+$lang['base domain']           = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted 
+to get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['conf_inherit']          = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have 
+no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_main']     = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
 
-// delete
-$lang['delete_animal'] = 'Select Animal to delete';
-$lang['delete_confirm'] = 'Please type the Animal name to confirm';
-$lang['delete'] = 'Delete the Animal and all its data';
+I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_acronyms'] = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to 
+manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted 
+to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_entities'] = 'Hey there this is kind of of off topic but I was wondering if blogs use 
+WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_interwiki'] = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so 
+I wanted to get advice from someone with experience.
 
-$lang['delete_noanimal'] = 'Please select an Animal to delete';
-$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
-$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
-$lang['delete_success'] = 'Animal successfully deleted.';
-$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
+Any help would be enormously appreciated!';
+$lang['conf_inherit_license']  = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
 
-//Setup VIM: ex: et ts=4 :
+Any help would be enormously appreciated!';
+$lang['conf_inherit_mime']     = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_scheme']   = 'http://hydrocarbs-gh.org/?option=com_k2&view=itemlist&task=user&id=1393937';
+$lang['conf_inherit_smileys']  = 'Hey there this is kind of of off topic but 
+I was wondering if blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_wordblock'] = 'Not Recognized';
+$lang['conf_inherit_userstyle'] = 'Kathi';
+$lang['conf_inherit_userscript'] = 'Kathi';
+$lang['conf_inherit_users']    = 'Hey there this is kind of of off topic but I was 
+wondering if blogs use WYSIWYG editors or if 
+you have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge so 
+I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_inherit_plugins']  = 'REGION SJALLAND';
+$lang['conf_inherit_yes']      = 'Kathi';
+$lang['conf_inherit_no']       = 'Kathi';
+$lang['conf_notfound']         = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML. I\'m starting a blog 
+soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['conf_notfound_farmer']  = 'Hey there this is kind of of off topic but I was wondering if 
+blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from 
+someone with experience. Any help would be enormously appreciated!';
+$lang['conf_notfound_404']     = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so 
+I wanted to get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['conf_notfound_list']    = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with 
+HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with 
+experience. Any help would be enormously appreciated!';
+$lang['conf_notfound_redirect'] = 'http://hydrocarbs-gh.org/?option=com_k2&view=itemlist&task=user&id=1393937';
+$lang['conf_notfound_url']     = 'http://hydrocarbs-gh.org/?option=com_k2&view=itemlist&task=user&id=1393937';
+$lang['save']                  = '1';
+$lang['animal template']       = 'Hey there this is kind of of off topic but 
+I was wondering if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice 
+from someone with experience. Any help would be enormously appreciated!';
+$lang['animal creation success'] = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice 
+from someone with experience. Any help would be enormously appreciated!';
+$lang['animal creation error'] = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML. I\'m 
+starting a blog soon but have no coding knowledge so 
+I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['animal configuration']  = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually code with HTML.
+
+I\'m starting a blog soon but have no coding knowledge so I wanted to get 
+advice from someone with experience. Any help would be enormously appreciated!';
+$lang['inherit user registration'] = 'Kathi';
+$lang['enable user registration'] = 'Kathi';
+$lang['disable user registration'] = 'Kathi';
+$lang['animal administrator']  = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or 
+if you have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted 
+to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['noUsers']               = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with 
+experience. Any help would be enormously appreciated!';
+$lang['importUsers']           = 'Kobenhavn K';
+$lang['currentAdmin']          = 'Kathi';
+$lang['newAdmin']              = 'Kathi';
+$lang['admin password']        = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience.
+
+Any help would be enormously appreciated!';
+$lang['animalname_missing']    = 'Esson';
+$lang['animalname_invalid']    = 'Esson';
+$lang['animalname_preexisting'] = 'Esson';
+$lang['adminPassword_empty']   = 'Hey there this is kind of of off topic but I was wondering if 
+blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so 
+I wanted to get advice from someone with experience.
+
+Any help would be enormously appreciated!';
+$lang['animal template copy error'] = 'Kathi';
+$lang['aclpolicy missing/bad'] = '1';
+$lang['bulkSingleSwitcher']    = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors 
+or if you have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['bulkEdit']              = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['singleEdit']            = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['bulkEditForm']          = 'Hey there this is kind of of off topic but I was wondering if blogs use 
+WYSIWYG editors or if you have to manually code with HTML.
+
+I\'m starting a blog soon but have no coding knowledge so 
+I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['matrixEdit']            = 'Hey there this is kind of of off topic but I 
+was wondering if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['default']               = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience. Any help would be enormously appreciated!';
+$lang['activate']              = 'Hey there this is kind of of off topic but I 
+was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['deactivate']            = 'Hey there this is kind of of off topic but I was wondering if blogs 
+use WYSIWYG editors or if you have to manually 
+code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted 
+to get advice from someone with experience. Any help would 
+be enormously appreciated!';
+$lang['singleEditForm']        = 'Hey there this is kind of of off topic but I was wondering if 
+blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['plugindone']            = 'REGION SJALLAND';
+$lang['plugin']                = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+
+I\'m starting a blog soon but have no coding knowledge so I wanted to get 
+advice from someone with experience. Any help would be enormously appreciated!';
+$lang['plugin_on']             = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG 
+editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice 
+from someone with experience. Any help would be enormously appreciated!';
+$lang['plugin_off']            = 'Hey there this is kind of of off topic but I was wondering 
+if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['plugin_default']        = 'Hey there this is kind of of off topic but 
+I was wondering if blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get 
+advice from someone with experience. Any help 
+would be enormously appreciated!';
+$lang['plugin_enabled']        = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors 
+or if you have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience. Any help 
+would be enormously appreciated!';
+$lang['plugin_disabled']       = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to 
+manually code with HTML. I\'m starting a blog soon but have no coding 
+knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['js']['animalSelect']    = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding 
+knowledge so I wanted to get advice from someone 
+with experience. Any help would be enormously 
+appreciated!';
+$lang['js']['pluginSelect']    = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you 
+have to manually code with HTML. I\'m starting a blog soon but 
+have no coding knowledge so I wanted to get 
+advice from someone with experience. Any help 
+would be enormously appreciated!';
+$lang['disable_new_plugins']   = '1980';
+$lang['delete_animal']         = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors 
+or if you have to manually code with HTML. I\'m starting a blog soon but have 
+no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['delete_confirm']        = 'Esson';
+$lang['delete']                = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+
+I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from 
+someone with experience. Any help would be enormously appreciated!';
+$lang['delete_noanimal']       = 'Hey there this is kind of of off topic but I was wondering if blogs 
+use WYSIWYG editors or if you have to manually code 
+with HTML. I\'m starting a blog soon but have no coding knowledge 
+so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['delete_mismatch']       = 'Kathi';
+$lang['delete_invalid']        = 'Esson';
+$lang['delete_success']        = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to 
+manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';
+$lang['delete_fail']           = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if 
+you have to manually code with HTML. I\'m starting a blog soon but have no coding knowledge so I wanted to get advice from someone with experience.
+Any help would be enormously appreciated!';

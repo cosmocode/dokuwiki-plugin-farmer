@@ -1,13 +1,12 @@
 <?php
+
 /**
- * english language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
+ * @author cheapest captcha solver <kathiesson@arcor.de>
  */
-
-// keys need to match the config setting name
-$lang['deactivated plugins'] = 'Comma-separated list of plugins which are deactivated by default in new animals.';
-$lang['disable_new_plugins'] = 'Automatically disable plugins after they have been newly installed in the farmer? (only when installed via extension manager)';
-
-
-//Setup VIM: ex: et ts=4 :
+$lang['deactivated plugins']   = '1988';
+$lang['disable_new_plugins']   = 'Hey there this is kind of of off topic but I was wondering if blogs use WYSIWYG editors or if you have to manually code with HTML.
+I\'m starting a blog soon but have no coding knowledge so I 
+wanted to get advice from someone with experience. Any help would be enormously appreciated!';
