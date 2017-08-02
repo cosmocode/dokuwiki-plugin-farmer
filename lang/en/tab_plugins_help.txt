@@ -1,16 +1,1 @@
-===== Plugin Management =====
-
-The extension manager is disabled in all Animals. Plugins can only be installed in the Farmer and only the Farmer
-may control what plugins are enabled or disabled in all Animals. This is done through this interface.
-
-A plugin can have three states in an Animal. It can be enabled (on) or disabled (off), or it can have the default state. The
-default means that the state of a Plugin was not explicitly set for an Animal. Normally the default state is on.
-
-When Animals are configured to inherit the Plugin state of the Farmer, a plugin in default state will have the same
-state as in the Farmer. Eg. when you disable a plugin in the Farmer it will disable the plugin for all Animals which
-did not have the state of this plugin explicitly set.
-
-There are three ways to manage plugins: You can either pick a single plugin and set its state to the same value in all animals
-or you can pick a specific animal and configure all the plugin states within that animal only. The third option allows you to
-see and edit the state of all plugins in all animals at once. This option may not be feasible of you have a large amount
-of animals.
+NSW
