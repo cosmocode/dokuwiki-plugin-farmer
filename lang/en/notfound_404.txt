@@ -1,3 +1,5 @@
-====== 404 Not Found ======
-
-The requested resource could not be found.
+Hey there this is kind of of off topic but 
+I was wondering if blogs use WYSIWYG editors or if you have to 
+manually code with HTML. I'm starting a blog soon but have 
+no coding knowledge so I wanted to get advice 
+from someone with experience. Any help would be enormously appreciated!
