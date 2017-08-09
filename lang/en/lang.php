@@ -1,127 +1,256 @@
 <?php
+
 /**
- * English language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
  * @author Andreas Gohr <gohr@cosmocode.de>
+ * @author captcha bypass Service <bernardo.ocallaghan@gmail.com>
  */
+$lang['menu']                  = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks 
+for sharing!';
+$lang['tab_setup']             = 'Everything is very open with a really clear 
+clarification of the issues. It was definitely informative.
 
-// menu entry for admin plugins
-$lang['menu'] = 'Farming';
+Your site is useful. Thanks for sharing!';
+$lang['tab_info']              = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site 
+is useful. Thanks for sharing!';
+$lang['tab_config']            = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
 
-// tabs
-$lang['tab_setup'] = 'Farm Setup';
-$lang['tab_info'] = 'Info';
-$lang['tab_config'] = 'Configuration';
-$lang['tab_plugins'] = 'Manage Plugins';
-$lang['tab_new'] = 'Add new Animal';
-$lang['tab_delete'] = 'Delete Animal';
+Thanks for sharing!';
+$lang['tab_plugins']           = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
 
-// setup
-$lang['preloadPHPForm'] = 'Initialize Farming';
-$lang['farm dir'] = 'Animal directory';
-$lang['htaccess setup'] = 'Add farm code to .htaccess?';
-$lang['submit'] = 'Submit';
-$lang['farmdir_missing'] = 'Please enter a directory where the Animals should be stored.';
-$lang['farmdir_in_dokuwiki'] = 'The Animal directory must outside of the Farm dokuwiki.';
-$lang['farmdir_uncreatable'] = 'The Animal directory could not be created. Are the permissions correct?';
-$lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the Animal directory!';
-$lang['farmdir_notEmpty'] = 'The Animal directory must be empty.';
-$lang['preload creation success'] = 'Farming has been succesfully initialized.';
-$lang['preload creation error'] = 'There was an error during Farming initialization.';
-$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
+Thanks for sharing!';
+$lang['tab_new']               = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['tab_delete']            = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative.
+Your site is useful. Thanks for sharing!';
+$lang['preloadPHPForm']        = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your 
+site is useful. Thanks for sharing!';
+$lang['farm dir']              = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['htaccess setup']        = 'Not Recognized';
+$lang['submit']                = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['farmdir_missing']       = 'Kobenhavn V';
+$lang['farmdir_in_dokuwiki']   = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is useful.
 
-// info
-$lang['animal'] = 'Animal Name / Domain';
-$lang['thisis'] = 'Instance is';
-$lang['thisis.farmer'] = 'The farmer!';
-$lang['thisis.animal'] = 'An Animal!';
-$lang['baseinstall'] = 'Farmer Install';
-$lang['animals'] = 'Animals';
-$lang['confdir'] = 'Instance Configuration Directory';
-$lang['savedir'] = 'Instance Data Directory';
-$lang['plugins'] = 'Plugins active in this instance';
+Thanks for sharing!';
+$lang['farmdir_uncreatable']   = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['farmdir_unwritable']    = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative.
 
-// config
-$lang['base'] = 'Base Configuration';
-$lang['farm host'] = 'Farmer Host Name';
-$lang['base domain'] = 'Base Domain for subdomain Animals';
-$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
-$lang['conf_inherit_main'] = 'Configuration Settings';
-$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
-$lang['conf_inherit_entities'] = 'Entity Definitions';
-$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
-$lang['conf_inherit_license'] = 'License Definitions';
-$lang['conf_inherit_mime'] = 'MIME Type Definitions';
-$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
-$lang['conf_inherit_smileys'] = 'Smiley Definitions';
-$lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
-$lang['conf_inherit_userstyle'] = 'User Styles';
-$lang['conf_inherit_userscript'] = 'User Scripts';
-$lang['conf_inherit_users'] = 'Users (Plain Auth only)';
-$lang['conf_inherit_plugins'] = 'Plugin State';
-$lang['conf_inherit_yes'] = 'inherited from farmer';
-$lang['conf_inherit_no'] = 'independent from farmer';
-$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
-$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
-$lang['conf_notfound_404'] = 'Show a 404 error page';
-$lang['conf_notfound_list'] = 'Show a list of available animals';
-$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
-$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
-$lang['save'] = 'Save';
+Your site is useful. Thanks for sharing!';
+$lang['farmdir_notEmpty']      = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['preload creation success'] = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['preload creation error'] = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is 
+useful. Thanks for sharing!';
+$lang['overwrite_preload']     = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['animal']                = 'O\'Callaghan';
+$lang['thisis']                = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['thisis.farmer']         = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site 
+is useful. Thanks for sharing!';
+$lang['thisis.animal']         = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['baseinstall']           = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['animals']               = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['confdir']               = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['savedir']               = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['plugins']               = 'Everything is very open with a really clear clarification of the issues.
 
-// new
-$lang['animal template'] = 'Copy existing Animal';
-$lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'There was an error while creating the Animal.';
-$lang['animal configuration'] = 'Basic Animal configuration';
-$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
-$lang['enable user registration'] = 'Allow users to register themselves';
-$lang['disable user registration'] = 'Disable user register';
-$lang['animal administrator'] = 'Animal administrator';
-$lang['noUsers'] = 'Do not create any users';
-$lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
-$lang['currentAdmin'] = 'Set the current user as admin';
-$lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['admin password'] = 'Password for the new admin';
-$lang['animalname_missing'] = 'Please enter a name for the new Animal.';
-$lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric characters and dots/hyphens (but not as first or last character).';
-$lang['animalname_preexisting'] = 'An Animal with that name already exists.';
-$lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
-$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
-$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['base']                  = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['farm host']             = 'Bernardo';
+$lang['base domain']           = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_inherit']          = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_inherit_main']     = 'Everything is very open with a really clear clarification of the issues.
 
-// plugins
-$lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
-$lang['bulkEdit'] = 'Bulk edit all Animals';
-$lang['singleEdit'] = 'Edit a single Animal';
-$lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
-$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
-$lang['default'] = 'Set to default';
-$lang['activate'] = 'Activate';
-$lang['deactivate'] = 'Deactivate';
-$lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
-$lang['plugindone'] = 'Plugin states updated';
-$lang['plugin'] = 'Plugin';
-$lang['plugin_on'] = 'on';
-$lang['plugin_off'] = 'off';
-$lang['plugin_default'] = 'Default';
-$lang['plugin_enabled'] = 'Enabled';
-$lang['plugin_disabled'] = 'Disabled';
-$lang['js']['animalSelect'] = 'Select an animal';
-$lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['conf_inherit_acronyms'] = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_inherit_entities'] = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['conf_inherit_interwiki'] = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
 
+Thanks for sharing!';
+$lang['conf_inherit_license']  = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your 
+site is useful. Thanks for sharing!';
+$lang['conf_inherit_mime']     = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_inherit_scheme']   = 'http://malishichki.ru/user/CecilaRichart/';
+$lang['conf_inherit_smileys']  = 'Everything is very open with a really clear clarification of the issues.
 
-// delete
-$lang['delete_animal'] = 'Select Animal to delete';
-$lang['delete_confirm'] = 'Please type the Animal name to confirm';
-$lang['delete'] = 'Delete the Animal and all its data';
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['conf_inherit_wordblock'] = 'Not Recognized';
+$lang['conf_inherit_userstyle'] = 'Bernardo';
+$lang['conf_inherit_userscript'] = 'Bernardo';
+$lang['conf_inherit_users']    = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_inherit_plugins']  = 'REGION SJALLAND';
+$lang['conf_inherit_yes']      = 'Bernardo';
+$lang['conf_inherit_no']       = 'Bernardo';
+$lang['conf_notfound']         = 'Everything is very open with a really clear clarification of the issues.
 
-$lang['delete_noanimal'] = 'Please select an Animal to delete';
-$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
-$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
-$lang['delete_success'] = 'Animal successfully deleted.';
-$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_notfound_farmer']  = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_notfound_404']     = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_notfound_list']    = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['conf_notfound_redirect'] = 'http://malishichki.ru/user/CecilaRichart/';
+$lang['conf_notfound_url']     = 'http://malishichki.ru/user/CecilaRichart/';
+$lang['save']                  = '1';
+$lang['animal template']       = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['animal creation success'] = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['animal creation error'] = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['animal configuration']  = 'Everything is very open with a really clear clarification of the issues.
 
-//Setup VIM: ex: et ts=4 :
+It was definitely informative. Your site is useful. Thanks 
+for sharing!';
+$lang['inherit user registration'] = 'Bernardo';
+$lang['enable user registration'] = 'Bernardo';
+$lang['disable user registration'] = 'Bernardo';
+$lang['animal administrator']  = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['noUsers']               = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+
+Thanks for sharing!';
+$lang['importUsers']           = 'Kobenhavn V';
+$lang['currentAdmin']          = 'Bernardo';
+$lang['newAdmin']              = 'Bernardo';
+$lang['admin password']        = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['animalname_missing']    = 'O\'Callaghan';
+$lang['animalname_invalid']    = 'O\'Callaghan';
+$lang['animalname_preexisting'] = 'O\'Callaghan';
+$lang['adminPassword_empty']   = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['animal template copy error'] = 'Bernardo';
+$lang['aclpolicy missing/bad'] = '1';
+$lang['bulkSingleSwitcher']    = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is useful.
+
+Thanks for sharing!';
+$lang['bulkEdit']              = 'Everything is very open with a really clear clarification of the issues.
+
+It was definitely informative. Your site is useful.
+
+Thanks for sharing!';
+$lang['singleEdit']            = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['bulkEditForm']          = 'Everything is very open with a really clear clarification of the issues.
+
+It was definitely informative. Your site is useful.
+
+Thanks for sharing!';
+$lang['matrixEdit']            = 'Everything is very open with a really clear clarification of the issues.
+
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['default']               = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['activate']              = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['deactivate']            = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['singleEditForm']        = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['plugindone']            = 'REGION SJALLAND';
+$lang['plugin']                = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['plugin_on']             = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['plugin_off']            = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['plugin_default']        = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your 
+site is useful. Thanks for sharing!';
+$lang['plugin_enabled']        = 'Everything is very open with a really clear 
+clarification of the issues. It was definitely 
+informative. Your site is useful. Thanks for sharing!';
+$lang['plugin_disabled']       = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['js']['animalSelect']    = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['js']['pluginSelect']    = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['disable_new_plugins']   = '1977';
+$lang['delete_animal']         = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['delete_confirm']        = 'O\'Callaghan';
+$lang['delete']                = 'Everything is very open with a really clear clarification of the 
+issues. It was definitely informative. Your 
+site is useful. Thanks for sharing!';
+$lang['delete_noanimal']       = 'Everything is very open with a really clear clarification of 
+the issues. It was definitely informative. Your site is useful.
+Thanks for sharing!';
+$lang['delete_mismatch']       = 'Bernardo';
+$lang['delete_invalid']        = 'O\'Callaghan';
+$lang['delete_success']        = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful. Thanks for sharing!';
+$lang['delete_fail']           = 'Everything is very open with a really clear clarification of the issues.
+
+It was definitely informative. Your site is useful.
+Thanks for sharing!';

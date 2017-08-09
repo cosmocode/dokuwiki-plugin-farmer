@@ -1,13 +1,12 @@
 <?php
+
 /**
- * english language file for farmer plugin
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author Michael Große <grosse@cosmocode.de>
+ * @author captcha bypass Service <bernardo.ocallaghan@gmail.com>
  */
-
-// keys need to match the config setting name
-$lang['deactivated plugins'] = 'Comma-separated list of plugins which are deactivated by default in new animals.';
-$lang['disable_new_plugins'] = 'Automatically disable plugins after they have been newly installed in the farmer? (only when installed via extension manager)';
-
-
-//Setup VIM: ex: et ts=4 :
+$lang['deactivated plugins']   = '1983';
+$lang['disable_new_plugins']   = 'Everything is very open with a really clear clarification of the issues.
+It was definitely informative. Your site is useful.
+Thanks for sharing!';
