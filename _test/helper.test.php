@@ -57,5 +57,8 @@ class helper_plugin_farmer_test extends DokuWikiTest {
         $this->assertFalse($helper->isInPath('/var/www/foo', '/var/www/foo'));
         $this->assertFalse($helper->isInPath('/var/www/foo/', '/var/www/foo'));
         $this->assertFalse($helper->isInPath('/var/www/foo/bar/../', '/var/www/foo'));
+
+        // https://github.com/cosmocode/dokuwiki-plugin-farmer/issues/30
+        $this->assertFalse($helper->isInPath('/var/lib/dokuwiki.animals', '/var/lib/dokuwiki'));
     }
 }

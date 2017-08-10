@@ -100,8 +100,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @return bool
      */
     public function isInPath($path, $container) {
-        $path = fullpath($path);
-        $container = fullpath($container);
+        $path = fullpath($path).'/';
+        $container = fullpath($container).'/';
         if($path == $container) return false;
         return (strpos($path, $container) === 0);
     }
