@@ -243,6 +243,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
 
         if ($aclpolicy != '') {
             $aclfile = file($animaldir . '/conf/acl.auth.php');
+            $aclfile = array_map('trim', $aclfile);
             array_pop($aclfile);
             switch ($aclpolicy) {
                 case 'open':
@@ -259,7 +260,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
                 default:
                     throw new Exception('Undefined aclpolicy given');
             }
-            $ok &= io_saveFile($animaldir . '/conf/acl.auth.php', join("\n", $aclfile));
+            $ok &= io_saveFile($animaldir . '/conf/acl.auth.php', join("\n", $aclfile)."\n");
 
             global $conf;
             switch ($userreg) {
