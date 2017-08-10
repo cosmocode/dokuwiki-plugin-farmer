@@ -212,10 +212,17 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         }
         try {
             if(function_exists('imagecreatetruecolor')) {
-                $ringicon = new \splitbrain\RingIcon\RingIcon(64);
-                $ringicon->createImage($animaldir, $animaldir . '/data/media/wiki/logo.png');
-                $icongen = new \chrisbliss18\phpico\PHPIco($animaldir . '/data/media/wiki/logo.png');
-                $icongen->save_ico($animaldir . '/data/media/wiki/favicon.ico');
+                $logo = $animaldir . '/data/media/wiki/logo.png';
+                if(!file_exists($logo)) {
+                    $ringicon = new \splitbrain\RingIcon\RingIcon(64);
+                    $ringicon->createImage($animaldir, $logo);
+                }
+
+                $icon = $animaldir . '/data/media/wiki/favicon.ico';
+                if(!file_exists($icon)) {
+                    $icongen = new \chrisbliss18\phpico\PHPIco($logo);
+                    $icongen->save_ico($icon);
+                }
             }
         } catch(\Exception $ignore) {
             // something went wrong, but we don't care. this is a nice to have feature only
