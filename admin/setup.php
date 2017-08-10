@@ -45,13 +45,13 @@ class admin_plugin_farmer_setup extends DokuWiki_Admin_Plugin {
         if($farmdir === '') {
             $errors[] = $this->getLang('farmdir_missing');
         } elseif($this->helper->isInPath($farmdir, DOKU_INC) !== false) {
-            $errors[] = $this->getLang('farmdir_in_dokuwiki');
+            $errors[] = sprintf($this->getLang('farmdir_in_dokuwiki'), hsc($farmdir), hsc(DOKU_INC));
         } elseif(!io_mkdir_p($farmdir)) {
-            $errors[] = $this->getLang('farmdir_uncreatable');
+            $errors[] = sprintf($this->getLang('farmdir_uncreatable'), hsc($farmdir));
         } elseif(!is_writeable($farmdir)) {
-            $errors[] = $this->getLang('farmdir_unwritable');
+            $errors[] = sprintf($this->getLang('farmdir_unwritable'), hsc($farmdir));
         } elseif(count(scandir($farmdir)) > 2) {
-            $errors[] = $this->getLang('farmdir_notEmpty');
+            $errors[] = sprintf($this->getLang('farmdir_notEmpty'), hsc($farmdir));
         }
 
         if($errors) {
