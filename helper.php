@@ -324,6 +324,11 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', $pluginConf);
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
 
+        if(function_exists('opcache_invalidate')) {
+            opcache_invalidate(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
+            opcache_invalidate(DOKU_FARMDIR . $animal . '/conf/local.php');
+        }
+
         $this->animalPluginState[$animal] = $plugins;
     }
 }
