@@ -116,7 +116,7 @@ class DokuWikiFarmCore {
      * @return string
      */
     public function getAnimalBaseDir() {
-        if($this->isHostbased()) return '';
+        if($this->isHostbased()) return '/';
         return getBaseURL() . '!' . $this->getAnimal();
     }
 
