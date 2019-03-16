@@ -40,7 +40,7 @@ class DokuWikiFarmCore {
             'plugins' => 0,
             'userstyle' => 0,
             'userscript' => 0,
-            'styleini' => 1
+            'styleini' => 0
         )
     );
 
@@ -318,7 +318,7 @@ class DokuWikiFarmCore {
             } elseif ($key == 'styleini') {
                 $append = array(
                     'local' => array(
-                        DOKU_INC . 'conf/tpl/TPL_PLACEHOLDER/style.ini'
+                        DOKU_INC . 'conf/tpl/%TEMPLATE%/style.ini'
                     )
                 );
             } elseif($key == 'users') {
