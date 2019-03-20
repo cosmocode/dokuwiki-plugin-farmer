@@ -39,7 +39,8 @@ class DokuWikiFarmCore {
             'users' => 0,
             'plugins' => 0,
             'userstyle' => 0,
-            'userscript' => 0
+            'userscript' => 0,
+            'styleini' => 0
         )
     );
 
@@ -275,6 +276,10 @@ class DokuWikiFarmCore {
             'userscript' => array(
                 'default' => array(DOKU_CONF . 'userscript.js',),
             ),
+            'styleini' => array(
+                'default'   => array(DOKU_INC . 'lib/tpl/%TEMPLATE%/' . 'style.ini'),
+                'local'     => array(DOKU_CONF . 'tpl/%TEMPLATE%/' . 'style.ini')
+            ),
         );
     }
 
@@ -309,6 +314,12 @@ class DokuWikiFarmCore {
                     'print' => array(DOKU_INC . 'conf/userprint.css', DOKU_INC . 'conf/userprint.less',),
                     'feed' => array(DOKU_INC . 'conf/userfeed.css', DOKU_INC . 'conf/userfeed.less',),
                     'all' => array(DOKU_INC . 'conf/userall.css', DOKU_INC . 'conf/userall.less',),
+                );
+            } elseif ($key == 'styleini') {
+                $append = array(
+                    'local' => array(
+                        DOKU_INC . 'conf/tpl/%TEMPLATE%/style.ini'
+                    )
                 );
             } elseif($key == 'users') {
                 $config_cascade['plainauth.users']['protected'] = DOKU_INC . 'conf/users.auth.php';
