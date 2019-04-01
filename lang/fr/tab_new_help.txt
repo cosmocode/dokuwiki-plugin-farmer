@@ -9,7 +9,7 @@ cela devrait être un seul mot.
 Pour les configurations basées sur les noms de domaine vous devriez indiquer
 un nom de domaine totalement qualifié (FQDN).
 Pour les fermes à base de sous domaine générique((//wildcard subdomain//
-en bon anglais)), alors un nom d'hôte suffit, à condition
+en bon anglais)), un nom d'hôte suffit, à condition
 d'indiquer également un domaine de base.
 
 Exemples:
