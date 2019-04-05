@@ -58,6 +58,7 @@ $lang['conf_inherit_smileys'] = 'Smiley Definitions';
 $lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
 $lang['conf_inherit_userstyle'] = 'User Styles';
 $lang['conf_inherit_userscript'] = 'User Scripts';
+$lang['conf_inherit_styleini'] = 'Template style customizations';
 $lang['conf_inherit_users'] = 'Users (Plain Auth only)';
 $lang['conf_inherit_plugins'] = 'Plugin State';
 $lang['conf_inherit_yes'] = 'inherited from farmer';

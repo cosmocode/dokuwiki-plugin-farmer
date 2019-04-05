@@ -57,6 +57,7 @@ $lang['conf_inherit_smileys'] = 'Smiley-Definitionen';
 $lang['conf_inherit_wordblock'] = 'Spamfiltereinträge';
 $lang['conf_inherit_userstyle'] = 'Nutzer-Styles';
 $lang['conf_inherit_userscript'] = 'Nutzer-Scripts';
+$lang['conf_inherit_styleini'] = 'Anpassungen an Template-Styles';
 $lang['conf_inherit_users'] = 'Benutzer (nur Plain Auth)';
 $lang['conf_inherit_plugins'] = 'Plugin-Zustand';
 $lang['conf_inherit_yes'] = 'vom Farmer geerbt';
