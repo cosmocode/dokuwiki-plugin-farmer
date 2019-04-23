@@ -233,6 +233,10 @@ class DokuWikiFarmCore {
                 'default' => array(DOKU_INC . 'conf/license.php',),
                 'local' => array(DOKU_CONF . 'license.local.php',),
             ),
+            'manifest' => array(
+                'default' => array(DOKU_INC . 'conf/manifest.json',),
+                'local' => array(DOKU_CONF . 'manifest.local.json',),
+            ),
             'mediameta' => array(
                 'default' => array(DOKU_INC . 'conf/mediameta.php',),
                 'local' => array(DOKU_CONF . 'mediameta.local.php',),
