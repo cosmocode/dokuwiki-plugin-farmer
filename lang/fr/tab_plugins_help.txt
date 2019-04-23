@@ -16,6 +16,7 @@ explicitement spécifié. Si vous l'activez à nouveau dans le fermier,
 le greffon s'activera de la même manière dans tous les animaux
 concernés.
 
-Il existe deux manières de gérer les greffons :
+Il existe trois manières de gérer les greffons :
   - Choisir un greffon et fixer son état à la même valeur dans tous les animaux,
-  - choisir un animal particulier et gérer l'état de chacun de ses greffons.
+  - Choisir un animal particulier et gérer l'état de chacun de ses greffons.
+  - Voir et éditer l'état de tous les greffons dans tous les animaux d'un seul coup. Cette option pourrait ne pas être praticable si vous avez un grand nombre d'animaux.
