@@ -132,9 +132,18 @@ class DokuWikiFarmCore {
         $farmdir = $this->config['base']['farmdir'];
         $farmhost = $this->config['base']['farmhost'];
 
-        // check if animal was set via parameter (rewrite or CLI)
+        // check if animal was set via rewrite parameter
         $animal = '';
-        if(isset($_REQUEST['animal'])) $animal = $_REQUEST['animal'];
+        if (isset($_GET['animal'])) {
+            $animal = $_GET['animal'];
+            // now unset the parameter to not leak into new queries
+            unset($_GET['animal']);
+            $params = [];
+            parse_str($_SERVER['QUERY_STRING'], $params);
+            if (isset($params['animal'])) unset($params['animal']);
+            $_SERVER['QUERY_STRING'] = http_build_query($params);
+        }
+        // get animal from CLI parameter
         if('cli' == php_sapi_name() && isset($_SERVER['animal'])) $animal = $_SERVER['animal'];
         if($animal) {
             // check that $animal is a string and just a directory name and not a path
