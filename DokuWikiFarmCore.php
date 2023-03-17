@@ -313,6 +313,7 @@ class DokuWikiFarmCore {
             $append = array();
             $prepend = array();
             if($key == 'main') {
+                $prepend = array('protected' => array(DOKU_INC . 'conf/local.protected.php'));
                 $append = array(
                     'default' => array(DOKU_INC . 'conf/local.php'),
                     'protected' => array(DOKU_INC . 'lib/plugins/farmer/includes/config.php')
@@ -337,6 +338,7 @@ class DokuWikiFarmCore {
             } elseif($key == 'users') {
                 $config_cascade['plainauth.users']['protected'] = DOKU_INC . 'conf/users.auth.php';
             } elseif($key == 'plugins') {
+                $prepend = array('protected' => array(DOKU_INC . 'conf/plugins.protected.php'));
                 $append = array('default' => array(DOKU_INC . 'conf/plugins.local.php'));
             } else {
                 $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.conf'));
