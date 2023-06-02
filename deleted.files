@@ -1,11 +1,17 @@
-# This is a list of files that were present in previous plugin releases
-# but were removed later. An up to date plugin should not have any of
-# the files installed
+# This is a list of files that were present in previous releases
+# but were removed later. They should not exist in your installation.
 _test/validation.test.php
 action/handleAjax.php
+action/pluginSettings.php
 admin/createAnimal.php
+admin/foo.php
+adminActions/createAnimal.php
+adminActions/createPreload.php
+dokuwiki_farm_animal.zip
 farm.php
 lang/en/createAnimal.txt
+lang/en/plugins.txt
 lang/en/preload.txt
 scripts/plugins.js
 style.css
+template.php

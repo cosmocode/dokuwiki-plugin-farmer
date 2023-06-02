@@ -6,33 +6,35 @@
  * @group plugin_farmer
  * @group plugins
  */
-class helper_plugin_farmer_test extends DokuWikiTest {
+class helper_plugin_farmer_test extends DokuWikiTest
+{
 
-    protected $pluginsEnabled = array('farmer',);
+    protected $pluginsEnabled = ['farmer',];
 
-    public function validationProvider() {
-        return array(
-            array('ant', true),
-            array('ant.lion', true),
-            array('ant.lion.cow', true),
-            array('ant-lion', true),
-            array('ant-lion.cow', true),
-            array('4ant', true),
-            array('ant4', true),
-            array('ant44lion', true),
-            array('44', true),
+    public function validationProvider()
+    {
+        return [
+            ['ant', true],
+            ['ant.lion', true],
+            ['ant.lion.cow', true],
+            ['ant-lion', true],
+            ['ant-lion.cow', true],
+            ['4ant', true],
+            ['ant4', true],
+            ['ant44lion', true],
+            ['44', true],
 
-            array('ant.', false),
-            array('.ant', false),
-            array('ant-', false),
-            array('-ant', false),
-            array('ant--lion', false),
-            array('ant..lion', false),
-            array('ant.-lion', false),
-            array('ant/lion', false),
-            array('!ant', false),
-            array('ant lion', false),
-        );
+            ['ant.', false],
+            ['.ant', false],
+            ['ant-', false],
+            ['-ant', false],
+            ['ant--lion', false],
+            ['ant..lion', false],
+            ['ant.-lion', false],
+            ['ant/lion', false],
+            ['!ant', false],
+            ['ant lion', false],
+        ];
     }
 
     /**
@@ -40,13 +42,15 @@ class helper_plugin_farmer_test extends DokuWikiTest {
      * @param $input
      * @param $expect
      */
-    public function test_validateAnimalName($input, $expect) {
+    public function test_validateAnimalName($input, $expect)
+    {
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
         $this->assertEquals($expect, $helper->validateAnimalName($input));
     }
 
-    public function test_isInPath() {
+    public function test_isInPath()
+    {
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
 
