@@ -1,47 +1,49 @@
 <?php
+
+use dokuwiki\Extension\AdminPlugin;
+
 /**
  * DokuWiki Plugin farmer (Admin Component)
+ *
+ * Information about the farm and the current instance
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Michael Große <grosse@cosmocode.de>
  * @author  Andreas Gohr <gohr@cosmocode.de>
  */
-
-// must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
-
-/**
- * Information about the farm and the current instance
- */
-class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
-
+class admin_plugin_farmer_info extends AdminPlugin
+{
     /** @var helper_plugin_farmer */
     protected $helper;
 
     /**
      * admin_plugin_farmer_info constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->helper = plugin_load('helper', 'farmer');
     }
 
     /**
      * @return bool admin only!
      */
-    public function forAdminOnly() {
+    public function forAdminOnly()
+    {
         return false;
     }
 
     /**
      * Should carry out any processing required by the plugin.
      */
-    public function handle() {
+    public function handle()
+    {
     }
 
     /**
      * Render HTML output, e.g. helpful text and a form
      */
-    public function html() {
+    public function html()
+    {
         global $conf;
         global $INPUT;
 
@@ -51,7 +53,7 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
         echo '<table class="inline">';
 
         $this->line('thisis', $animal ? $this->getLang('thisis.animal') : $this->getLang('thisis.farmer'));
-        if($animal) {
+        if ($animal) {
             $this->line('animal', $animal);
         }
         $this->line('confdir', fullpath(DOKU_CONF) . '/');
@@ -62,11 +64,11 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
 
         $this->line('animals', $this->animals($INPUT->bool('list')));
 
-        foreach($config['inherit'] as $key => $value) {
+        foreach ($config['inherit'] as $key => $value) {
             $this->line('conf_inherit_' . $key, $this->getLang($value ? 'conf_inherit_yes' : 'conf_inherit_no'));
         }
 
-        $this->line('plugins', join(', ', $this->helper->getAllPlugins(false)));
+        $this->line('plugins', implode(', ', $this->helper->getAllPlugins(false)));
 
         echo '</table>';
     }
@@ -77,20 +79,21 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
      * @param bool $list
      * @return string
      */
-    protected function animals($list) {
+    protected function animals($list)
+    {
         global $ID;
 
         $animals = $this->helper->getAllAnimals();
         $html = '';
-        if(!$list) {
+        if (!$list) {
             $html = count($animals);
-            $self = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'info', 'list' => 1));
+            $self = wl($ID, ['do' => 'admin', 'page' => 'farmer', 'sub' => 'info', 'list' => 1]);
             $html .= ' [<a href="' . $self . '">' . $this->getLang('conf_notfound_list') . '</a>]';
             return $html;
         }
 
         $html .= '<ol>';
-        foreach($animals as $animal) {
+        foreach ($animals as $animal) {
             $link = $this->helper->getAnimalURL($animal);
             $html .= '<li><div class="li"><a href="' . $link . '">' . $animal . '</a></div></li>';
         }
@@ -104,13 +107,11 @@ class admin_plugin_farmer_info extends DokuWiki_Admin_Plugin {
      * @param string $langkey
      * @param string $value
      */
-    protected function line($langkey, $value) {
+    protected function line($langkey, $value)
+    {
         echo '<tr>';
         echo '<th>' . $this->getLang($langkey) . '</th>';
         echo '<td>' . $value . '</td>';
         echo '</tr>';
     }
-
 }
-
-// vim:ts=4:sw=4:et:

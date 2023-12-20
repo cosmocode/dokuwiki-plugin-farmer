@@ -1,49 +1,65 @@
 <?php
+
+use chrisbliss18\phpico\PHPIco;
+use dokuwiki\Extension\AdminPlugin;
+use dokuwiki\Form\Form;
+use splitbrain\RingIcon\RingIcon;
+
 /**
  * DokuWiki Plugin farmer (Admin Component)
+ *
+ * Create new animals
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Michael Große <grosse@cosmocode.de>
  */
-
-// must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
-
-class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
-
+class admin_plugin_farmer_new extends AdminPlugin
+{
     /** @var helper_plugin_farmer $helper */
     protected $helper;
 
     /**
      * @return bool true if only access for superuser, false is for superusers and moderators
      */
-    public function forAdminOnly() {
+    public function forAdminOnly()
+    {
         return true;
     }
 
     /**
      * admin_plugin_farmer_new constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->helper = plugin_load('helper', 'farmer');
     }
 
     /**
      * Should carry out any processing required by the plugin.
      */
-    public function handle() {
+    public function handle()
+    {
         global $INPUT;
         global $ID;
-        if(!$INPUT->has('farmer__submit')) return;
+        if (!$INPUT->has('farmer__submit')) return;
 
         $data = $this->validateAnimalData();
-        if(!$data) return;
-        if($this->createNewAnimal($data['name'], $data['admin'], $data['pass'], $data['template'], $data['aclpolicy'], $data['allowreg'])) {
+        if (!$data) return;
+        if (
+            $this->createNewAnimal(
+                $data['name'],
+                $data['admin'],
+                $data['pass'],
+                $data['template'],
+                $data['aclpolicy'],
+                $data['allowreg']
+            )
+        ) {
             $url = $this->helper->getAnimalURL($data['name']);
             $link = '<a href="' . $url . '">' . hsc($data['name']) . '</a>';
 
             msg(sprintf($this->getLang('animal creation success'), $link), 1);
-            $link = wl($ID, array('do' => 'admin', 'page' => 'farmer', 'sub' => 'new'), true, '&');
+            $link = wl($ID, ['do' => 'admin', 'page' => 'farmer', 'sub' => 'new'], true, '&');
             send_redirect($link);
         }
     }
@@ -51,11 +67,12 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
     /**
      * Render HTML output, e.g. helpful text and a form
      */
-    public function html() {
+    public function html()
+    {
         global $lang;
         $farmconfig = $this->helper->getConfig();
 
-        $form = new \dokuwiki\Form\Form();
+        $form = new Form();
         $form->addClass('plugin_farmer')->id('farmer__create_animal_form');
 
         $form->addFieldsetOpen($this->getLang('animal configuration'));
@@ -65,39 +82,53 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $animals = $this->helper->getAllAnimals();
         array_unshift($animals, '');
         $form->addFieldsetOpen($this->getLang('animal template'));
-        $form->addDropdown('animaltemplate', $animals)->addClass('farmer_chosen_animals');
+        $form->addDropdown('animaltemplate', $animals)
+            ->addClass('farmer_chosen_animals');
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($lang['i_policy'])->attr('id', 'aclPolicyFieldset');
-        $policyOptions = array('open' => $lang['i_pol0'],'public' => $lang['i_pol1'], 'closed' => $lang['i_pol2']);
-        $form->addDropdown('aclpolicy', $policyOptions)->addClass('acl_chosen');
+        $policyOptions = ['open' => $lang['i_pol0'], 'public' => $lang['i_pol1'], 'closed' => $lang['i_pol2']];
+        $form->addDropdown('aclpolicy', $policyOptions)
+            ->addClass('acl_chosen');
         if ($farmconfig['inherit']['main']) {
-            $form->addRadioButton('allowreg',$this->getLang('inherit user registration'))->val('inherit')->attr('checked', 'checked');
-            $form->addRadioButton('allowreg',$this->getLang('enable user registration'))->val('allow');
-            $form->addRadioButton('allowreg',$this->getLang('disable user registration'))->val('disable');
+            $form->addRadioButton('allowreg', $this->getLang('inherit user registration'))
+                ->val('inherit')
+                ->attr('checked', 'checked');
+            $form->addRadioButton('allowreg', $this->getLang('enable user registration'))
+                ->val('allow');
+            $form->addRadioButton('allowreg', $this->getLang('disable user registration'))
+                ->val('disable');
         } else {
-            $form->addCheckbox('allowreg', $lang['i_allowreg'])->attr('checked', 'checked');
+            $form->addCheckbox('allowreg', $lang['i_allowreg'])
+                ->attr('checked', 'checked');
         }
 
         $form->addFieldsetClose();
 
         $form->addFieldsetOpen($this->getLang('animal administrator'));
-        $btn = $form->addRadioButton('adminsetup', $this->getLang('noUsers'))->val('noUsers');
-        if($farmconfig['inherit']['users']) {
+
+        $btn = $form->addRadioButton('adminsetup', $this->getLang('noUsers'))
+            ->val('noUsers');
+        if ($farmconfig['inherit']['users']) {
             $btn->attr('checked', 'checked');  // default when inherit available
         } else {
             // no user copying when inheriting
-            $form->addRadioButton('adminsetup', $this->getLang('importUsers'))->val('importUsers');
-            $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))->val('currentAdmin');
+            $form->addRadioButton('adminsetup', $this->getLang('importUsers'))
+                ->val('importUsers');
+            $form->addRadioButton('adminsetup', $this->getLang('currentAdmin'))
+                ->val('currentAdmin');
         }
-        $btn = $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))->val('newAdmin');
-        if(!$farmconfig['inherit']['users']) {
+        $btn = $form->addRadioButton('adminsetup', $this->getLang('newAdmin'))
+            ->val('newAdmin');
+        if (!$farmconfig['inherit']['users']) {
             $btn->attr('checked', 'checked'); // default when inherit not available
         }
         $form->addPasswordInput('adminPassword', $this->getLang('admin password'));
         $form->addFieldsetClose();
 
-        $form->addButton('farmer__submit', $this->getLang('submit'))->attr('type', 'submit')->val('newAnimal');
+        $form->addButton('farmer__submit', $this->getLang('submit'))
+            ->attr('type', 'submit')
+            ->val('newAnimal');
         echo $form->toHTML();
     }
 
@@ -106,7 +137,8 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      *
      * @return array|bool false on errors, clean data otherwise
      */
-    protected function validateAnimalData() {
+    protected function validateAnimalData()
+    {
         global $INPUT;
 
         $animalname = $INPUT->filter('trim')->str('animalname');
@@ -116,48 +148,48 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $aclpolicy = $INPUT->filter('trim')->str('aclpolicy');
         $allowreg = $INPUT->str('allowreg');
 
-        $errors = array();
+        $errors = [];
 
-        if($animalname === '') {
+        if ($animalname === '') {
             $errors[] = $this->getLang('animalname_missing');
-        } elseif(!$this->helper->validateAnimalName($animalname)) {
+        } elseif (!$this->helper->validateAnimalName($animalname)) {
             $errors[] = $this->getLang('animalname_invalid');
         }
 
-        if($adminsetup === 'newAdmin' && $adminpass === '') {
+        if ($adminsetup === 'newAdmin' && $adminpass === '') {
             $errors[] = $this->getLang('adminPassword_empty');
         }
 
-        if($animalname !== '' && file_exists(DOKU_FARMDIR . '/' . $animalname)) {
+        if ($animalname !== '' && file_exists(DOKU_FARMDIR . '/' . $animalname)) {
             $errors[] = $this->getLang('animalname_preexisting');
         }
 
-        if (!is_dir(DOKU_FARMDIR . $template) && !in_array($aclpolicy,array('open', 'public', 'closed'))) {
+        if (!is_dir(DOKU_FARMDIR . $template) && !in_array($aclpolicy, ['open', 'public', 'closed'])) {
             $errors[] = $this->getLang('aclpolicy missing/bad');
         }
 
-        if($errors) {
-            foreach($errors as $error) {
+        if ($errors) {
+            foreach ($errors as $error) {
                 msg($error, -1);
             }
             return false;
         }
 
-        if(!is_dir(DOKU_FARMDIR . $template)) {
+        if (!is_dir(DOKU_FARMDIR . $template)) {
             $template = '';
         }
         if ($template != '') {
             $aclpolicy = '';
         }
 
-        return array(
+        return [
             'name' => $animalname,
             'admin' => $adminsetup,
             'pass' => $adminpass,
             'template' => $template,
             'aclpolicy' => $aclpolicy,
             'allowreg' => $allowreg
-        );
+        ];
     }
 
     /**
@@ -172,28 +204,29 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * @return bool true if successful
      * @throws Exception
      */
-    protected function createNewAnimal($name, $adminSetup, $adminPassword, $template, $aclpolicy, $userreg) {
+    protected function createNewAnimal($name, $adminSetup, $adminPassword, $template, $aclpolicy, $userreg)
+    {
         $animaldir = DOKU_FARMDIR . $name;
 
         // copy basic template
-        $ok = $this->helper->io_copyDir(__DIR__ . '/../_animal', $animaldir);
-        if(!$ok) {
+        $ok = $this->helper->copyDir(__DIR__ . '/../_animal', $animaldir);
+        if (!$ok) {
             msg($this->getLang('animal creation error'), -1);
             return false;
         }
 
         // copy animal template
-        if($template != '') {
-            foreach(array('conf', 'data/pages', 'data/media', 'data/meta', 'data/media_meta', 'index') as $dir) {
+        if ($template != '') {
+            foreach (['conf', 'data/pages', 'data/media', 'data/meta', 'data/media_meta', 'index'] as $dir) {
                 $templatedir = DOKU_FARMDIR . $template . '/' . $dir;
-                if(!is_dir($templatedir)) continue;
+                if (!is_dir($templatedir)) continue;
                 // do not copy changelogs in meta
-                if(substr($dir, -4) == 'meta') {
+                if (substr($dir, -4) == 'meta') {
                     $exclude = '/\.changes$/';
                 } else {
                     $exclude = '';
                 }
-                if(!$this->helper->io_copyDir($templatedir, $animaldir . '/' . $dir, $exclude)) {
+                if (!$this->helper->copyDir($templatedir, $animaldir . '/' . $dir, $exclude)) {
                     msg(sprintf($this->getLang('animal template copy error'), $dir), -1);
                     // we go on anyway
                 }
@@ -204,37 +237,37 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'title\'] = \'' . $name . '\';' . "\n", true);
 
         // create a random logo and favicon
-        if(!class_exists('\splitbrain\RingIcon\RingIcon', false)) {
+        if (!class_exists('\splitbrain\RingIcon\RingIcon', false)) {
             require(__DIR__ . '/../3rdparty/RingIcon.php');
         }
-        if(!class_exists('\chrisbliss18\phpico\PHPIco', false)) {
+        if (!class_exists('\chrisbliss18\phpico\PHPIco', false)) {
             require(__DIR__ . '/../3rdparty/PHPIco.php');
         }
         try {
-            if(function_exists('imagecreatetruecolor')) {
+            if (function_exists('imagecreatetruecolor')) {
                 $logo = $animaldir . '/data/media/wiki/logo.png';
-                if(!file_exists($logo)) {
-                    $ringicon = new \splitbrain\RingIcon\RingIcon(64);
+                if (!file_exists($logo)) {
+                    $ringicon = new RingIcon(64);
                     $ringicon->createImage($animaldir, $logo);
                 }
 
                 $icon = $animaldir . '/data/media/wiki/favicon.ico';
-                if(!file_exists($icon)) {
-                    $icongen = new \chrisbliss18\phpico\PHPIco($logo);
-                    $icongen->save_ico($icon);
+                if (!file_exists($icon)) {
+                    $icongen = new PHPIco($logo);
+                    $icongen->saveIco($icon);
                 }
             }
-        } catch(\Exception $ignore) {
+        } catch (\Exception $ignore) {
             // something went wrong, but we don't care. this is a nice to have feature only
         }
 
         // create admin user
-        if($adminSetup === 'newAdmin') {
+        if ($adminSetup === 'newAdmin') {
             $users = "# <?php exit()?>\n" . $this->makeAdminLine($adminPassword) . "\n";
-        } elseif($adminSetup === 'currentAdmin') {
+        } elseif ($adminSetup === 'currentAdmin') {
             $users = "# <?php exit()?>\n" . $this->getAdminLine() . "\n";
-        } elseif($adminSetup === 'noUsers') {
-            if(file_exists($animaldir . '/conf/users.auth.php')) {
+        } elseif ($adminSetup === 'noUsers') {
+            if (file_exists($animaldir . '/conf/users.auth.php')) {
                 // a user file exists already, probably from animal template - don't overwrite
                 $users = '';
             } else {
@@ -244,7 +277,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         } else {
             $users = io_readFile(DOKU_CONF . 'users.auth.php');
         }
-        if($users) {
+        if ($users) {
             $ok &= io_saveFile($animaldir . '/conf/users.auth.php', $users);
         }
 
@@ -267,24 +300,36 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
                 default:
                     throw new Exception('Undefined aclpolicy given');
             }
-            $ok &= io_saveFile($animaldir . '/conf/acl.auth.php', join("\n", $aclfile)."\n");
+            $ok &= io_saveFile($animaldir . '/conf/acl.auth.php', implode("\n", $aclfile) . "\n");
 
             global $conf;
             switch ($userreg) {
                 case 'allow':
-                    $disableactions = join(',', array_diff(explode(',', $conf['disableactions']), array('register')));
-                    $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'disableactions\'] = \''.$disableactions.'\';' . "\n", true);
+                    $disableactions = implode(',', array_diff(explode(',', $conf['disableactions']), ['register']));
+                    $ok &= io_saveFile(
+                        $animaldir . '/conf/local.php',
+                        "\n" . '$conf[\'disableactions\'] = \'' . $disableactions . '\';' . "\n",
+                        true
+                    );
                     break;
                 case 'disable':
-                    $disableactions = join(',', array_merge(explode(',', $conf['disableactions']), array('register')));
-                    $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'disableactions\'] = \''.$disableactions.'\';' . "\n", true);
+                    $disableactions = implode(',', array_merge(explode(',', $conf['disableactions']), ['register']));
+                    $ok &= io_saveFile(
+                        $animaldir . '/conf/local.php',
+                        "\n" . '$conf[\'disableactions\'] = \'' . $disableactions . '\';' . "\n",
+                        true
+                    );
                     break;
                 case 'inherit':
                 case true:
                     // nothing needs to be done
                     break;
                 default:
-                    $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'disableactions\'] = \'register\';' . "\n", true);
+                    $ok &= io_saveFile(
+                        $animaldir . '/conf/local.php',
+                        "\n" . '$conf[\'disableactions\'] = \'register\';' . "\n",
+                        true
+                    );
             }
         }
 
@@ -293,7 +338,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
         $deactivatedPluginsList = array_map('trim', $deactivatedPluginsList);
         $deactivatedPluginsList = array_unique($deactivatedPluginsList);
         $deactivatedPluginsList = array_filter($deactivatedPluginsList);
-        foreach($deactivatedPluginsList as $plugin) {
+        foreach ($deactivatedPluginsList as $plugin) {
             $this->helper->setPluginState(trim($plugin), $name, 0);
         }
 
@@ -306,16 +351,12 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * @param $password
      * @return string
      */
-    protected function makeAdminLine($password) {
+    protected function makeAdminLine($password)
+    {
         $pass = auth_cryptPassword($password);
-        $line = join(
-            ':', array(
-                   'admin',
-                   $pass,
-                   'Administrator',
-                   'admin@example.org',
-                   'admin,user'
-               )
+        $line = implode(
+            ':',
+            ['admin', $pass, 'Administrator', 'admin@example.org', 'admin,user']
         );
         return $line;
     }
@@ -325,14 +366,13 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      *
      * @return string
      */
-    protected function getAdminLine() {
+    protected function getAdminLine()
+    {
         $currentAdmin = $_SERVER['REMOTE_USER'];
         $masterUsers = file_get_contents(DOKU_CONF . 'users.auth.php');
         $masterUsers = ltrim(strstr($masterUsers, "\n" . $currentAdmin . ":"));
+
         $newAdmin = substr($masterUsers, 0, strpos($masterUsers, "\n") + 1);
         return $newAdmin;
     }
-
 }
-
-// vim:ts=4:sw=4:et:

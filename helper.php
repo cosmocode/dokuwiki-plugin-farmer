@@ -1,4 +1,7 @@
 <?php
+
+use dokuwiki\Extension\Plugin;
+
 /**
  * DokuWiki Plugin farmer (Helper Component)
  *
@@ -6,22 +9,19 @@
  * @author  Michael Große <grosse@cosmocode.de>
  * @author  Andreas Gohr <gohr@cosmocode.de>
  */
-
-// must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
-
-class helper_plugin_farmer extends DokuWiki_Plugin {
-
-    protected $defaultPluginState = null;
-    protected $animalPluginState  = array();
+class helper_plugin_farmer extends Plugin
+{
+    protected $defaultPluginState;
+    protected $animalPluginState  = [];
 
     /**
      * Returns the name of the current animal if any, false otherwise
      *
      * @return string|false
      */
-    public function getAnimal() {
-        if(!isset($GLOBALS['FARMCORE'])) return false;
+    public function getAnimal()
+    {
+        if (!isset($GLOBALS['FARMCORE'])) return false;
         return $GLOBALS['FARMCORE']->getAnimal();
     }
 
@@ -30,8 +30,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return array
      */
-    public function getConfig() {
-        if(!isset($GLOBALS['FARMCORE'])) return array();
+    public function getConfig()
+    {
+        if (!isset($GLOBALS['FARMCORE'])) return [];
         return $GLOBALS['FARMCORE']->getConfig();
     }
 
@@ -40,8 +41,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function isHostbased() {
-        if(!isset($GLOBALS['FARMCORE'])) return false;
+    public function isHostbased()
+    {
+        if (!isset($GLOBALS['FARMCORE'])) return false;
         return $GLOBALS['FARMCORE']->isHostbased();
     }
 
@@ -50,8 +52,9 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function wasNotfound() {
-        if(!isset($GLOBALS['FARMCORE'])) return false;
+    public function wasNotfound()
+    {
+        if (!isset($GLOBALS['FARMCORE'])) return false;
         return $GLOBALS['FARMCORE']->wasNotfound();
     }
 
@@ -61,12 +64,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param $animal
      * @return string
      */
-    public function getAnimalURL($animal) {
+    public function getAnimalURL($animal)
+    {
         $config = $this->getConfig();
 
-        if(strpos($animal, '.') !== false) {
+        if (strpos($animal, '.') !== false) {
             return 'http://' . $animal;
-        } elseif($config['base']['basedomain']) {
+        } elseif ($config['base']['basedomain']) {
             return 'http://' . $animal . '.' . $config['base']['basedomain'];
         } else {
             return DOKU_URL . '!' . $animal . '/';
@@ -78,12 +82,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return array
      */
-    public function getAllAnimals() {
-        $animals = array();
+    public function getAllAnimals()
+    {
+        $animals = [];
         $list = glob(DOKU_FARMDIR . '*/conf/', GLOB_ONLYDIR);
-        foreach($list as $path) {
+        foreach ($list as $path) {
             $animal = basename(dirname($path));
-            if($animal == '_animal') continue; // old template
+            if ($animal == '_animal') continue; // old template
             $animals[] = $animal;
         }
         sort($animals);
@@ -99,10 +104,11 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param string $container
      * @return bool
      */
-    public function isInPath($path, $container) {
-        $path = fullpath($path).'/';
-        $container = fullpath($container).'/';
-        if($path == $container) return false;
+    public function isInPath($path, $container)
+    {
+        $path = fullpath($path) . '/';
+        $container = fullpath($container) . '/';
+        if ($path === $container) return false;
         return (strpos($path, $container) === 0);
     }
 
@@ -111,7 +117,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function checkFarmSetup() {
+    public function checkFarmSetup()
+    {
         return defined('DOKU_FARMDIR') && isset($GLOBALS['FARMCORE']);
     }
 
@@ -120,7 +127,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return bool
      */
-    public function validateAnimalName($animalname) {
+    public function validateAnimalName($animalname)
+    {
         return preg_match("/^[a-z0-9]+([\\.\\-][a-z0-9]+)*$/i", $animalname) === 1;
     }
 
@@ -139,38 +147,39 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param string $exclude Regular expression to exclude files or directories (complete with delimiters)
      * @return bool Returns TRUE on success, FALSE on failure
      */
-    function io_copyDir($source, $destination, $exclude = '') {
-        if($exclude && preg_match($exclude, $source)) {
+    public function copyDir($source, $destination, $exclude = '')
+    {
+        if ($exclude && preg_match($exclude, $source)) {
             return true;
         }
 
-        if(is_link($source)) {
+        if (is_link($source)) {
             io_lock($destination);
             $result = symlink(readlink($source), $destination);
             io_unlock($destination);
             return $result;
         }
 
-        if(is_file($source)) {
+        if (is_file($source)) {
             io_lock($destination);
             $result = copy($source, $destination);
             io_unlock($destination);
             return $result;
         }
 
-        if(!is_dir($destination)) {
+        if (!is_dir($destination)) {
             io_mkdir_p($destination);
         }
 
         $dir = @dir($source);
-        if($dir === false) return false;
-        while(false !== ($entry = $dir->read())) {
-            if($entry == '.' || $entry == '..') {
+        if ($dir === false) return false;
+        while (false !== ($entry = $dir->read())) {
+            if ($entry == '.' || $entry == '..') {
                 continue;
             }
 
             // recurse into directories
-            $this->io_copyDir("$source/$entry", "$destination/$entry", $exclude);
+            $this->copyDir("$source/$entry", "$destination/$entry", $exclude);
         }
 
         $dir->close();
@@ -183,7 +192,8 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param bool $all get all plugins, even disabled ones
      * @return array
      */
-    public function getAllPlugins($all = true) {
+    public function getAllPlugins($all = true)
+    {
 
         /** @var Doku_Plugin_Controller $plugin_controller */
         global $plugin_controller;
@@ -192,13 +202,14 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
 
         // filter out a few plugins
         $plugins = array_filter(
-            $plugins, function ($item) {
-            if($item == 'farmer') return false;
-            if($item == 'extension') return false;
-            if($item == 'upgrade') return false;
-            if($item == 'testing') return false;
-            return true;
-        }
+            $plugins,
+            function ($item) {
+                if ($item == 'farmer') return false;
+                if ($item == 'extension') return false;
+                if ($item == 'upgrade') return false;
+                if ($item == 'testing') return false;
+                return true;
+            }
         );
 
         sort($plugins);
@@ -213,12 +224,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param $animal
      * @return array
      */
-    public function getAnimalPluginLocalStates($animal) {
-        if(isset($this->animalPluginState[$animal])) return $this->animalPluginState[$animal];
+    public function getAnimalPluginLocalStates($animal)
+    {
+        if (isset($this->animalPluginState[$animal])) return $this->animalPluginState[$animal];
 
         $localfile = DOKU_FARMDIR . $animal . '/conf/plugins.local.php';
-        $plugins = array();
-        if(file_exists($localfile)) {
+        $plugins = [];
+        if (file_exists($localfile)) {
             include($localfile);
         }
 
@@ -233,15 +245,16 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      *
      * @return array
      */
-    public function getDefaultPluginStates() {
-        if(!is_null($this->defaultPluginState)) return $this->defaultPluginState;
+    public function getDefaultPluginStates()
+    {
+        if (!is_null($this->defaultPluginState)) return $this->defaultPluginState;
 
         $farmconf = $this->getConfig();
         $all = $this->getAllPlugins();
 
-        $plugins = array();
-        foreach($all as $one) {
-            if($farmconf['inherit']['plugins']) {
+        $plugins = [];
+        foreach ($all as $one) {
+            if ($farmconf['inherit']['plugins']) {
                 $plugins[$one] = !plugin_isdisabled($one);
             } else {
                 $plugins[$one] = true; // default state is enabled
@@ -259,21 +272,17 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param $animal
      * @return array
      */
-    public function getAnimalPluginRealState($animal) {
-        $info = array();
+    public function getAnimalPluginRealState($animal)
+    {
+        $info = [];
 
         $defaults = $this->getDefaultPluginStates();
         $local = $this->getAnimalPluginLocalStates($animal);
 
-        foreach($defaults as $plugin => $set) {
-            $current = array(
-                'name' => $plugin,
-                'default' => $set,
-                'actual' => $set,
-                'isdefault' => true
-            );
+        foreach ($defaults as $plugin => $set) {
+            $current = ['name' => $plugin, 'default' => $set, 'actual' => $set, 'isdefault' => true];
 
-            if(isset($local[$plugin])) {
+            if (isset($local[$plugin])) {
                 $current['actual'] = (bool) $local[$plugin];
                 $current['isdefault'] = false;
             }
@@ -292,12 +301,13 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param string $animal
      * @param int $state -1 = default, 1 = enabled, 0 = disabled
      */
-    public function setPluginState($plugin, $animal, $state) {
+    public function setPluginState($plugin, $animal, $state)
+    {
         $state = (int) $state;
 
         $plugins = $this->getAnimalPluginLocalStates($animal);
-        if($state < 0) {
-            if(isset($plugins[$plugin])) unset($plugins[$plugin]);
+        if ($state < 0) {
+            if (isset($plugins[$plugin])) unset($plugins[$plugin]);
         } else {
             $plugins[$plugin] = $state;
         }
@@ -305,7 +315,7 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
         $this->writePluginConf($plugins, $animal);
 
         // clear state cache
-        if(isset($this->animalPluginState[$animal])) unset($this->animalPluginState[$animal]);
+        if (isset($this->animalPluginState[$animal])) unset($this->animalPluginState[$animal]);
     }
 
     /**
@@ -316,15 +326,16 @@ class helper_plugin_farmer extends DokuWiki_Plugin {
      * @param array $plugins associative array with the key being the plugin name and the value 0 or 1
      * @param string $animal Directory of the animal within DOKU_FARMDIR
      */
-    public function writePluginConf($plugins, $animal) {
+    public function writePluginConf($plugins, $animal)
+    {
         $pluginConf = '<?php' . "\n# plugins enabled and disabled by the farmer plugin\n";
-        foreach($plugins as $plugin => $status) {
+        foreach ($plugins as $plugin => $status) {
             $pluginConf .= '$plugins[\'' . $plugin . '\'] = ' . $status . ";\n";
         }
         io_saveFile(DOKU_FARMDIR . $animal . '/conf/plugins.local.php', $pluginConf);
         touch(DOKU_FARMDIR . $animal . '/conf/local.php');
 
-        if(function_exists('opcache_invalidate')) {
+        if (function_exists('opcache_invalidate')) {
             opcache_invalidate(DOKU_FARMDIR . $animal . '/conf/plugins.local.php');
             opcache_invalidate(DOKU_FARMDIR . $animal . '/conf/local.php');
         }
