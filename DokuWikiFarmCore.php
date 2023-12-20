@@ -209,7 +209,7 @@ class DokuWikiFarmCore {
             function ($a, $b) {
                 $ret = strlen($b) - strlen($a);
                 if($ret != 0) return $ret;
-                return $a > $b;
+                return $a <=> $b;
             }
         );
         return $animals;
