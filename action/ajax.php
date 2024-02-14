@@ -1,76 +1,88 @@
 <?php
+
+use dokuwiki\Extension\ActionPlugin;
+use dokuwiki\Extension\EventHandler;
+use dokuwiki\Extension\Event;
+
 /**
  * DokuWiki Plugin farmer (Action Component)
+ *
+ * Manage AJAX features
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Michael Große <grosse@cosmocode.de>
  * @author  Andreas Gohr <gohr@cosmocode.de>
  */
-
-if(!defined('DOKU_INC')) die();
-
-/**
- * Manage AJAX features
- */
-class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
-
+class action_plugin_farmer_ajax extends ActionPlugin
+{
     /**
      * plugin should use this method to register its handlers with the DokuWiki's event controller
      *
-     * @param Doku_Event_Handler $controller DokuWiki's event controller object. Also available as global $EVENT_HANDLER
-     *
+     * @param EventHandler $controller DokuWiki's event controller object. Also available as global $EVENT_HANDLER
      */
-    public function register(Doku_Event_Handler $controller) {
-        $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this, '_ajax_call');
+    public function register(EventHandler $controller)
+    {
+        $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this, 'handleAjaxCall');
     }
 
     /**
      * handle ajax requests
      *
-     * @param Doku_Event $event
+     * @param Event $event
      * @param $param
      */
-    public function _ajax_call(Doku_Event $event, $param) {
-        if(substr($event->data, 0, 13) !== 'plugin_farmer') {
+    public function handleAjaxCall(Event $event, $param)
+    {
+        if (substr($event->data, 0, 13) !== 'plugin_farmer') {
             return;
         }
         //no other ajax call handlers needed
         $event->stopPropagation();
         $event->preventDefault();
 
-        if(!auth_isadmin()) die('Only admins allowed');
+        if (!auth_isadmin()) die('Only admins allowed');
 
-        if(substr($event->data, 14) === 'getPluginMatrix') {
-            $this->get_plugin_matrix($event, $param);
+        if (substr($event->data, 14) === 'getPluginMatrix') {
+            $this->printPluginMatrix($event, $param);
             return;
         }
-        if(substr($event->data, 14) === 'modPlugin') {
-            $this->plugin_mod($event, $param);
+        if (substr($event->data, 14) === 'modPlugin') {
+            $this->togglePluginState($event, $param);
             return;
         }
-        if(substr($event->data, 14, 10) === 'getPlugins') {
-            $this->get_animal_plugins($event, $param);
+        if (substr($event->data, 14, 10) === 'getPlugins') {
+            $this->printAnimalPlugins($event, $param);
             return;
         }
-        if(substr($event->data, 14, 10) === 'checkSetup') {
-            $this->check_setup($event, $param);
+        if (substr($event->data, 14, 10) === 'checkSetup') {
+            $this->checkSetup($event, $param);
         }
     }
 
     /**
-     * This function exists in order to provide a positive (i.e. 200) response to an ajax request to a non-existing animal.
+     * Always return an empty response
      *
-     * @param Doku_Event $event
-     * @param            $param
+     * This function exists in order to provide a positive (i.e. 200) response
+     * to an ajax request to a non-existing animal.
+     *
+     * @param Event $event
+     * @param $param
      */
-    public function check_setup(Doku_Event $event, $param) {
+    public function checkSetup(Event $event, $param)
+    {
         $data = '';
-        $json = new JSON();
         header('Content-Type: application/json');
-        echo $json->encode($data);
+        json_encode($data);
     }
 
-    public function plugin_mod(Doku_Event $event, $param) {
+    /**
+     * Turn a plugin on or off
+     *
+     * @param Event $event
+     * @param $param
+     */
+    public function togglePluginState(Event $event, $param)
+    {
         global $INPUT;
 
         /** @var helper_plugin_farmer $helper */
@@ -81,11 +93,11 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
 
 
         $plugins = $helper->getAnimalPluginRealState($animal);
-        if(!isset($plugins[$pname])) die('no such plugin');
+        if (!isset($plugins[$pname])) die('no such plugin');
         $plugin = $plugins[$pname];
 
         // figure out what to toggle to
-        if($plugin['isdefault']) {
+        if ($plugin['isdefault']) {
             $new = (int) !$plugin['actual'];
         } else {
             $new = -1;
@@ -96,16 +108,17 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
         $plugins = $helper->getAnimalPluginRealState($animal);
         $plugin = $plugins[$pname];
         header('Content-Type: text/html; charset=utf-8');
-        echo $this->plugin_matrix_cell($plugin, $animal);
+        echo $this->createPluginMatrixCell($plugin, $animal);
     }
 
     /**
      * Create a matrix of all animals and plugin states
      *
-     * @param Doku_Event $event
+     * @param Event $event
      * @param $param
      */
-    public function get_plugin_matrix(Doku_Event $event, $param) {
+    public function printPluginMatrix(Event $event, $param)
+    {
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
 
@@ -119,7 +132,7 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
         echo '<thead>';
         echo '<tr>';
         echo '<th></th>';
-        foreach($plugins as $plugin) {
+        foreach ($plugins as $plugin) {
             echo '<th><div>' . hsc($plugin['name']) . '</div></th>';
         }
         echo '</tr>';
@@ -129,17 +142,17 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
 
         echo '<tr>';
         echo '<th>Default</th>';
-        foreach($plugins as $plugin) {
-            echo $this->plugin_matrix_cell($plugin, $this->getLang('plugin_default'), true);
+        foreach ($plugins as $plugin) {
+            echo $this->createPluginMatrixCell($plugin, $this->getLang('plugin_default'), true);
         }
         echo '</tr>';
 
-        foreach($animals as $animal) {
+        foreach ($animals as $animal) {
             $plugins = $helper->getAnimalPluginRealState($animal);
             echo '<tr>';
             echo '<th>' . hsc($animal) . '</th>';
-            foreach($plugins as $plugin) {
-                echo $this->plugin_matrix_cell($plugin, $animal);
+            foreach ($plugins as $plugin) {
+                echo $this->createPluginMatrixCell($plugin, $animal);
             }
             echo '</tr>';
         }
@@ -156,8 +169,9 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
      * @param bool $defaults show the defaults
      * @return string
      */
-    protected function plugin_matrix_cell($plugin, $animal, $defaults=false) {
-        if($defaults) {
+    protected function createPluginMatrixCell($plugin, $animal, $defaults = false)
+    {
+        if ($defaults) {
             $current = $plugin['default'];
             $isdefault = true;
             $td = 'th';
@@ -167,32 +181,35 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
             $td = 'td';
         }
 
-        if($current) {
+        if ($current) {
             $class = 'on';
             $lbl = '✓';
         } else {
             $class = 'off';
             $lbl = '✗';
         }
-        if($isdefault) $class .= ' default';
+        if ($isdefault) $class .= ' default';
 
 
-        $attrs = array(
+        $attrs = [
             'class' => $class,
             'title' => $animal . ': ' . $plugin['name'],
             'data-animal' => $animal,
             'data-plugin' => $plugin['name']
-        );
+        ];
         $attr = buildAttributes($attrs);
 
         return "<$td $attr>$lbl</$td>";
     }
 
     /**
-     * @param Doku_Event $event
-     * @param            $param
+     * Create an overview on all plugins for a given animal
+     *
+     * @param Event $event
+     * @param $param
      */
-    public function get_animal_plugins(Doku_Event $event, $param) {
+    public function printAnimalPlugins(Event $event, $param)
+    {
         $animal = substr($event->data, 25);
         /** @var helper_plugin_farmer $helper */
         $helper = plugin_load('helper', 'farmer');
@@ -209,21 +226,21 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
         echo '<th>' . $this->getLang('plugin_disabled') . '</th>';
         echo '</tr>';
 
-        foreach($plugins as $plugin) {
+        foreach ($plugins as $plugin) {
             echo '<tr>';
             echo '<th>' . hsc($plugin['name']) . '</th>';
 
             echo '<td>';
-            $attr = array();
+            $attr = [];
             $attr['type'] = 'radio';
             $attr['name'] = 'bulk_plugins[' . $plugin['name'] . ']';
             $attr['value'] = '-1';
-            if($plugin['isdefault']) {
+            if ($plugin['isdefault']) {
                 $attr['checked'] = 'checked';
             }
             echo '<label>';
             echo '<input ' . buildAttributes($attr) . ' />';
-            if($plugin['default']) {
+            if ($plugin['default']) {
                 echo ' (' . $this->getLang('plugin_on') . ')';
             } else {
                 echo ' (' . $this->getLang('plugin_off') . ')';
@@ -232,11 +249,11 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
             echo '</td>';
 
             echo '<td>';
-            $attr = array();
+            $attr = [];
             $attr['type'] = 'radio';
             $attr['name'] = 'bulk_plugins[' . $plugin['name'] . ']';
             $attr['value'] = '1';
-            if(!$plugin['isdefault'] && $plugin['actual']) {
+            if (!$plugin['isdefault'] && $plugin['actual']) {
                 $attr['checked'] = 'checked';
             }
             echo '<label>';
@@ -246,11 +263,11 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
             echo '</td>';
 
             echo '<td>';
-            $attr = array();
+            $attr = [];
             $attr['type'] = 'radio';
             $attr['name'] = 'bulk_plugins[' . $plugin['name'] . ']';
             $attr['value'] = '0';
-            if(!$plugin['isdefault'] && !$plugin['actual']) {
+            if (!$plugin['isdefault'] && !$plugin['actual']) {
                 $attr['checked'] = 'checked';
             }
             echo '<label>';
@@ -262,6 +279,4 @@ class action_plugin_farmer_ajax extends DokuWiki_Action_Plugin {
             echo '</tr>';
         }
     }
-
 }
-

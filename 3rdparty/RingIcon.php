@@ -14,15 +14,14 @@ namespace splitbrain\RingIcon;
  */
 class RingIcon
 {
-
     protected $size;
     protected $fullsize;
-    protected $rings;
+    protected $rings = 4;
     protected $center;
     protected $ringwidth;
     protected $seed;
     protected $ismono = false;
-    protected $monocolor = null;
+    protected $monocolor;
 
     /**
      * RingIcon constructor.
@@ -33,12 +32,11 @@ class RingIcon
     {
         $this->size = $size;
         $this->fullsize = $this->size * 5;
-        $this->rings = 4;
 
         $this->center = floor($this->fullsize / 2);
         $this->ringwidth = floor($this->fullsize / $rings);
 
-        $this->seed = mt_rand() . time();
+        $this->seed = random_int(0, mt_getrandmax()) . time();
     }
 
     /**
@@ -52,17 +50,13 @@ class RingIcon
     public function createImage($seed = '', $file = '')
     {
         if (!$seed) {
-            $seed = mt_rand() . time();
+            $seed = random_int(0, mt_getrandmax()) . time();
         }
         $this->seed = $seed;
 
         // monochrome wanted?
-        if($this->ismono) {
-            $this->monocolor = array(
-                $this->rand(20,255),
-                $this->rand(20,255),
-                $this->rand(20,255)
-            );
+        if ($this->ismono) {
+            $this->monocolor = [$this->rand(20, 255), $this->rand(20, 255), $this->rand(20, 255)];
         } else {
             $this->monocolor = null;
         }
@@ -93,7 +87,8 @@ class RingIcon
      *
      * @param bool $ismono
      */
-    public function setMono($ismono) {
+    public function setMono($ismono)
+    {
         $this->ismono = $ismono;
     }
 
@@ -126,11 +121,17 @@ class RingIcon
 
         $start = $this->rand(20, 360);
         $stop = $this->rand(20, 360);
-        if($stop < $start) list($start, $stop) = array($stop, $start);
+        if ($stop < $start) [$start, $stop] = [$stop, $start];
 
         imagefilledarc($image, $this->center, $this->center, $arcwidth, $arcwidth, $stop, $start, $color, IMG_ARC_PIE);
-        imagefilledellipse($image, $this->center, $this->center, $arcwidth - $this->ringwidth,
-            $arcwidth - $this->ringwidth, $transparency);
+        imagefilledellipse(
+            $image,
+            $this->center,
+            $this->center,
+            $arcwidth - $this->ringwidth,
+            $arcwidth - $this->ringwidth,
+            $transparency
+        );
 
         imagecolordeallocate($image, $color);
         imagecolordeallocate($image, $transparency);
@@ -155,10 +156,21 @@ class RingIcon
      */
     protected function randomColor($image)
     {
-        if($this->ismono) {
-            return imagecolorallocatealpha($image, $this->monocolor[0], $this->monocolor[1], $this->monocolor[2], $this->rand(0, 96));
+        if ($this->ismono) {
+            return imagecolorallocatealpha(
+                $image,
+                $this->monocolor[0],
+                $this->monocolor[1],
+                $this->monocolor[2],
+                $this->rand(0, 96)
+            );
         }
-        return imagecolorallocate($image, $this->rand(0, 255), $this->rand(0, 255), $this->rand(0, 255));
+        return imagecolorallocate(
+            $image,
+            $this->rand(0, 255),
+            $this->rand(0, 255),
+            $this->rand(0, 255)
+        );
     }
 
     /**
@@ -182,5 +194,4 @@ class RingIcon
         imagesavealpha($image, true);
         return $image;
     }
-
 }
