@@ -17,17 +17,13 @@ class admin_plugin_farmer_setup extends AdminPlugin
     /** @var helper_plugin_farmer $helper */
     private $helper;
 
-    /**
-     * @return bool admin only!
-     */
-    public function forAdminOnly()
+    /** @inheritdoc */
+    public function showInMenu()
     {
-        return true;
+        return false;
     }
 
-    /**
-     * Should carry out any processing required by the plugin.
-     */
+    /** @inheritdoc */
     public function handle()
     {
         global $INPUT;
@@ -76,9 +72,7 @@ class admin_plugin_farmer_setup extends AdminPlugin
         }
     }
 
-    /**
-     * Render HTML output, e.g. helpful text and a form
-     */
+    /** @inheritdoc */
     public function html()
     {
         // Is preload.php already enabled?

@@ -17,10 +17,8 @@ class admin_plugin_farmer_config extends AdminPlugin
     /** @var  helper_plugin_farmer */
     protected $helper;
 
-    /**
-     * @return bool admin only!
-     */
-    public function forAdminOnly()
+    /** @inheritdoc */
+    public function showInMenu()
     {
         return false;
     }
@@ -33,9 +31,7 @@ class admin_plugin_farmer_config extends AdminPlugin
         $this->helper = plugin_load('helper', 'farmer');
     }
 
-    /**
-     * Should carry out any processing required by the plugin.
-     */
+    /** @inheritdoc */
     public function handle()
     {
         global $INPUT;
@@ -59,9 +55,7 @@ class admin_plugin_farmer_config extends AdminPlugin
         send_redirect($self);
     }
 
-    /**
-     * Render HTML output, e.g. helpful text and a form
-     */
+    /** @inheritdoc */
     public function html()
     {
         $farmconf = $this->helper->getConfig();

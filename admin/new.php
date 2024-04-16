@@ -19,19 +19,17 @@ class admin_plugin_farmer_new extends AdminPlugin
     protected $helper;
 
     /**
-     * @return bool true if only access for superuser, false is for superusers and moderators
-     */
-    public function forAdminOnly()
-    {
-        return true;
-    }
-
-    /**
      * admin_plugin_farmer_new constructor.
      */
     public function __construct()
     {
         $this->helper = plugin_load('helper', 'farmer');
+    }
+
+    /** @inheritdoc */
+    public function showInMenu()
+    {
+        return false;
     }
 
     /**

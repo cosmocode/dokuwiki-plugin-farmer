@@ -25,17 +25,13 @@ class admin_plugin_farmer_delete extends AdminPlugin
         $this->helper = plugin_load('helper', 'farmer');
     }
 
-    /**
-     * @return bool admin only!
-     */
-    public function forAdminOnly()
+    /** @inheritdoc */
+    public function showInMenu()
     {
-        return true;
+        return false;
     }
 
-    /**
-     * Should carry out any processing required by the plugin.
-     */
+    /** @inheritdoc */
     public function handle()
     {
         global $INPUT;
@@ -71,9 +67,7 @@ class admin_plugin_farmer_delete extends AdminPlugin
         send_redirect($link);
     }
 
-    /**
-     * Render HTML output, e.g. helpful text and a form
-     */
+    /** @inheritdoc */
     public function html()
     {
 

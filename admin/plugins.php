@@ -22,9 +22,13 @@ class admin_plugin_farmer_plugins extends AdminPlugin
         $this->helper = plugin_load('helper', 'farmer');
     }
 
-    /**
-     * handle user request
-     */
+    /** @inheritdoc */
+    public function showInMenu()
+    {
+        return false;
+    }
+
+    /** @inheritdoc */
     public function handle()
     {
         global $INPUT;
@@ -53,9 +57,7 @@ class admin_plugin_farmer_plugins extends AdminPlugin
         }
     }
 
-    /**
-     * output appropriate html
-     */
+    /** @inheritdoc */
     public function html()
     {
 

@@ -25,23 +25,21 @@ class admin_plugin_farmer_info extends AdminPlugin
     }
 
     /**
-     * @return bool admin only!
+     * This part is visible to managers also
+      @inheritdoc
      */
     public function forAdminOnly()
     {
         return false;
     }
 
-    /**
-     * Should carry out any processing required by the plugin.
-     */
-    public function handle()
+    /** @inheritdoc */
+    public function showInMenu()
     {
+        return false;
     }
 
-    /**
-     * Render HTML output, e.g. helpful text and a form
-     */
+    /** @inheritdoc */
     public function html()
     {
         global $conf;
