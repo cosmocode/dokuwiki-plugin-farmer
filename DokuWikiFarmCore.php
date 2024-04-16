@@ -409,15 +409,21 @@ class DokuWikiFarmCore
     protected function loadConfig()
     {
         $ini = DOKU_INC . 'conf/farm.ini';
-        if (!file_exists($ini)) return;
-        $config = parse_ini_file($ini, true);
-        foreach (array_keys($this->config) as $section) {
-            if (isset($config[$section])) {
-                $this->config[$section] = array_merge(
-                    $this->config[$section],
-                    $config[$section]
-                );
+        if (file_exists($ini)) {
+            $config = parse_ini_file($ini, true);
+            foreach (array_keys($this->config) as $section) {
+                if (isset($config[$section])) {
+                    $this->config[$section] = array_merge(
+                        $this->config[$section],
+                        $config[$section]
+                    );
+                }
             }
+        }
+
+        // farmdir setup can be done via environment
+        if($this->config['base']['farmdir'] === '' && isset($_ENV['DOKU_FARMDIR'])) {
+            $this->config['base']['farmdir'] = $_ENV['DOKU_FARMDIR'];
         }
 
         $this->config['base']['farmdir'] = trim($this->config['base']['farmdir']);
