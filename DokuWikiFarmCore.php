@@ -422,7 +422,7 @@ class DokuWikiFarmCore
         }
 
         // farmdir setup can be done via environment
-        if($this->config['base']['farmdir'] === '' && isset($_ENV['DOKU_FARMDIR'])) {
+        if ($this->config['base']['farmdir'] === '' && isset($_ENV['DOKU_FARMDIR'])) {
             $this->config['base']['farmdir'] = $_ENV['DOKU_FARMDIR'];
         }
 
