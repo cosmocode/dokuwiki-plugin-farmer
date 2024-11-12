@@ -61,15 +61,16 @@ class remote_plugin_farmer extends RemotePlugin {
     }
 
     /**
-     * Get configuration details of farmer plugin enriched by animal name and urls
+     * Get configuration details of farmer plugin enriched by list of animals
      *
      * @return array
      */
     public function getFarmerConfig(): array
     {
         $farmerConfig = $this->helper->getConfig();
-        foreach($this->helper->getAllAnimals() as $animal) {
-            $farmerConfig['animals'][$animal] = $this->helper->getAnimalURL($animal);
+        foreach($this->helper->getAllAnimals() as $index=>$animal) {
+            $farmerConfig['animals'][$index]["name"] =$animal;
+            $farmerConfig['animals'][$index]["url"] = $this->helper->getAnimalURL($animal);
         }
         return $farmerConfig;
     }
