@@ -1,6 +1,7 @@
 <?php
 
 // phpcs:disable PSR1.Files.SideEffects
+
 /**
  * Core Manager for the Farm functionality
  *
@@ -131,68 +132,193 @@ class DokuWikiFarmCore
     }
 
     /**
+     * Set the animal
+     *
+     * Checks if the animal exists and is a valid directory name.
+     *
+     * @param mixed $animal the animal name
+     * @return bool returns true if the animal was set successfully, false otherwise
+     */
+    protected function setAnimal($animal)
+    {
+        $farmdir = $this->config['base']['farmdir'];
+
+        // invalid animal stuff is always a not found
+        if (!is_string($animal) || strpbrk($animal, '\\/') !== false) {
+            $this->notfound = true;
+            return false;
+        }
+        $animal = strtolower($animal);
+
+        // check if animal exists
+        if (is_dir("$farmdir/$animal/conf")) {
+            $this->animal = $animal;
+            $this->notfound = false;
+            return true;
+        } else {
+            $this->notfound = true;
+            return false;
+        }
+    }
+
+    /**
+     * Detect the animal from the given query string
+     *
+     * This removes the animal parameter from the given string and sets the animal
+     *
+     * @param string $queryString The query string to extract the animal from, will be modified
+     * @return bool true if the animal was set successfully, false otherwise
+     */
+    protected function detectAnimalFromQueryString(string &$queryString): bool
+    {
+        $params = [];
+        parse_str($queryString, $params);
+        if (!isset($params['animal'])) return false;
+        $animal = $params['animal'];
+        unset($params['animal']);
+        $queryString = http_build_query($params);
+
+        $this->hostbased = false;
+        return $this->setAnimal($animal);
+    }
+
+    /**
+     * Detect the animal from the bang path
+     *
+     * This is used to detect the animal from a bang path like `/!animal/my:page` or '/dokuwiki/!animal/my:page'.
+     *
+     * @param string $path The bang path to extract the animal from
+     * @return bool true if the animal was set successfully, false otherwise
+     */
+    protected function detectAnimalFromBangPath(string $path): bool
+    {
+        $bangregex = '#^(/(?:[^/]*/)*)!([^/]+)/#';
+        if (preg_match($bangregex, $path, $matches)) {
+            // found a bang path
+            $animal = $matches[2];
+
+            $this->hostbased = false;
+            return $this->setAnimal($animal);
+        }
+        return false;
+    }
+
+    /**
+     * Detect the animal from the host name
+     *
+     * @param string $host The hostname
+     * @return bool true if the animal was set successfully, false otherwise
+     */
+    protected function detectAnimalFromHostName(string $host): bool
+    {
+        $possible = $this->getAnimalNamesForHost($host);
+        foreach ($possible as $animal) {
+            if ($this->setAnimal($animal)) {
+                $this->hostbased = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Detect the current animal
      *
      * Sets internal members $animal, $notfound and $hostbased
      *
      * This borrows form DokuWiki's inc/farm.php but does not support a default conf dir
+     *
+     * @params string|null $sapi the SAPI to use. Only changed during testing
      */
-    protected function detectAnimal()
+    protected function detectAnimal($sapi = null)
     {
-        $farmdir = $this->config['base']['farmdir'];
+        $sapi = $sapi ?: PHP_SAPI;
         $farmhost = $this->config['base']['farmhost'];
 
-        // check if animal was set via rewrite parameter
-        $animal = '';
-        if (isset($_GET['animal'])) {
-            $animal = $_GET['animal'];
-            // now unset the parameter to not leak into new queries
-            unset($_GET['animal']);
-            $params = [];
-            parse_str($_SERVER['QUERY_STRING'], $params);
-            if (isset($params['animal'])) unset($params['animal']);
-            $_SERVER['QUERY_STRING'] = http_build_query($params);
-        }
-        // get animal from CLI parameter
-        if ('cli' == PHP_SAPI && isset($_SERVER['animal'])) $animal = $_SERVER['animal'];
-        if ($animal) {
-            // check that $animal is a string and just a directory name and not a path
-            if (!is_string($animal) || strpbrk($animal, '\\/') !== false) {
-                $this->notfound = true;
-                return;
-            };
-            $animal = strtolower($animal);
+        if ('cli' == $sapi) {
+            if (!isset($_SERVER['animal'])) return; // no animal parameter given - we're the farmer
 
-            // check if animal exists
-            if (is_dir("$farmdir/$animal/conf")) {
-                $this->animal = $animal;
-                return;
+            if (preg_match('#^https?://#i', $_SERVER['animal'])) {
+                // CLI animal parameter is a URL
+                $urlparts = parse_url($_SERVER['animal']);
+                $urlparts['query'] ??= '';
+
+                // detect the animal from the URL
+                $this->detectAnimalFromQueryString($urlparts['query']) ||
+                $this->detectAnimalFromBangPath($urlparts['path']) ||
+                $this->detectAnimalFromHostName($urlparts['host']);
+
+                // fake baseurl etc.
+                $this->injectServerEnvironment($urlparts);
             } else {
+                // CLI animal parameter is just a name
+                $this->setAnimal(strtolower($_SERVER['animal']));
+            }
+        } else {
+            // an animal url parameter has been set
+            if (isset($_GET['animal'])) {
+                $this->detectAnimalFromQueryString($_SERVER['QUERY_STRING']);
+                unset($_GET['animal']);
+                return;
+            }
+
+            // no host - no host based setup. if we're still here then it's the farmer
+            if (empty($_SERVER['HTTP_HOST'])) return;
+
+            // is this the farmer?
+            if (strtolower($_SERVER['HTTP_HOST']) == $farmhost) {
+                return;
+            }
+
+            // we're in host based mode now
+            $this->hostbased = true;
+
+            // we should get an animal now
+            if (!$this->detectAnimalFromHostName($_SERVER['HTTP_HOST'])) {
                 $this->notfound = true;
-                return;
             }
         }
+    }
 
-        // no host - no host based setup. if we're still here then it's the farmer
-        if (!isset($_SERVER['HTTP_HOST'])) return;
+    /**
+     * Create Server environment variables for the current animal
+     *
+     * This is called when the animal is initialized on the command line using a full URL.
+     * Since the initialization is running before any configuration is loaded, we instead
+     * set the $_SERVER variables that will later be used to autodetect the base URL. This
+     * way a manually set base URL will still take precedence.
+     *
+     * @param array $urlparts A parse_url() result array
+     * @return void
+     * @see is_ssl()
+     * @see getBaseURL()
+     */
+    protected function injectServerEnvironment(array $urlparts)
+    {
+        // prepare data for DOKU_REL
+        $path = $urlparts['path'] ?? '/';
+        if (($bangpos = strpos($path, '!')) !== false) {
+            // strip from the bang path
+            $path = substr($path, 0, $bangpos);
+        }
+        if (!str_ends_with($path, '.php')) {
+            // make sure we have a script name
+            $path = rtrim($path, '/') . '/doku.php';
+        }
+        $_SERVER['SCRIPT_NAME'] = $path;
 
-        // is this the farmer?
-        if (strtolower($_SERVER['HTTP_HOST']) == $farmhost) {
-            return;
+        // prepare data for is_ssl()
+        if (($urlparts['scheme'] ?? '') === 'https') {
+            $_SERVER['HTTPS'] = 'on';
+        } else {
+            $_SERVER['HTTPS'] = 'off';
         }
 
-        // still here? check for host based
-        $this->hostbased = true;
-        $possible = $this->getAnimalNamesForHost($_SERVER['HTTP_HOST']);
-        foreach ($possible as $animal) {
-            if (is_dir("$farmdir/$animal/conf/")) {
-                $this->animal = $animal;
-                return;
-            }
+        // prepare data for DOKU_URL
+        $_SERVER['HTTP_HOST'] = $urlparts['host'] ?? '';
+        if (isset($urlparts['port'])) {
+            $_SERVER['HTTP_HOST'] .= ':' . $urlparts['port'];
         }
-
-        // no hit
-        $this->notfound = true;
     }
 
     /**
@@ -338,7 +464,7 @@ class DokuWikiFarmCore
             $prepend = [];
             if ($key == 'main') {
                 $prepend = [
-                     'protected' => [DOKU_INC . 'conf/local.protected.php']
+                    'protected' => [DOKU_INC . 'conf/local.protected.php']
                 ];
                 $append = [
                     'default' => [DOKU_INC . 'conf/local.php'],

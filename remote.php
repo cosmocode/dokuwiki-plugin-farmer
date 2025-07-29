@@ -3,7 +3,8 @@
 use dokuwiki\Extension\RemotePlugin;
 use dokuwiki\Remote\AccessDeniedException;
 
-class remote_plugin_farmer extends RemotePlugin {
+class remote_plugin_farmer extends RemotePlugin
+{
     /** @var helper_plugin_farmer hlp */
     protected $helper;
 
@@ -63,7 +64,7 @@ class remote_plugin_farmer extends RemotePlugin {
     public function listAnimalUrls(): array
     {
         $this->ensureAdmin();
-        foreach($this->helper->getAllAnimals() as $animal) {
+        foreach ($this->helper->getAllAnimals() as $animal) {
             $animalUrls[] = $this->helper->getAnimalURL($animal);
         }
         return $animalUrls;
@@ -79,8 +80,8 @@ class remote_plugin_farmer extends RemotePlugin {
     {
         $this->ensureAdmin();
         $farmerConfig = $this->helper->getConfig();
-        foreach($this->helper->getAllAnimals() as $index=>$animal) {
-            $farmerConfig['animals'][$index]["name"] =$animal;
+        foreach ($this->helper->getAllAnimals() as $index => $animal) {
+            $farmerConfig['animals'][$index]["name"] = $animal;
             $farmerConfig['animals'][$index]["url"] = $this->helper->getAnimalURL($animal);
         }
         return $farmerConfig;
@@ -89,7 +90,8 @@ class remote_plugin_farmer extends RemotePlugin {
     /**
      * @throws AccessDeniedException
      */
-    private function ensureAdmin() {
+    private function ensureAdmin()
+    {
         if (!auth_isadmin()) {
             throw new AccessDeniedException(
                 'You are not allowed to access farmer configuration, superuser permission is required',
