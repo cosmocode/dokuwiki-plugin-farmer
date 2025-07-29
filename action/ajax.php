@@ -33,7 +33,7 @@ class action_plugin_farmer_ajax extends ActionPlugin
      */
     public function handleAjaxCall(Event $event, $param)
     {
-        if (substr($event->data, 0, 13) !== 'plugin_farmer') {
+        if (!str_starts_with($event->data, 'plugin_farmer')) {
             return;
         }
         //no other ajax call handlers needed

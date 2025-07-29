@@ -68,7 +68,7 @@ class helper_plugin_farmer extends Plugin
     {
         $config = $this->getConfig();
 
-        if (strpos($animal, '.') !== false) {
+        if (str_contains($animal, '.')) {
             return 'http://' . $animal;
         } elseif ($config['base']['basedomain']) {
             return 'http://' . $animal . '.' . $config['base']['basedomain'];
@@ -109,7 +109,7 @@ class helper_plugin_farmer extends Plugin
         $path = fullpath($path) . '/';
         $container = fullpath($container) . '/';
         if ($path === $container) return false;
-        return (strpos($path, $container) === 0);
+        return (str_starts_with($path, $container));
     }
 
     /**

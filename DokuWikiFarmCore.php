@@ -233,8 +233,6 @@ class DokuWikiFarmCore
     protected function detectAnimal($sapi = null)
     {
         $sapi = $sapi ?: PHP_SAPI;
-
-        $farmdir = $this->config['base']['farmdir'];
         $farmhost = $this->config['base']['farmhost'];
 
         if ('cli' == $sapi) {
@@ -256,7 +254,6 @@ class DokuWikiFarmCore
                 // CLI animal parameter is just a name
                 $this->setAnimal(strtolower($_SERVER['animal']));
             }
-
         } else {
             // an animal url parameter has been set
             if (isset($_GET['animal'])) {

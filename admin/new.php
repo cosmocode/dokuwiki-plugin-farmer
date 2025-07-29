@@ -219,7 +219,7 @@ class admin_plugin_farmer_new extends AdminPlugin
                 $templatedir = DOKU_FARMDIR . $template . '/' . $dir;
                 if (!is_dir($templatedir)) continue;
                 // do not copy changelogs in meta
-                if (substr($dir, -4) == 'meta') {
+                if (str_ends_with($dir, 'meta')) {
                     $exclude = '/\.changes$/';
                 } else {
                     $exclude = '';
