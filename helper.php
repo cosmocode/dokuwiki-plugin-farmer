@@ -68,10 +68,11 @@ class helper_plugin_farmer extends Plugin
     {
         $config = $this->getConfig();
 
+        $protocol = is_ssl() ? 'https://' : 'http://';
         if (str_contains($animal, '.')) {
-            return 'http://' . $animal;
+            return $protocol . $animal;
         } elseif ($config['base']['basedomain']) {
-            return 'http://' . $animal . '.' . $config['base']['basedomain'];
+            return $protocol . $animal . '.' . $config['base']['basedomain'];
         } else {
             return DOKU_URL . '!' . $animal . '/';
         }
