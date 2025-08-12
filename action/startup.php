@@ -61,7 +61,7 @@ class action_plugin_farmer_startup extends ActionPlugin
         $url = $config['notfound']['url'];
         if ($show == 'farmer') return;
 
-        if ($show == '404' || $show == 'list') {
+        if ($show == 'error404' || $show == 'list') {
             http_status(404);
             $body = $this->locale_xhtml('notfound_' . $show);
             /** @noinspection PhpUnusedLocalVariableInspection */
