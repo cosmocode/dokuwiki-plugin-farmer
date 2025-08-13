@@ -81,7 +81,7 @@ class admin_plugin_farmer_config extends AdminPlugin
 
         $options = [
             'farmer' => $this->getLang('conf_notfound_farmer'),
-            '404' => $this->getLang('conf_notfound_404'),
+            'error404' => $this->getLang('conf_notfound_404'),
             'list' => $this->getLang('conf_notfound_list'),
             'redirect' => $this->getLang('conf_notfound_redirect')
         ];

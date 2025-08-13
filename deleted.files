@@ -12,6 +12,10 @@ farm.php
 lang/en/createAnimal.txt
 lang/en/plugins.txt
 lang/en/preload.txt
+lang/de/notfound_404.txt
+lang/fr/notfound_404.txt
+lang/en/notfound_404.txt
+lang/ja/notfound_404.txt
 scripts/plugins.js
 style.css
 template.php
