@@ -60,7 +60,9 @@ class admin_plugin_farmer_info extends AdminPlugin
         $this->line('farm host', $config['base']['farmhost']);
         $this->line('farm dir', DOKU_FARMDIR);
 
-        $this->line('animals', $this->animals($INPUT->bool('list')));
+        if (!$animal || $config['notfound']['show'] == 'list') {
+            $this->line('animals', $this->animals($INPUT->bool('list')));
+        }
 
         foreach ($config['inherit'] as $key => $value) {
             $this->line('conf_inherit_' . $key, $this->getLang($value ? 'conf_inherit_yes' : 'conf_inherit_no'));
