@@ -24,6 +24,15 @@ class helper_plugin_farmer_test extends DokuWikiTest
             ['ant44lion', true],
             ['44', true],
 
+            ['aNt', false],
+            ['anT.Lion', false],
+            ['ant.Lion.cow', false],
+            ['ant-Lion', false],
+            ['ant-Lion.cow', false],
+            ['4aNt', false],
+            ['aNt4', false],
+            ['ant44Lion', false],
+
             ['ant.', false],
             ['.ant', false],
             ['ant-', false],

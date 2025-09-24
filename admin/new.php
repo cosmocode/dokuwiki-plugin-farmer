@@ -3,6 +3,7 @@
 use chrisbliss18\phpico\PHPIco;
 use dokuwiki\Extension\AdminPlugin;
 use dokuwiki\Form\Form;
+use dokuwiki\Utf8\PhpString;
 use splitbrain\RingIcon\RingIcon;
 
 /**
@@ -139,7 +140,7 @@ class admin_plugin_farmer_new extends AdminPlugin
     {
         global $INPUT;
 
-        $animalname = $INPUT->filter('trim')->str('animalname');
+        $animalname = $INPUT->filter('trim')->filter([PhpString::class, 'strtolower'])->str('animalname');
         $adminsetup = $INPUT->str('adminsetup');
         $adminpass = $INPUT->filter('trim')->str('adminPassword');
         $template = $INPUT->filter('trim')->str('animaltemplate');
