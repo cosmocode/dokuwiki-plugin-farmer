@@ -1,0 +1,117 @@
+{
+    "packages": [
+        {
+            "name": "splitbrain/php-ico",
+            "version": "1.2.0",
+            "version_normalized": "1.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/splitbrain/php-ico.git",
+                "reference": "759d5df45161fab11982568635f8b2a47fcfd8eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/splitbrain/php-ico/zipball/759d5df45161fab11982568635f8b2a47fcfd8eb",
+                "reference": "759d5df45161fab11982568635f8b2a47fcfd8eb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "time": "2025-10-06T11:21:46+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "splitbrain\\phpico\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Jean",
+                    "homepage": "https://chrisjean.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "SignpostMarv",
+                    "homepage": "https://signpostmarv.name",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Gohr",
+                    "homepage": "https://www.splitbrain.org",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "An easy-to-use library to generate valid ICO files.",
+            "homepage": "https://github.com/splitbrain/php-ico",
+            "keywords": [
+                "favicon",
+                "ico"
+            ],
+            "support": {
+                "source": "https://github.com/splitbrain/php-ico/tree/1.2.0"
+            },
+            "install-path": "../splitbrain/php-ico"
+        },
+        {
+            "name": "splitbrain/php-ringicon",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/splitbrain/php-ringicon.git",
+                "reference": "905277d123ed7da1224c46e255d5b8719c6d8bb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/splitbrain/php-ringicon/zipball/905277d123ed7da1224c46e255d5b8719c6d8bb6",
+                "reference": "905277d123ed7da1224c46e255d5b8719c6d8bb6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.3.0"
+            },
+            "time": "2018-03-20T13:06:41+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "splitbrain\\RingIcon\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Gohr",
+                    "email": "andi@splitbrain.org"
+                }
+            ],
+            "description": "A indenticon/glyphicon like avatar generator",
+            "keywords": [
+                "avatar",
+                "glyphicon",
+                "identicon"
+            ],
+            "support": {
+                "issues": "https://github.com/splitbrain/php-ringicon/issues",
+                "source": "https://github.com/splitbrain/php-ringicon/tree/master"
+            },
+            "install-path": "../splitbrain/php-ringicon"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

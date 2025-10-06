@@ -1,0 +1,6 @@
+{
+    "require": {
+        "splitbrain/php-ringicon": "^1.0",
+        "splitbrain/php-ico": "^1.2"
+    }
+}

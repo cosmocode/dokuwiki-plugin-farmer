@@ -1,9 +1,9 @@
 <?php
 
-use chrisbliss18\phpico\PHPIco;
 use dokuwiki\Extension\AdminPlugin;
 use dokuwiki\Form\Form;
 use dokuwiki\Utf8\PhpString;
+use splitbrain\phpico\PhpIco;
 use splitbrain\RingIcon\RingIcon;
 
 /**
@@ -235,13 +235,6 @@ class admin_plugin_farmer_new extends AdminPlugin
         // append title to local config
         $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'title\'] = \'' . $name . '\';' . "\n", true);
 
-        // create a random logo and favicon
-        if (!class_exists('\splitbrain\RingIcon\RingIcon', false)) {
-            require(__DIR__ . '/../3rdparty/RingIcon.php');
-        }
-        if (!class_exists('\chrisbliss18\phpico\PHPIco', false)) {
-            require(__DIR__ . '/../3rdparty/PHPIco.php');
-        }
         try {
             if (function_exists('imagecreatetruecolor')) {
                 $logo = $animaldir . '/data/media/wiki/logo.png';
@@ -252,7 +245,7 @@ class admin_plugin_farmer_new extends AdminPlugin
 
                 $icon = $animaldir . '/data/media/wiki/favicon.ico';
                 if (!file_exists($icon)) {
-                    $icongen = new PHPIco($logo);
+                    $icongen = new PhpIco($logo);
                     $icongen->saveIco($icon);
                 }
             }

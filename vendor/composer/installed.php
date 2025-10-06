@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => '__root__',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '655fe6c1fa0e8eca0207e883f3a88be96a9a98a2',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '655fe6c1fa0e8eca0207e883f3a88be96a9a98a2',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'splitbrain/php-ico' => array(
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
+            'reference' => '759d5df45161fab11982568635f8b2a47fcfd8eb',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../splitbrain/php-ico',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'splitbrain/php-ringicon' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => '905277d123ed7da1224c46e255d5b8719c6d8bb6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../splitbrain/php-ringicon',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

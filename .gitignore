@@ -1,0 +1,3 @@
+vendor/splitbrain/php-ico/tests/
+vendor/splitbrain/php-ringicon/demo*
+vendor/splitbrain/php-ringicon/*.png

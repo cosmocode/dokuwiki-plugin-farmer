@@ -2,43 +2,9 @@
 
 namespace splitbrain\RingIcon;
 
-/**
- * Class RingIcon
- *
- * Generates a identicon/visiglyph like image based on concentric rings
- *
- * @todo add a mono color version
- * @author Andreas Gohr <andi@splitbrain.org>
- * @license MIT
- * @package splitbrain\RingIcon
- */
-class RingIcon
+
+class RingIcon extends AbstractRingIcon
 {
-    protected $size;
-    protected $fullsize;
-    protected $rings = 4;
-    protected $center;
-    protected $ringwidth;
-    protected $seed;
-    protected $ismono = false;
-    protected $monocolor;
-
-    /**
-     * RingIcon constructor.
-     * @param int $size width and height of the resulting image
-     * @param int $rings number of rings
-     */
-    public function __construct($size, $rings = 3)
-    {
-        $this->size = $size;
-        $this->fullsize = $this->size * 5;
-
-        $this->center = floor($this->fullsize / 2);
-        $this->ringwidth = floor($this->fullsize / $rings);
-
-        $this->seed = random_int(0, mt_getrandmax()) . time();
-    }
-
     /**
      * Generates an ring image
      *
@@ -50,15 +16,13 @@ class RingIcon
     public function createImage($seed = '', $file = '')
     {
         if (!$seed) {
-            $seed = random_int(0, mt_getrandmax()) . time();
+            $seed = mt_rand() . time();
         }
         $this->seed = $seed;
 
         // monochrome wanted?
-        if ($this->ismono) {
-            $this->monocolor = [$this->rand(20, 255), $this->rand(20, 255), $this->rand(20, 255)];
-        } else {
-            $this->monocolor = null;
+        if($this->ismono) {
+            $this->generateMonoColor();
         }
 
         // create
@@ -82,31 +46,6 @@ class RingIcon
         imagedestroy($image);
     }
 
-    /**
-     * When set to true a monochrome version is returned
-     *
-     * @param bool $ismono
-     */
-    public function setMono($ismono)
-    {
-        $this->ismono = $ismono;
-    }
-
-    /**
-     * Generate number from seed
-     *
-     * Each call runs MD5 on the seed again
-     *
-     * @param int $min
-     * @param int $max
-     * @return int
-     */
-    protected function rand($min, $max)
-    {
-        $this->seed = md5($this->seed);
-        $rand = hexdec(substr($this->seed, 0, 8));
-        return ($rand % ($max - $min + 1)) + $min;
-    }
 
     /**
      * Drawas a single ring
@@ -121,17 +60,11 @@ class RingIcon
 
         $start = $this->rand(20, 360);
         $stop = $this->rand(20, 360);
-        if ($stop < $start) [$start, $stop] = [$stop, $start];
+        if($stop < $start) list($start, $stop) = array($stop, $start);
 
         imagefilledarc($image, $this->center, $this->center, $arcwidth, $arcwidth, $stop, $start, $color, IMG_ARC_PIE);
-        imagefilledellipse(
-            $image,
-            $this->center,
-            $this->center,
-            $arcwidth - $this->ringwidth,
-            $arcwidth - $this->ringwidth,
-            $transparency
-        );
+        imagefilledellipse($image, $this->center, $this->center, $arcwidth - $this->ringwidth,
+            $arcwidth - $this->ringwidth, $transparency);
 
         imagecolordeallocate($image, $color);
         imagecolordeallocate($image, $transparency);
@@ -156,21 +89,10 @@ class RingIcon
      */
     protected function randomColor($image)
     {
-        if ($this->ismono) {
-            return imagecolorallocatealpha(
-                $image,
-                $this->monocolor[0],
-                $this->monocolor[1],
-                $this->monocolor[2],
-                $this->rand(0, 96)
-            );
+        if($this->ismono) {
+            return imagecolorallocatealpha($image, $this->monocolor[0], $this->monocolor[1], $this->monocolor[2], $this->rand(0, 96));
         }
-        return imagecolorallocate(
-            $image,
-            $this->rand(0, 255),
-            $this->rand(0, 255),
-            $this->rand(0, 255)
-        );
+        return imagecolorallocate($image, $this->rand(0, 255), $this->rand(0, 255), $this->rand(0, 255));
     }
 
     /**

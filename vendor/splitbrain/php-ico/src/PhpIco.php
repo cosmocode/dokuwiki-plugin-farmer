@@ -1,23 +1,20 @@
 <?php
 
-namespace chrisbliss18\phpico;
+/*
+Copyright 2011-2016 Chris Jean & iThemes
+Licensed under GPLv2 or above
+*/
 
-/**
- * PHP Icon Library
- * Adjusted for DokuWiki Farmer Plugin
- *
- * @author Copyright 2011-2013 Chris Jean & iThemes
- * @license Licensed under GPLv2 or above
- * @version 1.0.2
- */
-class PHPIco
+namespace splitbrain\phpico;
+
+class PhpIco
 {
     /**
      * Images in the BMP format.
      *
      * @var array
      */
-    private $images = [];
+    private $images = array();
 
     /**
      * Constructor - Create a new ICO generator.
@@ -25,15 +22,14 @@ class PHPIco
      * If the constructor is not passed a file, a file will need to be supplied using the {@link PHP_ICO::add_image}
      * function in order to generate an ICO file.
      *
-     * @param bool|string $file Optional. Path to the source image file.
+     * @param string $file Optional. Path to the source image file.
      * @param array $sizes Optional. An array of sizes (each size is an array with a width and height)
-     *                     that the source image should be rendered at in the generated ICO file.
-     *                     If sizes are not supplied, the size of the source image will be used.
-     * @throws \Exception
+     *                               that the source image should be rendered at in the generated ICO file.
+     *                               If sizes are not supplied, the size of the source image will be used.
      */
-    public function __construct($file = false, $sizes = [])
+    public function __construct($file = false, $sizes = array())
     {
-        $required_functions = [
+        $required_functions = array(
             'getimagesize',
             'imagecreatefromstring',
             'imagecreatetruecolor',
@@ -43,22 +39,23 @@ class PHPIco
             'imagesavealpha',
             'imagesx',
             'imagesy',
-            'imagecopyresampled'
-        ];
+            'imagecopyresampled',
+        );
 
         foreach ($required_functions as $function) {
             if (!function_exists($function)) {
-                throw new \Exception(
-                    "The PHP_ICO class was unable to find the $function function, which is part of the GD library. " .
-                    "Ensure that the system has the GD library installed and that PHP has access to it through a PHP " .
-                    "interface, such as PHP's GD module. Since this function was not found, the library will be " .
-                    "unable to create ICO files."
+                throw new \RuntimeException(
+                    "The PhpIco class was unable to find the $function function, which is part of the GD library. ".
+                    'Ensure that the system has the GD library installed and that PHP has access to it through a PHP '.
+                    'interface, such as PHP\'s GD module. Since this function was not found, the library will be '.
+                    'unable to create ICO files.'
                 );
             }
         }
 
-        if (false != $file)
+        if ($file) {
             $this->addImage($file, $sizes);
+        }
     }
 
     /**
@@ -70,26 +67,29 @@ class PHPIco
      * resolutions while a larger source image can be used for large resolutions.
      *
      * @param string $file Path to the source image file.
-     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the
-     *                     source image should be rendered at in the generated ICO file.
-     *                     If sizes are not supplied, the size of the source image will be used.
+     * @param array $sizes Optional. An array of sizes (each size is an array with a width and height) that the source
+     *                     image should be rendered at in the generated ICO file. If sizes are not supplied, the size
+     *                     of the source image will be used.
      * @return boolean true on success and false on failure.
      */
-    public function addImage($file, $sizes = [])
+    public function addImage($file, $sizes = array())
     {
-        if (false === ($im = $this->loadImageFile($file)))
+        if (false === ($im = $this->loadImageFile($file))) {
             return false;
+        }
 
 
-        if (empty($sizes))
-            $sizes = [imagesx($im), imagesy($im)];
+        if (empty($sizes)) {
+            $sizes = array(imagesx($im), imagesy($im));
+        }
 
         // If just a single size was passed, put it in array.
-        if (!is_array($sizes[0]))
-            $sizes = [$sizes];
+        if (!is_array($sizes[0])) {
+            $sizes = array($sizes);
+        }
 
         foreach ((array)$sizes as $size) {
-            [$width, $height] = $size;
+            list($width, $height) = $size;
 
             $new_im = imagecreatetruecolor($width, $height);
 
@@ -100,8 +100,7 @@ class PHPIco
             $source_width = imagesx($im);
             $source_height = imagesy($im);
 
-            if (
-                false === imagecopyresampled(
+            if (false === imagecopyresampled(
                     $new_im,
                     $im,
                     0,
@@ -111,12 +110,10 @@ class PHPIco
                     $width,
                     $height,
                     $source_width,
-                    $source_height
-                )
+                    $source_height)
             ) {
                 continue;
             }
-
 
             $this->addImageData($new_im);
         }
@@ -132,11 +129,13 @@ class PHPIco
      */
     public function saveIco($file)
     {
-        if (false === ($data = $this->getIcoData()))
+        if (false === ($data = $this->getIcoData())) {
             return false;
+        }
 
-        if (false === ($fh = fopen($file, 'w')))
+        if (false === ($fh = fopen($file, 'w'))) {
             return false;
+        }
 
         if (false === (fwrite($fh, $data))) {
             fclose($fh);
@@ -153,8 +152,9 @@ class PHPIco
      */
     protected function getIcoData()
     {
-        if (!is_array($this->images) || $this->images === [])
+        if (!is_array($this->images) || empty($this->images)) {
             return false;
+        }
 
 
         $data = pack('vvv', 0, 1, count($this->images));
@@ -190,8 +190,6 @@ class PHPIco
 
     /**
      * Take a GD image resource and change it into a raw BMP format.
-     *
-     * @param resource $im
      */
     protected function addImageData($im)
     {
@@ -199,9 +197,9 @@ class PHPIco
         $height = imagesy($im);
 
 
-        $pixel_data = [];
+        $pixel_data = array();
 
-        $opacity_data = [];
+        $opacity_data = array();
         $current_opacity_val = 0;
 
         for ($y = $height - 1; $y >= 0; $y--) {
@@ -228,8 +226,9 @@ class PHPIco
             }
 
             if (($x % 32) > 0) {
-                while (($x++ % 32) > 0)
-                    $current_opacity_val <<= 1;
+                while (($x++ % 32) > 0) {
+                    $current_opacity_val = $current_opacity_val << 1;
+                }
 
                 $opacity_data[] = $current_opacity_val;
                 $current_opacity_val = 0;
@@ -243,42 +242,47 @@ class PHPIco
 
         $data = pack('VVVvvVVVVVV', 40, $width, ($height * 2), 1, 32, 0, 0, 0, 0, 0, 0);
 
-        foreach ($pixel_data as $color)
+        foreach ($pixel_data as $color) {
             $data .= pack('V', $color);
+        }
 
-        foreach ($opacity_data as $opacity)
+        foreach ($opacity_data as $opacity) {
             $data .= pack('N', $opacity);
+        }
 
 
-        $image = [
+        $image = array(
             'width' => $width,
             'height' => $height,
             'color_palette_colors' => 0,
             'bits_per_pixel' => 32,
             'size' => $image_header_size + $color_mask_size + $opacity_mask_size,
-            'data' => $data
-        ];
+            'data' => $data,
+        );
 
         $this->images[] = $image;
     }
 
     /**
      * Read in the source image file and convert it into a GD image resource.
-     *
-     * @param string $file
-     * @return bool|resource
      */
     protected function loadImageFile($file)
     {
+        if (!is_string($file) || empty($file)) {
+            return false;
+        }
         // Run a cheap check to verify that it is an image file.
-        if (false === ($size = getimagesize($file)))
+        if (false === ($size = getimagesize($file))) {
             return false;
+        }
 
-        if (false === ($file_data = file_get_contents($file)))
+        if (false === ($file_data = file_get_contents($file))) {
             return false;
+        }
 
-        if (false === ($im = imagecreatefromstring($file_data)))
+        if (false === ($im = imagecreatefromstring($file_data))) {
             return false;
+        }
 
         unset($file_data);
 
