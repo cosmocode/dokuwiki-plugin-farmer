@@ -1,0 +1,31 @@
+===== Tiererstellung =====
+
+Tiere sind unabhängige Subwikis einer Dokuwiki-Farm. Um ein neues Tier zu erstellen, muss ein Name vergeben werden.
+
+==== Tiernamen ====
+
+Bei .htaccess-basierten Setups sollte dies ein einzelnes Wort sein. Bei domänenbasierten Setups sollten Sie entweder einen vollqualifizierten Domänennamen angeben.
+Wenn Sie eine Wildcard-Subdomain-Konfiguration verwenden, können Sie auch nur den Hostnamen angeben, wenn Sie in der Konfiguration eine Basisdomain festgelegt haben.
+
+Beispiele:
+
+  * .htaccess-basiert: „foo” für ein Tier, das unter „%%http://example.org/dokuwiki/!foo/%%” erreichbar ist
+  * Domain-basiert: „%%www.foo.com%%”  für ein Tier, das unter „%%http://www.foo.com/%%” erreichbar ist
+  * Subdomain-basiert: „foo”  für ein Tier, das unter „%%http://foo.example.com/%%” erreichbar ist
+
+Die beiden letzteren erfordern die entsprechende DNS-Einrichtung!
+
+==== Tier kopieren ====
+
+Sie können ein vorhandenes Tier auswählen, auf dem das neue Tier basieren soll. Alle Konfigurationen, Seiten, Medien und Metadaten werden
+auf das neue Tier kopiert. Seiten- und Medienrevisionen werden nicht kopiert.
+
+Der Titel und das Logo-Bild werden überschrieben, damit Sie das neue vom alten Wiki unterscheiden können.
+
+==== Tier-Administrator ====
+
+Das Tier wird ein voll funktionsfähiges Wiki mit eigener Benutzerbasis sein. Sie benötigen mindestens einen administrativen Benutzer,
+um es zu konfigurieren. Sie können Ihren aktuellen Benutzer oder alle Benutzer vom Farmer kopieren oder einen komplett neuen Benutzer für das Tier erstellen.
+
+Sie können sich auch dafür entscheiden, keine Benutzer zu erstellen. Diese Option sollte nur gewählt werden, wenn das Erben von Benutzern vom Farmer in der
+Konfigurationsregisterkarte aktiviert wurde oder Sie ein anderes Tier mit bestehenden Benutzern kopiert haben.

@@ -1,0 +1,16 @@
+===== Plugin-Verwaltung =====
+
+Der Erweiterungsmanager ist in allen Animals deaktiviert. Plugins können nur im Farmer installiert werden, und nur der Farmer
+kann steuern, welche Plugins in allen Animals aktiviert oder deaktiviert sind. Dies geschieht über diese Schnittstelle.
+
+Ein Plugin kann in einem Animal drei Zustände haben. Es kann aktiviert (on) oder deaktiviert (off) sein oder den Standardzustand haben. Der
+Standardzustand bedeutet, dass der Zustand eines Plugins für ein Tier nicht explizit festgelegt wurde. Normalerweise ist der Standardzustand „Ein”.
+
+Wenn Tiere so konfiguriert sind, dass sie den Plugin-Zustand des Farmers übernehmen, hat ein Plugin im Standardzustand denselben
+Zustand wie im Farmer. Wenn Sie beispielsweise ein Plugin im Farmer deaktivieren, wird das Plugin für alle Tiere deaktiviert, für die
+der Zustand dieses Plugins nicht explizit festgelegt wurde.
+
+Es gibt drei Möglichkeiten, Plugins zu verwalten: Sie können entweder ein einzelnes Plugin auswählen und seinen Status für alle Tiere auf denselben Wert setzen
+oder Sie können ein bestimmtes Tier auswählen und alle Plugin-Status nur für dieses Tier konfigurieren. Mit der dritten Option können Sie
+den Status aller Plugins für alle Tiere auf einmal anzeigen und bearbeiten. Diese Option ist möglicherweise nicht praktikabel, wenn Sie eine große Anzahl
+von Tieren haben.

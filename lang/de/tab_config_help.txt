@@ -1,0 +1,25 @@
+===== Farmkonfiguration =====
+
+Alle hier vorgenommenen Einstellungen werden in der Datei „conf/farm.ini” des Farmers gespeichert.
+
+==== Basiskonfiguration ====
+
+Der **Hostname des Farmers** wurde während der Einrichtung automatisch festgelegt, kann jedoch hier geändert werden. Er
+wird verwendet, um festzustellen, ob eine Anfrage direkt an den Farmer gestellt wurde, wenn hostbasierte Farmen verwendet werden. Dies
+sollte ein vollqualifizierter Hostname sein („foo.example.com” statt nur „foo”).
+
+Bei Verwendung einer Subdomain-Wildcard-Konfiguration sollten Sie die Hauptdomain in der Einstellung **Basisdomain** angeben.
+Wenn Sie beispielsweise „example.com” angeben, wird davon ausgegangen, dass ein Tier namens „foo” über „foo.example.com” erreichbar ist.
+Die Basisdomain wird nur an Tiernamen angehängt, die keine Punkte enthalten.
+
+==== Vererbung ====
+
+Hier können Sie festlegen, welche Konfigurationseinstellungen, die im Farmer vorgenommen wurden, als Standardeinstellungen in den Tieren verwendet werden sollen.
+Tiere können die Farmer-Einstellungen in ihren eigenen Konfigurationsdateien weiterhin überschreiben. Wenn die Vererbung deaktiviert ist,
+gelten die Standardeinstellungen von DokuWiki auch als Standardeinstellungen für alle Tiere.
+
+==== Nicht vorhandene Tiere ====
+
+Standardmäßig wird beim Zugriff auf ein nicht vorhandenes Tier keine Fehlermeldung angezeigt. Sie können hier zwischen verschiedenen
+Verhaltensweisen wählen. Vergewissern Sie sich, dass der Hostname Ihres Farmers oben korrekt eingerichtet ist, bevor Sie von der
+Standardeinstellung abweichen.

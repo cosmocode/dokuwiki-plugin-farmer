@@ -1,0 +1,37 @@
+===== Über Farmen =====
+
+Mit Farmen können Sie eine einzige DokuWiki-Installation (den „Farmer“) haben, die eine beliebige Anzahl anderer Wikis (die „Tiere“) versorgt.
+Sie installieren Plugins und Vorlagen nur im Farmer und machen sie dann für die Tiere verfügbar.
+Sie müssen nur ein Wiki auf dem neuesten Stand halten, alle anderen Wikis verwenden einfach denselben Code.
+
+Nach Abschluss dieses Einrichtungsschritts wird Ihr aktuelles DokuWiki (das, das Sie gerade betrachten) als „Farmer“ bezeichnet.
+
+===== Was bewirkt diese Einrichtung? =====
+
+Dieser Einrichtungsassistent führt drei Schritte durch:
+
+  - Erstellen einer Datei „inc/preload.php“
+  - Erstellen einer Datei „conf/farm.ini“
+  - optional Anhängen an die Datei „.htaccess”
+
+Die Datei „preload.php” wird zu Beginn des Ladens von DokuWiki geladen. Hier wird der Farm-Mechanismus
+initialisiert. Das Farmer-Plugin erkennt, ob die aktuelle Anfrage auf ein Tier oder den Farmer zugreifen soll, und
+konfiguriert alles entsprechend neu.
+
+Die Datei „conf/farm.ini” enthält die Grundkonfiguration der Farm. Vor allem enthält sie den
+Speicherort, an dem alle Tierdaten gespeichert werden.
+
+Durch die Änderung der Datei „.htaccess” werden die Tiere über den //bang!//-Mechanismus zugänglich gemacht. (Siehe unten)
+
+===== Was muss ausgefüllt werden? =====
+
+Im **Tierverzeichnis** wird für jedes von Ihnen erstellte Tier ein neues Verzeichnis angelegt. Dieses Verzeichnis muss sich
+außerhalb Ihres aktuellen DokuWiki befinden. Sie können ein relatives Verzeichnis wie „../animals” angeben.
+
+Es wird empfohlen, die Unterstützung für „.htaccess” zu aktivieren. Diese Funktion erfordert Apache mit mod_rewrite und .htaccess-Unterstützung.
+
+Wenn diese Funktion aktiviert ist, sind Ihre Tiere über den Mechanismus //bang!// unter der URL des Landwirts zugänglich.  Wenn Ihr Farmer beispielsweise
+unter „%%http://www.example.com/dokuwiki/%%“ läuft, ist ein Tier unter
+„%%http://www.example.com/dokuwiki/!animal%%“ zugänglich.
+
+Wenn Sie diese Funktion nicht aktivieren, müssen Sie Ihren Webserver und DNS konfigurieren, um auf die Tiere zugreifen zu können.
