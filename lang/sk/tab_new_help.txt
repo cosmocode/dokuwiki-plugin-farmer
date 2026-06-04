@@ -1,0 +1,31 @@
+===== Vytvorenie zvieraťa =====
+
+Zvieratá sú nezávislé podriadené wiki DokuWiki farmy. Na vytvorenie nového zvieraťa treba zadať názov.
+
+==== Názvy zvierat ====
+
+Pre nastavenia založené na .htaccess by to malo byť jedno slovo. Pre doménové nastavenia by ste mali zadať plne kvalifikovaný názov domény.
+Ak používate wildcard subdoménové nastavenie, môžete zadať iba časť hostname, ak ste v konfigurácii nastavili základnú doménu.
+
+Príklady:
+
+  * založené na .htaccess: ''foo'' pre zviera dostupné na ''%%http://example.org/dokuwiki/!foo/%%''
+  * doménové: ''%%www.foo.com%%'' pre zviera dostupné na ''%%http://www.foo.com/%%''
+  * subdoménové: ''foo'' pre zviera dostupné na ''%%http://foo.example.com/%%''
+
+Posledné dve vyžadujú príslušné nastavenie DNS!
+
+==== Kopírovanie zvieraťa ====
+
+Môžete vybrať existujúce zviera, na ktorom bude nové založené. Všetka konfigurácia, stránky, médiá a metadáta sa skopírujú
+do nového zvieraťa. Revízie stránok a médií sa nekopírujú.
+
+Titulok a logo budú prepísané, aby ste rozlíšili novú wiki od starej.
+
+==== Administrátor zvieraťa ====
+
+Zviera bude plne funkčná wiki s vlastnou používateľskou základňou. Na jej konfiguráciu budete potrebovať aspoň jedného
+administrátora. Môžete skopírovať svojho aktuálneho používateľa alebo všetkých používateľov farmára, alebo vytvoriť úplne nového používateľa pre zviera.
+
+Môžete sa rozhodnúť nevytvoriť žiadnych používateľov. Túto možnosť zvoľte iba vtedy, keď je v konfiguračnej karte povolené
+dedenie používateľov od farmára, alebo ste kopírovali iné zviera s existujúcimi používateľmi.

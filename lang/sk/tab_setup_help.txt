@@ -1,0 +1,37 @@
+===== O farmách =====
+
+Farmy umožňujú mať jednu inštaláciu DokuWiki ("farmár"), ktorá poháňa ľubovoľný počet
+ďalších wiki ("zvieratá"). Pluginy a šablóny inštalujete iba vo farmárovi a potom ich sprístupníte
+zvieratám. Aktuálnu musíte udržiavať iba jednu wiki a všetky ostatné používajú rovnaký kód.
+
+Po dokončení tohto nastavenia bude vaša aktuálna DokuWiki (tá, na ktorú sa pozeráte) známa ako "farmár".
+
+===== Čo toto nastavenie urobí? =====
+
+Tento sprievodca nastavením urobí tri veci:
+
+  - vytvorí súbor ''inc/preload.php''
+  - vytvorí súbor ''conf/farm.ini''
+  - voliteľne doplní súbor ''.htaccess''
+
+''preload.php'' je súbor, ktorý sa načítava na úplnom začiatku načítavania DokuWiki. Tu sa inicializuje
+mechanizmus farmy. Plugin Farmer zistí, či má aktuálna požiadavka pristupovať k zvieraťu alebo farmárovi,
+a podľa toho všetko prekonfiguruje.
+
+''conf/farm.ini'' obsahuje základnú konfiguráciu farmy. Najdôležitejšie je, že obsahuje
+umiestnenie, kde sa budú ukladať dáta všetkých zvierat.
+
+Úprava ''.htaccess'' sprístupňuje zvieratá cez mechanizmus //bang!//. (Pozri nižšie)
+
+===== Čo vyplniť? =====
+
+**Adresár zvierat** je miesto, kde sa pre každé vytvorené zviera vytvorí nový adresár. Tento adresár musí byť
+mimo vašej aktuálnej DokuWiki. Môžete zadať relatívny adresár ako ''../animals''.
+
+Povolenie podpory **.htaccess** sa odporúča. Táto funkcia vyžaduje Apache s mod_rewrite a podporou .htaccess.
+
+Keď je povolená, zvieratá budú dostupné pod URL farmára cez mechanizmus //bang!//. Napr. ak farmár beží
+na ''%%http://www.example.com/dokuwiki/%%'', zviera bude dostupné na
+''%%http://www.example.com/dokuwiki/!animal%%''.
+
+Ak to nepovolíte, budete musieť na sprístupnenie zvierat nakonfigurovať webserver a DNS.

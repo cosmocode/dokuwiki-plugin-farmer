@@ -1,0 +1,16 @@
+===== Správa pluginov =====
+
+Správca rozšírení je vo všetkých zvieratách vypnutý. Pluginy možno inštalovať iba vo farmárovi a iba farmár
+môže riadiť, ktoré pluginy sú povolené alebo zakázané vo všetkých zvieratách. Robí sa to cez toto rozhranie.
+
+Plugin môže mať v zvierati tri stavy. Môže byť povolený (zapnutý), zakázaný (vypnutý), alebo môže mať predvolený stav.
+Predvolený znamená, že stav pluginu nebol pre zviera explicitne nastavený. Bežne je predvolený stav zapnutý.
+
+Keď sú zvieratá nakonfigurované na dedenie stavu pluginov od farmára, plugin v predvolenom stave bude mať rovnaký
+stav ako vo farmárovi. Napr. keď zakážete plugin vo farmárovi, zakáže sa pre všetky zvieratá, ktoré
+nemali stav tohto pluginu explicitne nastavený.
+
+Existujú tri spôsoby správy pluginov: Môžete vybrať jeden plugin a nastaviť jeho stav na rovnakú hodnotu vo všetkých zvieratách,
+alebo vybrať konkrétne zviera a nakonfigurovať všetky stavy pluginov iba v ňom. Tretia možnosť umožňuje
+vidieť a upravovať stav všetkých pluginov vo všetkých zvieratách naraz. Táto možnosť nemusí byť použiteľná, ak máte veľké množstvo
+zvierat.
