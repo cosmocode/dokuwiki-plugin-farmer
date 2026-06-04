@@ -1,0 +1,25 @@
+===== Konfigurácia farmy =====
+
+Všetky tu vykonané nastavenia sa ukladajú do farmárovho ''conf/farm.ini''.
+
+==== Základná konfigurácia ====
+
+**Hostname farmára** bol nastavený automaticky počas inštalácie, ale tu ho môžete zmeniť. Používa
+sa na zistenie, či požiadavka smerovala priamo na farmára pri použití fariem založených na hostname. Mal by
+to byť plne kvalifikovaný hostname (''foo.example.com'' namiesto iba ''foo'').
+
+Pri použití subdoménového wildcard nastavenia by ste mali zadať hlavnú doménu v nastavení **Základná doména**.
+Napr. ak zadáte ''example.com'', predpokladá sa, že zviera s názvom ''foo'' je dostupné cez ''foo.example.com''.
+Základná doména sa pripája iba k názvom zvierat, ktoré neobsahujú bodky.
+
+==== Dedenie ====
+
+Tu môžete určiť, ktoré konfiguračné nastavenia farmára sa majú použiť ako predvolené v zvieratách.
+Zvieratá môžu nastavenia farmára prepísať vo vlastných konfiguračných súboroch. Keď je dedenie vypnuté,
+predvolené nastavenia DokuWiki sú predvolenými aj pre všetky zvieratá.
+
+==== Neexistujúce zvieratá ====
+
+Predvolene sa pri prístupe k neexistujúcemu zvieraťu nezobrazuje žiadna chybová hláška. Tu si môžete vybrať
+z rôznych správaní. Pred prepnutím z predvoleného správania sa uistite, že hostname farmára je vyššie nastavený správne.
+

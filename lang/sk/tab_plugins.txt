@@ -1,0 +1,1 @@
+Môžete aktivovať alebo deaktivovať plugin pre všetky zvieratá jednou hromadnou operáciou, alebo upraviť pluginy konkrétneho zvieraťa.
