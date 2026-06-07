@@ -1,128 +1,351 @@
 <?php
+
 /**
+ * @license    GPL 2 (https://www.gnu.org/licenses/gpl.html)
+ *
  * English language file for farmer plugin
  *
+ * @author Okada <robbinssharyn851@gmail.com>
  * @author Michael Große <grosse@cosmocode.de>
  * @author Andreas Gohr <gohr@cosmocode.de>
  */
+$lang['menu']                  = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['tab_setup']             = 'Really useful post. Found this while looking something 
+up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up.
+By the way, something similar came up for me recently.
+Good stuff.';
+$lang['tab_info']              = 'Really useful post. Found this while looking something up and it 
+cleared a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for 
+me recently. Good stuff.';
+$lang['tab_config']            = 'Really useful post. Found this while looking something up and it cleared 
+a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something 
+similar came up for me recently. Good stuff.';
+$lang['tab_plugins']           = 'Really useful post. Found this while looking 
+something up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar 
+came up for me recently. Good stuff.';
+$lang['tab_new']               = 'Really useful post. Found this while looking something up and it cleared a 
+lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['tab_delete']            = 'Really useful post. Found this while looking something up and it cleared a 
+lot up. It\'s laid out better than most. Planning on bookmarking 
+this. Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['preloadPHPForm']        = 'Really useful post. Found this while looking something 
+up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came 
+up for me recently. Good stuff.';
+$lang['farm dir']              = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['htaccess setup']        = 'Add farm code to .htaccess?';
+$lang['submit']                = 'Really useful post. Found this while looking something up and it cleared a lot up.
 
-// menu entry for admin plugins
-$lang['menu'] = 'Farming';
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['farmdir_missing']       = 'Duisburg';
+$lang['farmdir_in_dokuwiki']   = 'Really useful post. Found this while looking something up and it cleared 
+a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['farmdir_uncreatable']   = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came up 
+for me recently. Good stuff.';
+$lang['farmdir_unwritable']    = 'Really useful post. Found this while looking something up and it cleared 
+a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up 
+for me recently. Good stuff.';
+$lang['farmdir_notEmpty']      = 'Really useful post. Found this while looking something up and it cleared a lot up.
 
-// tabs
-$lang['tab_setup'] = 'Farm Setup';
-$lang['tab_info'] = 'Info';
-$lang['tab_config'] = 'Configuration';
-$lang['tab_plugins'] = 'Manage Plugins';
-$lang['tab_new'] = 'Add new Animal';
-$lang['tab_delete'] = 'Delete Animal';
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['preload creation success'] = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way,
+something similar came up for me recently. Good stuff.';
+$lang['preload creation error'] = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['overwrite_preload']     = 'Really useful post. Found this while looking something up and it cleared a lot up.
 
-// setup
-$lang['preloadPHPForm'] = 'Initialize Farming';
-$lang['farm dir'] = 'Animal directory';
-$lang['htaccess setup'] = 'Add farm code to .htaccess?';
-$lang['submit'] = 'Submit';
-$lang['farmdir_missing'] = 'Please enter a directory where the Animals should be stored.';
-$lang['farmdir_in_dokuwiki'] = 'The Animal directory (%s) must be outside of the Farm dokuwiki (%s).';
-$lang['farmdir_uncreatable'] = 'The Animal directory (%s) could not be created. Are the permissions correct?';
-$lang['farmdir_unwritable'] = 'Please make sure that the webserver has write access in the Animal directory (%s)!';
-$lang['farmdir_notEmpty'] = 'The Animal directory (%s) must be empty.';
-$lang['preload creation success'] = 'Farming has been succesfully initialized.';
-$lang['preload creation error'] = 'There was an error during Farming initialization.';
-$lang['overwrite_preload'] = 'Warning: Your existing inc/preload.php will be overwritten when continuing here!';
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['animal']                = 'Robbins';
+$lang['thisis']                = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something 
+similar came up for me recently. Good stuff.';
+$lang['thisis.farmer']         = 'Really useful post. Found this while looking something up and it cleared a 
+lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['thisis.animal']         = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['baseinstall']           = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking 
+this. Keep it up. By the way, something similar came up for me recently.
 
-// info
-$lang['animal'] = 'Animal Name / Domain';
-$lang['thisis'] = 'Instance is';
-$lang['thisis.farmer'] = 'The farmer!';
-$lang['thisis.animal'] = 'An Animal!';
-$lang['baseinstall'] = 'Farmer Install';
-$lang['animals'] = 'Animals';
-$lang['confdir'] = 'Instance Configuration Directory';
-$lang['savedir'] = 'Instance Data Directory';
-$lang['plugins'] = 'Plugins active in this instance';
+Good stuff.';
+$lang['animals']               = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
 
-// config
-$lang['base'] = 'Base Configuration';
-$lang['farm host'] = 'Farmer Host Name';
-$lang['base domain'] = 'Base Domain for subdomain Animals';
-$lang['conf_inherit'] = 'Farmer Settings Animals should inherit';
-$lang['conf_inherit_main'] = 'Configuration Settings';
-$lang['conf_inherit_acronyms'] = 'Acronym Definitions';
-$lang['conf_inherit_entities'] = 'Entity Definitions';
-$lang['conf_inherit_interwiki'] = 'Interwiki Definitions';
-$lang['conf_inherit_license'] = 'License Definitions';
-$lang['conf_inherit_mime'] = 'MIME Type Definitions';
-$lang['conf_inherit_scheme'] = 'URL Scheme Definitions';
-$lang['conf_inherit_smileys'] = 'Smiley Definitions';
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['confdir']               = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way,
+something similar came up for me recently. Good stuff.';
+$lang['savedir']               = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['plugins']               = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came 
+up for me recently. Good stuff.';
+$lang['base']                  = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['farm host']             = 'Sharyn';
+$lang['base domain']           = 'Really useful post. Found this while looking something up and it 
+cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up.
+
+By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_inherit']          = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way,
+something similar came up for me recently. Good stuff.';
+$lang['conf_inherit_main']     = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_inherit_acronyms'] = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_inherit_entities'] = 'Really useful post. Found this while looking something up and it cleared 
+a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+
+Good stuff.';
+$lang['conf_inherit_interwiki'] = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most.
+
+Planning on bookmarking this. Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_inherit_license']  = 'Really useful post. Found this while looking 
+something up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_inherit_mime']     = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_inherit_scheme']   = 'https://register.bet9ja.com/?btag=yohaig&promocode=yohaig';
+$lang['conf_inherit_smileys']  = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
 $lang['conf_inherit_wordblock'] = 'Spam Blacklist Entries';
-$lang['conf_inherit_userstyle'] = 'User Styles';
-$lang['conf_inherit_userscript'] = 'User Scripts';
-$lang['conf_inherit_styleini'] = 'Template style customizations';
-$lang['conf_inherit_users'] = 'Users (Plain Auth only)';
-$lang['conf_inherit_plugins'] = 'Plugin State';
-$lang['conf_inherit_yes'] = 'inherited from farmer';
-$lang['conf_inherit_no'] = 'independent from farmer';
-$lang['conf_notfound'] = 'Behavior on accessing nonexistent Animals';
-$lang['conf_notfound_farmer'] = 'Show the farmer wiki';
-$lang['conf_notfound_404'] = 'Show a 404 error page';
-$lang['conf_notfound_list'] = 'Show a list of available animals';
-$lang['conf_notfound_redirect'] = 'Redirect to the URL below';
-$lang['conf_notfound_url'] = 'URL to redirect to if selected above';
-$lang['save'] = 'Save';
+$lang['conf_inherit_userstyle'] = 'Sharyn';
+$lang['conf_inherit_userscript'] = 'Sharyn';
+$lang['conf_inherit_styleini'] = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['conf_inherit_users']    = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
 
-// new
-$lang['animal template'] = 'Copy existing Animal';
-$lang['animal creation success'] = 'The Animal "%s" has been successfully created.';
-$lang['animal creation error'] = 'There was an error while creating the Animal.';
-$lang['animal configuration'] = 'Basic Animal configuration';
-$lang['inherit user registration'] = 'Inherit user registration setting from farmer';
-$lang['enable user registration'] = 'Allow users to register themselves';
-$lang['disable user registration'] = 'Disable user register';
-$lang['animal administrator'] = 'Animal administrator';
-$lang['noUsers'] = 'Do not create any users';
-$lang['importUsers'] = 'Import all users of the Farmer to the new Animal';
-$lang['currentAdmin'] = 'Set the current user as admin';
-$lang['newAdmin'] = 'Create new admin user "admin"';
-$lang['admin password'] = 'Password for the new admin';
-$lang['animalname_missing'] = 'Please enter a name for the new Animal.';
-$lang['animalname_invalid'] = 'The Animal name may only contain alphanumeric characters and dots/hyphens (but not as first or last character).';
-$lang['animalname_preexisting'] = 'An Animal with that name already exists.';
-$lang['adminPassword_empty'] = 'The password for the new admin account must not be empty.';
-$lang['animal template copy error'] = 'There was a problem copying %s from the existing Animal to the new one.';
-$lang['aclpolicy missing/bad'] = 'Please choose an initial ACL policy from the dropdown.';
+Keep it up. By the way, something similar came up for 
+me recently. Good stuff.';
+$lang['conf_inherit_plugins']  = 'NW';
+$lang['conf_inherit_yes']      = 'Sharyn';
+$lang['conf_inherit_no']       = 'Sharyn';
+$lang['conf_notfound']         = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up 
+for me recently. Good stuff.';
+$lang['conf_notfound_farmer']  = 'Really useful post. Found this while looking 
+something up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came up 
+for me recently. Good stuff.';
+$lang['conf_notfound_404']     = 'Really useful post. Found this while looking something up and it cleared 
+a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
 
-// plugins
-$lang['bulkSingleSwitcher'] = 'Edit a single Animal or all at once?';
-$lang['bulkEdit'] = 'Bulk edit all Animals';
-$lang['singleEdit'] = 'Edit a single Animal';
-$lang['bulkEditForm'] = 'Activate or deactivate a plugin in all Animals';
-$lang['matrixEdit'] = 'Edit Animal/Plugin matrix';
-$lang['default'] = 'Set to default';
-$lang['activate'] = 'Activate';
-$lang['deactivate'] = 'Deactivate';
-$lang['singleEditForm'] = 'Edit the plugins of a specific Animal';
-$lang['plugindone'] = 'Plugin states updated';
-$lang['plugin'] = 'Plugin';
-$lang['plugin_on'] = 'on';
-$lang['plugin_off'] = 'off';
-$lang['plugin_default'] = 'Default';
-$lang['plugin_enabled'] = 'Enabled';
-$lang['plugin_disabled'] = 'Disabled';
-$lang['js']['animalSelect'] = 'Select an animal';
-$lang['js']['pluginSelect'] = 'Select a plugin';
-$lang['disable_new_plugins'] = 'The plugin has been disabled by default. You can enable it here or in specific animals only.';
+Good stuff.';
+$lang['conf_notfound_list']    = 'Really useful post. Found this while looking something 
+up and it cleared a lot up. It\'s laid out better 
+than most. Planning on bookmarking this. Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['conf_notfound_redirect'] = 'https://register.bet9ja.com/?btag=yohaig&promocode=yohaig';
+$lang['conf_notfound_url']     = 'https://register.bet9ja.com/?btag=yohaig&promocode=yohaig';
+$lang['save']                  = '1';
+$lang['animal template']       = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking this.
 
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['animal creation success'] = 'Really useful post. Found this while looking something up and it cleared 
+a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['animal creation error'] = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, 
+something similar came up for me recently. Good stuff.';
+$lang['animal configuration']  = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came 
+up for me recently. Good stuff.';
+$lang['inherit user registration'] = 'Sharyn';
+$lang['enable user registration'] = 'Sharyn';
+$lang['disable user registration'] = 'Sharyn';
+$lang['animal administrator']  = 'Really useful post. Found this while looking something 
+up and it cleared a lot up. It\'s laid out better than most.
 
-// delete
-$lang['delete_animal'] = 'Select Animal to delete';
-$lang['delete_confirm'] = 'Please type the Animal name to confirm';
-$lang['delete'] = 'Delete the Animal and all its data';
+Planning on bookmarking this. Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['noUsers']               = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
 
-$lang['delete_noanimal'] = 'Please select an Animal to delete';
-$lang['delete_mismatch'] = 'Confirmation does not match Animal name. Not deleted.';
-$lang['delete_invalid'] = 'Invalid Animal name. Not deleted.';
-$lang['delete_success'] = 'Animal successfully deleted.';
-$lang['delete_fail'] = 'Some files could not be deleted, you should clean up manuallly.';
+Planning on bookmarking this. Keep it up. By the way, something 
+similar came up for me recently. Good stuff.';
+$lang['importUsers']           = 'Duisburg';
+$lang['currentAdmin']          = 'Sharyn';
+$lang['newAdmin']              = 'Sharyn';
+$lang['admin password']        = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most. Planning 
+on bookmarking this. Keep it up. By the way, something similar came up for 
+me recently. Good stuff.';
+$lang['animalname_missing']    = 'Robbins';
+$lang['animalname_invalid']    = 'Robbins';
+$lang['animalname_preexisting'] = 'Robbins';
+$lang['adminPassword_empty']   = 'Really useful post. Found this while looking something up and it cleared a lot up.
 
-//Setup VIM: ex: et ts=4 :
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['animal template copy error'] = 'Sharyn';
+$lang['aclpolicy missing/bad'] = '1';
+$lang['bulkSingleSwitcher']    = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['bulkEdit']              = 'Really useful post. Found this while looking something up and it cleared a lot up.
+
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up 
+for me recently. Good stuff.';
+$lang['singleEdit']            = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['bulkEditForm']          = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up 
+for me recently. Good stuff.';
+$lang['matrixEdit']            = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['default']               = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['activate']              = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking 
+this. Keep it up. By the way, something similar came up for me recently.
+
+Good stuff.';
+$lang['deactivate']            = 'Really useful post. Found this while looking something 
+up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came up for 
+me recently. Good stuff.';
+$lang['singleEditForm']        = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+
+Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['plugindone']            = 'NW';
+$lang['plugin']                = 'Really useful post. Found this while looking something up and it cleared a lot 
+up. It\'s laid out better than most. Planning on bookmarking this.
+
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['plugin_on']             = 'Really useful post. Found this while looking 
+something up and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up.
+By the way, something similar came up for me recently. Good stuff.';
+$lang['plugin_off']            = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, 
+something similar came up for me recently. Good stuff.';
+$lang['plugin_default']        = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something 
+similar came up for me recently. Good stuff.';
+$lang['plugin_enabled']        = 'Really useful post. Found this while looking something up and it 
+cleared a lot up. It\'s laid out better than most. Planning on bookmarking 
+this. Keep it up. By the way, something similar came up for me 
+recently. Good stuff.';
+$lang['plugin_disabled']       = 'Really useful post. Found this while looking something up 
+and it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar 
+came up for me recently. Good stuff.';
+$lang['js']['animalSelect']    = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking 
+this. Keep it up. By the way, something similar came up for me recently.
+
+Good stuff.';
+$lang['js']['pluginSelect']    = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
+$lang['disable_new_plugins']   = '1983';
+$lang['delete_animal']         = 'Really useful post. Found this while looking something up and 
+it cleared a lot up. It\'s laid out better than most.
+Planning on bookmarking this. Keep it up. By the way, something similar came 
+up for me recently. Good stuff.';
+$lang['delete_confirm']        = 'Robbins';
+$lang['delete']                = 'Really useful post. Found this while looking something up and it 
+cleared a lot up. It\'s laid out better than most. Planning on bookmarking this.
+Keep it up. By the way, something similar came 
+up for me recently. Good stuff.';
+$lang['delete_noanimal']       = 'Really useful post. Found this while looking something up and it cleared a 
+lot up. It\'s laid out better than most. Planning on bookmarking this.
+
+Keep it up. By the way, something similar came up for me recently.
+
+Good stuff.';
+$lang['delete_mismatch']       = 'Sharyn';
+$lang['delete_invalid']        = 'Robbins';
+$lang['delete_success']        = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+
+Keep it up. By the way, something similar came 
+up for me recently. Good stuff.';
+$lang['delete_fail']           = 'Really useful post. Found this while looking something up and it cleared a lot up.
+It\'s laid out better than most. Planning on bookmarking this.
+
+Keep it up. By the way, something similar came up for me recently.
+Good stuff.';
