@@ -244,9 +244,9 @@ class DokuWikiFarmCore
                 $urlparts['query'] ??= '';
 
                 // detect the animal from the URL
-                $this->detectAnimalFromQueryString($urlparts['query']) ||
-                $this->detectAnimalFromBangPath($urlparts['path']) ||
-                $this->detectAnimalFromHostName($urlparts['host']);
+                if (!$this->detectAnimalFromQueryString($urlparts['query']) && !$this->detectAnimalFromBangPath($urlparts['path'])) {
+                    $this->detectAnimalFromHostName($urlparts['host']);
+                }
 
                 // fake baseurl etc.
                 $this->injectServerEnvironment($urlparts);
